@@ -35,12 +35,17 @@ public class HumanPlayer implements Player{
 		
 		//if the opponent has no cards in their hand, the game is over
 		if(desiredCard == -1){
-			//call continueGame function with false
-		}
-		else{
-			//make enough requests of opponent to get all their cards
+			//call continueGame function with false, to end the game
 		}
 		
+		//request the card from the opponent
+		if (makeCardRequest(opponent, desiredCard)){
+			//if the opponent has that card, get all of those card of that order
+			//need to get all of the cards of that type, and add them to the hand
+		}
+		else{
+			//the opponent doesn't have the card, and the player must go fish
+		}
 		
 		return deck;
 	}
@@ -68,8 +73,6 @@ public class HumanPlayer implements Player{
 	 */
 	public boolean makeCardRequest(Player opponent, int desiredCard){
 		this.opponent = opponent;
-		
-		
 		
 		return opponentHasCard;
 	}
