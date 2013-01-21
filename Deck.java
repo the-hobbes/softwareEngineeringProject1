@@ -102,22 +102,5 @@ public class Deck{
 		return tmp;
 	} // end toString()
 
-
-	public String peekToString(){
-		String tmp = "";
-		int deckSize = this.cardArray.length;
-		for(int ii=0; ii<deckSize; ii++){
-			tmp += "Card ";
-			tmp += ii+1;
-			tmp += ": ";
-			tmp += cardArray[ii].getRankTrad();
-			tmp += " of ";
-			tmp += cardArray[ii].getSuit();
-			tmp += "\n";
-		}
-
-		return tmp;
-	} // end peekToString()
-
 	
 } // end Deck

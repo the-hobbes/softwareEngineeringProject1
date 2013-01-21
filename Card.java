@@ -13,14 +13,20 @@ public class Card{
 	private int rank;
 	private String imgFilename;
 
+	/**
+	 * default constructor of the Card class
+	 * instantiates a card object with a suit and rank
+	 * @param suit
+	 * @param rank
+	 */
 	public Card(String suit, int rank){
 		setSuit(suit);
 		setRank(rank);
-		// setImgFilename(imgFilename);
 	}
 
 	/**
-	* takes the numeric value representing rank and converts it to a "traditional" string
+	 * getRankTrad
+	 * takes the numeric value representing rank and converts it to a "traditional" string
 	* @return String the "traditional" name of this rank
 	*/
 	public String getRankTrad(){
@@ -46,35 +52,49 @@ public class Card{
 		return rankTrad;
 	} // end getRankTrad()
 
-
+	/**
+	 * getSuit
+	 * returns the suit of the card object
+	 * @return suit
+	 */
 	public String getSuit(){
 		return this.suit;
 	}
 
+	/**
+	 * setSuit
+	 * sets the suit of the card object
+	 * @param suit
+	 */
 	public void setSuit(String suit){
 		this.suit = suit;
 	}
-
+	
+	/**
+	 * getRank
+	 * returns the rank of the card object
+	 * @return rank
+	 */
 	public int getRank(){
 		return this.rank;
 	}
 
+	/**
+	 * setRank
+	 * sets the rank of the card object
+	 * @param rank
+	 */
 	public void setRank(int rank){
 		this.rank = rank;
 	}
 
-	public String getImgFilename(){
-		return this.imgFilename;
-	}
-
-	public void setImgFilename(String imgFilename){
-		this.imgFilename = imgFilename;
-	}
-
+	/**
+	 * toString
+	 * returns a string representation of the card object
+	 * @return tmp
+	 */
 	public String toString(){
 		String tmp = this.getRankTrad()+" of "+this.getSuit();
 		return tmp;
 	}
-
-	
 } // end Card
