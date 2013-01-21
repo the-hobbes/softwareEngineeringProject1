@@ -22,12 +22,16 @@ public class Hand{
 
 	/**
 	*Sets this Hand's cards to be the passed in cards
-	*
+	*@param cards The cards to be the new cards in this Hand
 	*/
 	public void setCards(Card[] cards){
 		this.cards = cards;
 	}
 
+	/**
+	*Gets this Hand's current cards
+	*@return This Hand's cards
+	*/
 	public Card[] getCards(){
 		return this.cards;
 	}
@@ -35,6 +39,7 @@ public class Hand{
 
 	/**
 	* increases the size of the Card{] array by 1, and adds a new card to the end of the array
+	*@param addedCard The card to be added to the deck
 	*/
 	public void addCard(Card addedCard){
 		int sizeOldArray = cards.length;
@@ -64,6 +69,10 @@ public class Hand{
 		this.cards = emptyHand;
 	}
 
+	/**
+	*Returns a String representation of this Hand
+	*@return The string representation of this Hand
+	*/
 	public String toString(){
 		String tmp = "";
 		for(int ii=0; ii<this.cards.length; ii++){
