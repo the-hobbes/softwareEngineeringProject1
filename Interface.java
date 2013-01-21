@@ -34,6 +34,9 @@ public class Interface{
 
 	}
 
+	/**
+	*Display the rules and helpful information to the user
+	*/
 	public void displayHelp(){
 
 	}
