@@ -8,45 +8,47 @@
 
 public class Hand{
 
-	public Card[] cards; // our hand
-	public int numCards;
+	private Card[] cards; // our hand
+	private int numCards;
+	private int totalHand;
+	public int id;
 
-	/**
-	*Creates an instance of Hand
-	*@param cards The cards to have in the hand.
-	*/
-	public Hand(Card[] cards){
+	public Hand(Card[] cards, int id){
 		setCards(cards);
+		this.id = id;
 		this.numCards = cards.length;
+		this.totalHand = this.calcTotal();
 	}
 
-	/**
-	*Sets this Hand's cards to be the passed in cards
-	*@param cards The cards to be the new cards in this Hand
-	*/
 	public void setCards(Card[] cards){
 		this.cards = cards;
 	}
 
-	/**
-	*Gets this Hand's current cards
-	*@return This Hand's cards
-	*/
 	public Card[] getCards(){
 		return this.cards;
 	}
 
-
 	/**
 	* increases the size of the Card{] array by 1, and adds a new card to the end of the array
-	*@param addedCard The card to be added to the deck
 	*/
 	public void addCard(Card addedCard){
 		int sizeOldArray = cards.length;
-		Card[] tempHand = cards;
+		Card[] tempHand = this.cards;
 		Card[] newHand = new Card[sizeOldArray+1];
-		newHand[sizeOldArray+1] = addedCard;
+		for(int jj=0; jj<sizeOldArray; jj++){
+			newHand[jj] = tempHand[jj];
+		}
+		newHand[sizeOldArray] = addedCard;
 		this.cards = newHand;
+		this.totalHand = this.calcTotal();
+	}
+
+	public int calcTotal(){
+		int total = 0;
+		for(int ii=0; ii<this.cards.length; ii++){
+			total += this.cards[ii].getRank();
+		}
+		return total;
 	}
 
 	/**
@@ -69,10 +71,6 @@ public class Hand{
 		this.cards = emptyHand;
 	}
 
-	/**
-	*Returns a String representation of this Hand
-	*@return The string representation of this Hand
-	*/
 	public String toString(){
 		String tmp = "";
 		for(int ii=0; ii<this.cards.length; ii++){
