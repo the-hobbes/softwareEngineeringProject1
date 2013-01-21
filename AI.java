@@ -4,7 +4,19 @@ public class AI implements Player{
 	private Hand hand;
 
 	public static void main(String[] args) {
-		
+		Deck deck = new Deck();
+		deck.shuffle();
+		Card[] cards = new Card[5];
+
+		for(int ii=0; ii<5; ii++){
+			cards[ii] = deck.getTopCard(); 
+		}
+
+		Hand hand = new Hand(cards, 1);
+
+		AI comp = new AI(hand);
+
+		System.out.println(comp.hasSet());
 	}
 
 	public AI(Hand hand){
@@ -28,6 +40,11 @@ public class AI implements Player{
 		return true;
 	}
 
+	public Card respondCardRequest(int desiredCard){
+		Card card = new Card("test",1);
+		return card;
+	}
+
 	public void endTurn(){
 
 	}
@@ -41,6 +58,7 @@ public class AI implements Player{
 	public int hasSet(){
 		// get our cards
 		Card[] cards = hand.getCards();
+		System.out.println(hand);
 		// number of cards to iterate over
 		int numCards = cards.length;
 		// array of ranks
