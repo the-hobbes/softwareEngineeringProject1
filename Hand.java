@@ -30,7 +30,7 @@ public class Hand{
 
 	public boolean hasCard(int cno){
 		for(Card c : cards){
-			if(c.getRank == cno){
+			if(c.getRank() == cno){
 				return true;
 			}
 		}

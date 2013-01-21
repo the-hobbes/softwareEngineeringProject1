@@ -4,6 +4,9 @@
 *The interface for the user to interact with.
 */
 
+import java.util.Scanner;
+import java.util.InputMismatchException;
+
 public class UserInterface{
 	
 	/**
@@ -54,15 +57,48 @@ public class UserInterface{
 	public static int getCommand(Hand userHand){
 		//While there is a card in the user's hand and they haven't chosen a card from it
 
-		//ask for the command (either a card number or a help)
+		int rank = -1;
+		//User input:
+		Scanner scan = new Scanner(System.in);
+		boolean valid = false;
+		while(!valid){
+			String in = scan.nextLine();
+			Scanner internalScanner = new Scanner(in);
+			try{
+				rank = internalScanner.nextInt();
+			}catch(InputMismatchException ime){
+				//Catch the exception of using a J,A,K,Q or anyhting other than an integer
+				if(in.equals("J")){
+					rank = 11;
+				}else if(in.equals("A")){
+					rank = 1;
+				}else if(in.equals("K")){
+					rank = 13;
+				}else if(in.equals("Q")){
+					rank = 12;
+				}else if(in.equals("help")){
+					displayHelp();
+				}else if(in.equals("credits")){
+					displayCredits();
+				}else{
+					//Nope illegal.
+					System.out.println("Error: Invalid command given, please specifiy the rank of the card you desire\n"
+									   +"(2,3,4,5,6,7,8,9,10,J,Q,K,A) or you may see the rules by typing 'help' or see\n"
+									   +"the credits by typing 'credits.'\n"
+									   );
+				}
+			}
+		}
 
-		return -1;
+		//ask for the command (either a card number or a help)
+		return rank;
 	}
 
 	public static void main(String[] args) {
 		//Unit Tests for each function
 		UserInterface.displayCredits();
 		UserInterface.displayHelp();
+		System.out.println(UserInterface.getCommand(new Hand(new Card[4],4)));
 	}
 
 }
