@@ -1,0 +1,27 @@
+Welcome to Go Fish, and exciting card game written for CS205-Software, Engineering, at the University of Vermont. by 
+
+Phelan Vandeville 
+Ethan Eldridge 
+Joshua Dickerson
+Daniellle Steimke
+Scott MacGewan
+ 
+
+The goal of the game is to have the most 4-card sets at the end of the game. 
+
+
+Gameplay is as follows: 
+
+1) A total of 5 cards are dealt to each player. 
+
+2) The dealer is randomly chosen, and the player following the dealer in the game's order takes the first turn. 
+
+3) The first player selects an opponet and asks him/her for a card. The requesting player must have at-least one card of the same rank that he/she is requesting. 
+
+4) the request recipient must hand over all cards of that rank to the requestor. If the request recipient has no cards of that rank, he/she tells the requestor to "go fish". If the requestor is told to "go fish", he/she then selects a card from the top of the deck. If the card selected is of the same rank as the card initially requested, the requestor displays the card to his/her opponents, and takes another turn. 
+
+5) When a player has 4 cards of the same rank, he/she places the 4 cards face-up on the table. 
+
+6) The game ends when all cards have been placed face-up on the table. The player with the most face-up sets is the winner. 
+
+
