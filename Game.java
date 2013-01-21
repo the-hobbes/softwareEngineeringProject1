@@ -3,9 +3,9 @@ public class Game{
 
 	Hand[] players = new Hand[2];
 
-	static final PLAYER = 0;
+	static final int PLAYER = 0;
 
-	static final COMPUTER = 1;
+	static final int COMPUTER = 1;
 
 	int currentPlayer = 0;
 

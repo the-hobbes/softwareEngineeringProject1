@@ -6,6 +6,9 @@
 
 public class UserInterface{
 	
+	public UserInterface(){
+
+	}
 
 	/**
 	*Deals out 5 cards to each player, decides whose turn it is first, displays rules and credits
