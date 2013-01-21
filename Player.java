@@ -4,7 +4,10 @@ public interface Player{
 	
 	public boolean hasCards();
 
-	public makeCardRequest();
+	/**
+	*Asks the other player for a card
+	*/
+	public boolean makeCardRequest(Player opponent);
 
 	public void endTurn();
 
