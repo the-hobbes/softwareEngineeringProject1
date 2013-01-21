@@ -28,6 +28,15 @@ public class Hand{
 		return this.cards;
 	}
 
+	public boolean hasCard(int cno){
+		for(Card c : cards){
+			if(c.getRank == cno){
+				return true;
+			}
+		}
+		return false;
+	}
+
 	/**
 	* increases the size of the Card{] array by 1, and adds a new card to the end of the array
 	*/
