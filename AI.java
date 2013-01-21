@@ -2,6 +2,9 @@ public class AI implements Player{
 
 	private boolean deckHasCards = true;
 	private Hand hand;
+	// holds all of the opponent's previous requests so we know what they might have in their hand
+	private int[] cardsRequestedByOpponent = new int[52];  
+
 
 	public static void main(String[] args) {
 		Deck deck = new Deck();
@@ -16,7 +19,11 @@ public class AI implements Player{
 
 		AI comp = new AI(hand);
 
-		System.out.println(comp.hasSet());
+		// System.out.println(comp.hasSet());
+		if(comp.hasSet() >= 1){
+			int requestRank = comp.hasSet();
+			System.out.println(requestRank);
+		}
 	}
 
 	public AI(Hand hand){
@@ -50,15 +57,14 @@ public class AI implements Player{
 	}
 
 	/**
-	* checks our hand to see if there are any pairs/sets
-	* @return the rank of the set
-	* should be made to identify differences between pairs and triples
-	* not there yet 
+	* checks our hand to see if there are any pairs/sets 
+	* (if we have a pair we want to see if opponenet has any of that card)
+	* @return the rank of the set or -1 if no set found
 	*/
 	public int hasSet(){
 		// get our cards
 		Card[] cards = hand.getCards();
-		System.out.println(hand);
+		// System.out.println(hand);
 		// number of cards to iterate over
 		int numCards = cards.length;
 		// array of ranks
@@ -68,6 +74,7 @@ public class AI implements Player{
 		for(int ii=0; ii<numCards; ii++){
 			// for each of our cards, get the current card's rank
 			int currentRank = cards[ii].getRank();
+			rank[ii] = currentRank;
 			for(int jj=0; jj<ii; jj++){
 				// for each card, check all previous cards for a set
 				if (rank[jj] == currentRank){
@@ -80,6 +87,12 @@ public class AI implements Player{
 
 		return -1; 
 	}
+
+	public Card[] getMyCompleteSets(){
+		Card[] cards = new Card[1];
+		return cards;
+	}
+
 
 
 

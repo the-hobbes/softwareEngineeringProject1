@@ -7,6 +7,7 @@ public interface Player{
 	*/
 	public boolean makeCardRequest(Player opponent);
 	public Card respondCardRequest(int desiredCard);
-	public void endTurn();
+	public void endTurn();	
+	public Card[] getMyCompleteSets();
 
 }
