@@ -74,6 +74,11 @@ public class AI implements Player{
 
 	}
 
+	/**
+	*Checks to see the number of cards in a given set (think pair).
+	*@param rankOfSet The rank of the set
+	*@return count of the number of cards in a set
+	*/
 	public int countSetQTY(int rankOfSet){
 		Card[] cards = hand.getCards();
 		int numCards = cards.length;
