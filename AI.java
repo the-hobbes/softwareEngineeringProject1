@@ -2,10 +2,12 @@ public class AI implements Player{
 
 	private boolean deckHasCards = true;
 	private Hand hand;
+	private Card[] completedSets = new Card[13];
 	// holds all of the opponent's previous requests so we know what they might have in their hand
 	private int[] cardsRequestedByOpponent = new int[52];  
 
-
+	// a main() function has been included to
+	// allow for testing
 	public static void main(String[] args) {
 		Deck deck = new Deck();
 		deck.shuffle();
@@ -16,23 +18,39 @@ public class AI implements Player{
 		}
 
 		Hand hand = new Hand(cards, 1);
+		System.out.println(hand);
+		// System.out.println("_____");
 
 		AI comp = new AI(hand);
 
 		// System.out.println(comp.hasSet());
 		if(comp.hasSet() >= 1){
 			int requestRank = comp.hasSet();
-			System.out.println(requestRank);
+			int setQTY = comp.countSetQTY(requestRank);
+			System.out.println("Number of elements in our set: "+setQTY);
+
 		}
 	}
 
 	public AI(Hand hand){
 		this.hand = hand;
+
 	}
 
 	public Deck doTurn(Deck gameDeck, Player opponent){
 		// check if there are any pairs or triples
 		// in hand
+		// if(this.hasSet() >= 1){
+		// 	// there is a set, get it's rank
+		// 	int requestRank = this.hasSet();
+		// 	// get the size of the set
+		// 	int setQTY = this.countSetQTY(requestRank);
+		// 	if(setQTY == 4){
+		// 		// there is a full set
+		// 	}else{
+		// 	boolean opponentHasCard = makeCardRequest(opponent);
+		// 	}
+		// }
 		return gameDeck;
 	}
 	
@@ -56,6 +74,19 @@ public class AI implements Player{
 
 	}
 
+	public int countSetQTY(int rankOfSet){
+		Card[] cards = hand.getCards();
+		int numCards = cards.length;
+		int counter = 0;
+		for(int ii=0; ii<numCards; ii++){
+			if (cards[ii].getRank() == rankOfSet){
+				counter++;
+			}
+		}
+
+		return counter;
+	}
+
 	/**
 	* checks our hand to see if there are any pairs/sets 
 	* (if we have a pair we want to see if opponenet has any of that card)
@@ -64,7 +95,7 @@ public class AI implements Player{
 	public int hasSet(){
 		// get our cards
 		Card[] cards = hand.getCards();
-		// System.out.println(hand);
+		
 		// number of cards to iterate over
 		int numCards = cards.length;
 		// array of ranks
