@@ -43,6 +43,10 @@ public class Hand{
 		this.totalHand = this.calcTotal();
 	}
 
+	public void removeCard(){
+		this.numCards--;
+	}
+
 	public int calcTotal(){
 		int total = 0;
 		for(int ii=0; ii<this.cards.length; ii++){
@@ -69,6 +73,10 @@ public class Hand{
 	public void clear(){
 		Card[] emptyHand = new Card[0];
 		this.cards = emptyHand;
+	}
+
+	public int getNumCards(){
+		return this.numCards;
 	}
 
 	public String toString(){
