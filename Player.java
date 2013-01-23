@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public interface Player{
 	
 	public Deck doTurn(Deck gameDeck,Player opponent);
@@ -6,8 +8,7 @@ public interface Player{
 	*Asks the other player for a card
 	*/
 	public boolean makeCardRequest(Player opponent, int desiredCard);
-	public Card respondCardRequest(int desiredCard);
+	public ArrayList<Card> respondCardRequest(int desiredCard);
 	public void endTurn();	
 	public Card[] getMyCompleteSets();
-	public Hand getHand();
 }

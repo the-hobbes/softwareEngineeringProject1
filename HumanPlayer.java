@@ -4,6 +4,9 @@
  * Class to handle all of the functionality for the human player in the gofish game. Implements the 
  * Player interface.
  */
+
+import java.util.ArrayList;
+
 public class HumanPlayer implements Player{
 	private Deck gameDeck;
 	private Player opponent;
@@ -25,16 +28,8 @@ public class HumanPlayer implements Player{
 
 		Hand hand = new Hand(cards, 1);
 		System.out.println(hand);
-		// System.out.println("_____");
 
 		HumanPlayer human = new HumanPlayer(hand);
-		// System.out.println(human.getHand());
-			
-		// if(human.hasSet() >= 1){
-		// 	int requestRank = human.hasSet();
-		// 	int setQTY = human.countSetQTY(requestRank);
-		// 	System.out.println("Number of elements in our set: "+setQTY);
-		// }
 	}
 	
 	/**
@@ -56,6 +51,9 @@ public class HumanPlayer implements Player{
 		this.gameDeck = gameDeck;
 		this.opponent = opponent;
 		
+		//Display the user's hand to them
+		UserInterface.displayHand(playerHand);
+
 		//get user input (which card to request from opponent?)
 		int desiredCard = UserInterface.getCommand(playerHand);
 		
@@ -64,24 +62,23 @@ public class HumanPlayer implements Player{
 			//call the endgame functions
 		}
 		
-		//request the card from the opponent
+		//request the card from the opponent until all of those cards have been taken
 		if (makeCardRequest(opponent, desiredCard)){
-			//if the opponent has that card, get all of those card of that order
-			//need to get all of the cards of that type, and add them to the hand
-			/**
-			 * This can be done in two ways:
-			 * 1) check to see if the opponent has the card.
-			 * -if he does, get the card and add it to your hand and remove it from his
-			 * -then request again (continue in this way until the check fails)
-			 * 2) check to see if the opponent has the card
-			 * - if he does, iterate through his hand and return a list of all the cards, removing them from his
-			 * 
-			 * ALSO NOTE: what about the Game.processHand() function? Is this supposed to do the removal 
-			 * and return of all the matched cards?
-			 */
+			//get all instances of that card from the opponent
+			opponent.respondCardRequest(desiredCard);
+			//add them to your hand
+			//remove them from the opponent's hand
+			//check for a full set of cards in your hand
+			//play the full set down, if there are any
+			//call doTurn() again
 		}
+		//the opponent doesn't have the card, and the player must go fish
 		else{
-			//the opponent doesn't have the card, and the player must go fish
+			//remove the top card from the deck
+			//add that card to your hand
+			//check for the presence of a full set
+			//play that full set if there is one
+			//if the card pulled from the deck is the one asked for, call doTurn()
 		}
 		
 		return gameDeck;
@@ -116,23 +113,17 @@ public class HumanPlayer implements Player{
 	
 	/**
 	 * respondCardRequest
-	 * Used to respond to card requests from opponents. Looks through hand and removes the card requested
-	 * for, if it is present. Returns that card.
+	 * Used to respond to card requests from opponents. Looks through hand and removes the card(s) requested
+	 * for, if it is present. Returns the (those) card(s).
 	 * @param desiredCard
-	 * @return null if not preset, the card itself if it is present
+	 * @return null if not preset, the and array containing the card(s) if present
 	 */
-	public Card respondCardRequest(int desiredCard){
-		return null;
+	public ArrayList<Card> respondCardRequest(int desiredCard){
+		//go through each hand in the playerhand. 
+		//If the desired card rank is present, remove that card from the player hand and add it to the arralist
+		//return the arraylist
 	}
 	
-	/**
-	 * getHand
-	 * Function used to return the hand of a player.
-	 * @return Hand
-	 */
-	public Hand getHand(){
-		return playerHand;
-	}
 	/**
 	 * endTurn
 	 * Function to set the final values for the end of the turn

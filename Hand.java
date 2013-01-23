@@ -56,6 +56,10 @@ public class Hand{
 		this.numCards--;
 	}
 
+	public static void removeSpecificCard(int specificCard){
+		
+	}
+
 	public int calcTotal(){
 		int total = 0;
 		for(int ii=0; ii<this.cards.length; ii++){
