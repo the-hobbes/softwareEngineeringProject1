@@ -21,15 +21,32 @@ public class HumanPlayer implements Player{
 		Deck deck = new Deck();
 		deck.shuffle();
 		Card[] cards = new Card[5];
+		//add a specific card to the hand so we know what we are looking for
+		Card newCard = new Card("spades", 1);
 
-		for(int ii=0; ii<5; ii++){
+		//add cards from the deck to the cards array
+		for(int ii=0; ii<4; ii++){
 			cards[ii] = deck.getTopCard(); 
 		}
+		//add our specific card
+		cards[4] = newCard;
 
 		Hand hand = new Hand(cards, 1);
-		System.out.println(hand);
-
 		HumanPlayer human = new HumanPlayer(hand);
+		
+		System.out.println(hand);
+		ArrayList<Card> returnedRequest = human.respondCardRequest(1);
+		
+		System.out.println("--------");
+		System.out.println("");
+		System.out.println(returnedRequest);
+
+		// Hand hand = new Hand(cards, 1);
+		// System.out.println("Before");
+		// System.out.println(hand);
+		// System.out.println("after");
+		// hand.removeSpecificCard(4);
+		// System.out.println(hand);
 	}
 	
 	/**
@@ -119,11 +136,30 @@ public class HumanPlayer implements Player{
 	 * @return null if not preset, the and array containing the card(s) if present
 	 */
 	public ArrayList<Card> respondCardRequest(int desiredCard){
-		//go through each hand in the playerhand. 
-		//If the desired card rank is present, remove that card from the player hand and add it to the arralist
+		//create a holder arraylist for the found cards, and an index to specify the place of that card in the player's hand
+		ArrayList<Card> foundCards = new ArrayList<Card>();
+		int index = 0;
+
+		//iterator way
+		//go through each card in the playerhand.
+		// for(Card card : playerHand.getCards()){
+		// 	System.out.println(index);
+		//If the desired card rank is present, remove that card from the player hand and add it to the arraylist
+		// 	if(card.getRank() == desiredCard){
+		// 		//add it to the arraylist of cards
+		// 		foundCards.add(card);
+		// 		// remove the card from the hand if it is found
+		// 		playerHand.removeSpecificCard(index);
+		// 		// System.out.println("added and removed");
+
+		// 	}
+		// 	index++;
+		// }
+		
 		//return the arraylist
+		return foundCards;
 	}
-	
+
 	/**
 	 * endTurn
 	 * Function to set the final values for the end of the turn

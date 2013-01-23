@@ -11,7 +11,6 @@ public class Card{
 
 	private String suit;
 	private int rank;
-	private String imgFilename;
 
 	/**
 	 * default constructor of the Card class
