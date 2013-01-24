@@ -11,4 +11,5 @@ public interface Player{
 	public ArrayList<Card> respondCardRequest(int desiredCard);
 	public void endTurn();	
 	public Card[] getMyCompleteSets();
+	public Hand getHand();
 }
