@@ -7,8 +7,9 @@
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Arrays; 
-import java.util.Stack; 
+import java.util.Arrays;  
+import java.util.Stack;
+
 
 public class HumanPlayer implements Player{
 	private Deck gameDeck;
@@ -186,8 +187,6 @@ public class HumanPlayer implements Player{
 		// 		foundCards.add(currentCard);
 		// 		//remove the card from our hand
 		// 		it.remove();
-		// 	}
-		// }
 
 		// //add the remaining cards to a hand
 		// Card[] cards = new Card[handCopy.size()];
