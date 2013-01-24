@@ -7,7 +7,8 @@
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Arrays;  
+import java.util.Arrays; 
+import java.util.Stack; 
 
 public class HumanPlayer implements Player{
 	private Deck gameDeck;
@@ -33,7 +34,7 @@ public class HumanPlayer implements Player{
 		//add our specific card
 		cards[4] = newCard;
 
-		Hand hand = new Hand(cards, 1);
+		Hand hand = new Hand(cards);
 		HumanPlayer human = new HumanPlayer(hand);
 		
 		System.out.println(hand);
@@ -149,57 +150,54 @@ public class HumanPlayer implements Player{
 		//create a holder arraylist for the found cards
 		ArrayList<Card> foundCards = new ArrayList<Card>();
 
-		//copy the player's hand to an array list so it can be iterated
-		ArrayList<Card> handCopy = new ArrayList<Card>(Arrays.asList(playerHand.getCards()));
-		Iterator<Card> it = handCopy.iterator();
+		//oldhand is a container for the players current hand
+		Hand oldHand = playerHand;
+		//newhand is a stack to place the cards not culled from the players hand into
+		Stack<Card> newHand = new Stack<Card>();
 
-		while(it.hasNext()){
-			Card currentCard = it.next();
-			// System.out.println(currentCard);
-			if(currentCard.getRank() == desiredCard){
-				// System.out.println("same");
-				// add the card to our temporary arraylist
+		//go through each card in the hand
+		for(int i=0; i<oldHand.getCards().length; i++){
+			Card currentCard = oldHand.getCards()[i];
+			//if the current card's rank isn't equal to the desired rank...
+			if(currentCard.getRank() != desiredCard){
+				//add that card to the new hand. it will not be given to the requesting player
+				newHand.push(currentCard);
+			}
+			else{
+				//otherwise, the card matches. add it to the arraylist keeping track of found cards
 				foundCards.add(currentCard);
-				//remove the card from our hand
-				it.remove();
 			}
 		}
+		//convert the new hand to a hand object
+		Hand[] freshHand = new Hand(newHand.toArray());
+		System.out.println(newHand.getClass());
 
-		/* DO IT THIS WAY:
-			Hand[] oldHand;
-			Hand newHand = new stack<cards>;
+		/* Iterator Method */
+		//copy the player's hand to an array list so it can be iterated
+		// ArrayList<Card> handCopy = new ArrayList<Card>(Arrays.asList(playerHand.getCards()));
+		// Iterator<Card> it = handCopy.iterator();
 
-			for each card in oldhand
-				if card != theonewewanttoremove
-					newhand[i] = card
-				else
-					add card to the foundCards
-
-			newhand.toArray()
-		*/
-
-		//add the remaining cards to a hand
-		Card[] cards = new Card[handCopy.size()];
-		for(int i=0; i<handCopy.size(); i++){
-			cards[i] = handCopy.get(i); 
-		}
-		//set the hand field to the contents of the new hand
-		Hand hand = new Hand(cards, 1);
-		this.playerHand = hand;
-
-		// //go through each card in the playerhand.
-		// for(Card card : playerHand.getCards()){
-		// 	// System.out.println(index);
-		// // If the desired card rank is present, remove that card from the player hand and add it to the arraylist
-		// 	if(card.getRank() == desiredCard){
-		// 		//add it to the arraylist of cards
-		// 		foundCards.add(card);
-		// 		// remove the card from the hand if it is found
-		// 		playerHand.removeSpecificCard(index);
-		// 		// System.out.println("added and removed");
+		// while(it.hasNext()){
+		// 	Card currentCard = it.next();
+		// 	// System.out.println(currentCard);
+		// 	if(currentCard.getRank() == desiredCard){
+		// 		// System.out.println("same");
+		// 		// add the card to our temporary arraylist
+		// 		foundCards.add(currentCard);
+		// 		//remove the card from our hand
+		// 		it.remove();
 		// 	}
-		// 	index++;
 		// }
+
+		// //add the remaining cards to a hand
+		// Card[] cards = new Card[handCopy.size()];
+		// for(int i=0; i<handCopy.size(); i++){
+		// 	cards[i] = handCopy.get(i); 
+		// }
+		// //set the hand field to the contents of the new hand
+		// Hand hand = new Hand(cards, 1);
+		// this.playerHand = hand;
+		/* END Iterator Method */
 		
 		//return the arraylist
 		return foundCards;
