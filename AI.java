@@ -85,9 +85,12 @@ public class AI implements Player{
 		requestCounter++;
 		// loop through our hand and count the number of instances 
 		// of the requested card
-		int counter = 0;
-		for(int ii=0; ii<hand.length; ii++){
 
+		if(hand.hasCard(desiredCard)){
+			int counter = 0;
+			for(int ii=0; ii<hand.getNumCards(); ii++){
+				if 
+			}
 		}
 		ArrayList<Card> cardsToReturn = new ArrayList<Card>(3);
 		// Card card = new Card("test",1);
