@@ -1,10 +1,17 @@
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Arrays;  
+import java.util.Stack;
+
+
 public class AI implements Player{
 
 	private boolean deckHasCards = true;
 	private Hand hand;
 	private Card[] completedSets = new Card[13];
 	// holds all of the opponent's previous requests so we know what they might have in their hand
-	private int[] cardsRequestedByOpponent = new int[52];  
+	private int[] cardsRequestedByOpponent = new int[52];
+	private int requestCounter = 0; 
 
 	// a main() function has been included to
 	// allow for testing
@@ -34,7 +41,10 @@ public class AI implements Player{
 
 	public AI(Hand hand){
 		this.hand = hand;
+	}
 
+	public Hand getHand(){
+		return this.hand;
 	}
 
 	public Deck doTurn(Deck gameDeck, Player opponent){
@@ -61,18 +71,30 @@ public class AI implements Player{
 	/**
 	*Asks the other player for a card
 	*/
-	public boolean makeCardRequest(Player opponent){
+	public boolean makeCardRequest(Player opponent, int rank){
 		return true;
 	}
 
-	public Card respondCardRequest(int desiredCard){
-		Card card = new Card("test",1);
-		return card;
+	/**
+	*Responds to an opponents request for a card.
+	*@param desiredCard The rank of the set
+	*@return count of the number of cards in a set
+	*/
+	public ArrayList<Card> respondCardRequest(int desiredCard){
+		this.cardsRequestedByOpponent[requestCounter] = desiredCard;
+		requestCounter++;
+		// loop through our hand and count the number of instances 
+		// of the requested card
+		int counter = 0;
+		for(int ii=0; ii<hand.length; ii++){
+
+		}
+		ArrayList<Card> cardsToReturn = new ArrayList<Card>(3);
+		// Card card = new Card("test",1);
+		return cardsToReturn;
 	}
 
-	public void endTurn(){
-
-	}
+	
 
 	/**
 	*Checks to see the number of cards in a given set (think pair).
@@ -130,7 +152,8 @@ public class AI implements Player{
 	}
 
 
+	public void endTurn(){
 
-
+	}
 
 }
