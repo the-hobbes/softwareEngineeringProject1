@@ -67,7 +67,8 @@ public class HumanPlayer implements Player{
 	public Deck doTurn(Deck gameDeck,Player opponent){
 		this.gameDeck = gameDeck;
 		this.opponent = opponent;
-		
+		ArrayList<Card> foundCards = new ArrayList<Card>();
+
 		//Display the user's hand to them
 		UserInterface.displayHand(playerHand);
 
@@ -82,7 +83,7 @@ public class HumanPlayer implements Player{
 		//request the card from the opponent until all of those cards have been taken
 		if (makeCardRequest(opponent, desiredCard)){
 			//get all instances of that card from the opponent
-			opponent.respondCardRequest(desiredCard);
+			foundCards = opponent.respondCardRequest(desiredCard);
 			//add them to your hand
 			//remove them from the opponent's hand
 			//check for a full set of cards in your hand
@@ -163,6 +164,19 @@ public class HumanPlayer implements Player{
 				it.remove();
 			}
 		}
+
+		/* DO IT THIS WAY:
+			Hand[] oldHand;
+			Hand newHand = new stack<cards>;
+
+			for each card in oldhand
+				if card != theonewewanttoremove
+					newhand[i] = card
+				else
+					add card to the foundCards
+
+			newhand.toArray()
+		*/
 
 		//add the remaining cards to a hand
 		Card[] cards = new Card[handCopy.size()];

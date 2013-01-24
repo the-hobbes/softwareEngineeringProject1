@@ -11,11 +11,9 @@ public class Hand{
 	private Card[] cards; // our hand
 	private int numCards;
 	private int totalHand;
-	public int id;
 
-	public Hand(Card[] cards, int id){
+	public Hand(Card[] cards){
 		setCards(cards);
-		this.id = id;
 		this.numCards = cards.length;
 		this.totalHand = this.calcTotal();
 	}
