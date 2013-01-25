@@ -24,6 +24,8 @@ public class HumanPlayer implements Player{
 	public static void main(String[] args) {
 		Deck deck = new Deck();
 		deck.shuffle();
+
+		/* Test the respondCardRequest function */
 		Card[] cards = new Card[5];
 		//add a specific card to the hand so we know what we are looking for
 		Card newCard = new Card("spades", 1);
@@ -38,6 +40,7 @@ public class HumanPlayer implements Player{
 		Hand hand = new Hand(cards);
 		HumanPlayer human = new HumanPlayer(hand);
 		
+		/*Test the respondCardRequest function
 		System.out.println("Before Hand");
 		System.out.println(hand);
 		ArrayList<Card> returnedRequest = human.respondCardRequest(1);
@@ -46,15 +49,22 @@ public class HumanPlayer implements Player{
 		System.out.println(returnedRequest);
 		System.out.println("");
 		System.out.println("the new hand, minus those cards");
-		System.out.println(human.getHand());
+		System.out.println(human.getHand());*/
 
-		/***/
-		// Hand hand = new Hand(cards, 1);
-		// System.out.println("Before");
-		// System.out.println(hand);
-		// System.out.println("after");
-		// hand.removeSpecificCard(4);
-		// System.out.println(hand);
+		/* test the doTurn function, creating a new player as an opponent*/ 
+		Card[] cards2 = new Card[5];
+		deck.shuffle();
+		for(int ii=0; ii<5; ii++){
+			cards2[ii] = deck.getTopCard(); 
+		}
+		Hand hand2 = new Hand(cards2);
+		HumanPlayer computer = new HumanPlayer(hand2);
+
+		System.out.println("Opponents Hand");
+		System.out.println(computer.getHand());
+		System.out.println("");
+
+		human.doTurn(deck, computer);
 	}
 	
 	/**
@@ -78,6 +88,7 @@ public class HumanPlayer implements Player{
 		ArrayList<Card> foundCards = new ArrayList<Card>();
 
 		//Display the user's hand to them
+		System.out.println("Your Hand");
 		UserInterface.displayHand(playerHand);
 
 		//get user input (which card to request from opponent?)
@@ -88,11 +99,19 @@ public class HumanPlayer implements Player{
 			//call the endgame functions
 		}
 		
-		//request the card from the opponent until all of those cards have been taken
+		//request all the cards of desired type from the opponent
 		if (makeCardRequest(opponent, desiredCard)){
 			//get all instances of that card from the opponent
 			foundCards = opponent.respondCardRequest(desiredCard);
 			//add them to your hand
+			for(Card card : playerHand.getCards()){
+				foundCards.add(card);
+			}
+			System.out.println("Your new hand");
+			System.out.println(foundCards);
+			System.out.println("Opponents new hand");
+			System.out.println(opponent.getHand());
+
 			//remove them from the opponent's hand
 			//check for a full set of cards in your hand
 			//play the full set down, if there are any
