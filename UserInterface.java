@@ -27,8 +27,10 @@ public class UserInterface{
 	
 	/**
 	*Displays the current person hand
+	*@param userHand The user's hand.
 	*/
 	public static void displayHand(Hand userHand){
+		System.out.println(userHand);
 
 	}
 
@@ -84,15 +86,19 @@ public class UserInterface{
 				//Catch the exception of using a J,A,K,Q or anyhting other than an integer
 				if(in.equals("J")){
 					rank = 11;
-				}else if(in.equals("A")){
+					valid = true;
+				}else if(in.toUpperCase().equals("A")){
 					rank = 1;
-				}else if(in.equals("K")){
+					valid = true;
+				}else if(in.toUpperCase().equals("K")){
 					rank = 13;
-				}else if(in.equals("Q")){
+					valid = true;
+				}else if(in.toUpperCase().equals("Q")){
 					rank = 12;
-				}else if(in.equals("help")){
+					valid = true;
+				}else if(in.toUpperCase().equals("HELP")){
 					displayHelp();
-				}else if(in.equals("credits")){
+				}else if(in.toUpperCase().equals("CREDITS")){
 					displayCredits();
 				}else{
 					//Nope illegal.
@@ -112,8 +118,10 @@ public class UserInterface{
 		//Unit Tests for each function
 		UserInterface.displayCredits();
 		UserInterface.displayHelp();
-		Hand testHand = new Hand(new Card[]{new Card("H",3)},2);
+		Hand testHand = new Hand(new Card[]{new Card("H",3), new Card("S",1)},2);
+		UserInterface.displayHand(testHand);
 		System.out.println(UserInterface.getCommand(testHand));
+
 	}
 
 }

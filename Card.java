@@ -32,16 +32,16 @@ public class Card{
 		String rankTrad ="";
 		switch (this.rank) {
 			case 1:
-            	rankTrad="ace";
+            	rankTrad="Ace";
             break;
             case 11:
-            	rankTrad="jack";
+            	rankTrad="Jack";
             break;
             case 12:
-            	rankTrad="queen";
+            	rankTrad="Queen";
             break;
             case 13:
-            	rankTrad="king";
+            	rankTrad="King";
             break;
             default:
             	rankTrad=this.rank+"";
