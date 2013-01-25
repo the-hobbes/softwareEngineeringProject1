@@ -6,3 +6,10 @@ hw-6/*
 *.project
 package-list
 resources/
+*.aux
+*.log
+*.nav
+*.out
+*.snm
+*.synctex.gz
+*.toc
