@@ -31,7 +31,20 @@ public class UserInterface{
 	*/
 	public static void displayHand(Hand userHand){
 		System.out.println(userHand);
+	}
 
+	/**
+	*Function to accept user input from the main menu, returns true to play the game, false to quit.
+	*@return True if the game should begin, false if the user wishes to quit
+	*/
+	public static boolean getMenuOption(){
+		//Get user input
+
+		//Handle help and credits
+
+		//Handle quit or play
+
+		//Handle errorful input
 	}
 
 	/**
@@ -118,7 +131,7 @@ public class UserInterface{
 		//Unit Tests for each function
 		UserInterface.displayCredits();
 		UserInterface.displayHelp();
-		Hand testHand = new Hand(new Card[]{new Card("Hearts",3), new Card("Spades",1)},2);
+		Hand testHand = new Hand(new Card[]{new Card("Hearts",3), new Card("Spades",1)});
 		UserInterface.displayHand(testHand);
 		System.out.println(UserInterface.getCommand(testHand));
 

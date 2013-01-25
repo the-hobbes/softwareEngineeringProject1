@@ -24,7 +24,7 @@ public class AI implements Player{
 			cards[ii] = deck.getTopCard(); 
 		}
 
-		Hand hand = new Hand(cards, 1);
+		Hand hand = new Hand(cards);
 		System.out.println(hand);
 		// System.out.println("_____");
 

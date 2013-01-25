@@ -88,9 +88,7 @@ public class Deck{
 			tmp += "Card ";
 			tmp += counter;
 			tmp += ": ";
-			tmp += tempCard.getRankTrad();
-			tmp += " of ";
-			tmp += tempCard.getSuit();
+			tmp += tempCard.toString();
 			tmp += "\n";
 			counter++;
 		}
