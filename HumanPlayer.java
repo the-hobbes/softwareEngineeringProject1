@@ -101,7 +101,7 @@ public class HumanPlayer implements Player{
 		
 		//request all the cards of desired type from the opponent
 		if (makeCardRequest(opponent, desiredCard)){
-			//get all instances of that card from the opponent
+			//get all instances of that card from the opponent (removing them from the opponent's hand as well)
 			foundCards = opponent.respondCardRequest(desiredCard);
 			//add them to your hand
 			for(Card card : playerHand.getCards()){
@@ -112,8 +112,8 @@ public class HumanPlayer implements Player{
 			System.out.println("Opponents new hand");
 			System.out.println(opponent.getHand());
 
-			//remove them from the opponent's hand
 			//check for a full set of cards in your hand
+			
 			//play the full set down, if there are any
 			//call doTurn() again
 		}
