@@ -118,7 +118,7 @@ public class UserInterface{
 		//Unit Tests for each function
 		UserInterface.displayCredits();
 		UserInterface.displayHelp();
-		Hand testHand = new Hand(new Card[]{new Card("H",3), new Card("S",1)},2);
+		Hand testHand = new Hand(new Card[]{new Card("Hearts",3), new Card("Spades",1)},2);
 		UserInterface.displayHand(testHand);
 		System.out.println(UserInterface.getCommand(testHand));
 
