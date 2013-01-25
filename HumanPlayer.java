@@ -169,9 +169,14 @@ public class HumanPlayer implements Player{
 				foundCards.add(currentCard);
 			}
 		}
-		//convert the new hand to a hand object
-		Hand[] freshHand = new Hand(newHand.toArray());
-		System.out.println(newHand.getClass());
+
+		// convert the new hand to a hand object, and make that the new player hand
+		Card[] cardHolder = new Card[newHand.size()];
+		for(int j=0; j<newHand.size(); j++){
+			cardHolder[j] = newHand.pop();
+		}
+		Hand freshHand = new Hand(cardHolder);
+		this.playerHand = freshHand;
 
 		/* Iterator Method */
 		//copy the player's hand to an array list so it can be iterated

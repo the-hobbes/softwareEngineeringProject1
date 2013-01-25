@@ -15,7 +15,7 @@ public class Hand{
 	public Hand(Card[] cards){
 		setCards(cards);
 		this.numCards = cards.length;
-		this.totalHand = this.calcTotal();
+		// this.totalHand = this.calcTotal();
 	}
 
 	public void setCards(Card[] cards){
