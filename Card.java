@@ -11,7 +11,6 @@ public class Card implements Comparable{
 
 	private String suit;
 	private int rank;
-	private String imgFilename;
 
 	/**
 	 * default constructor of the Card class
@@ -33,16 +32,16 @@ public class Card implements Comparable{
 		String rankTrad ="";
 		switch (this.rank) {
 			case 1:
-            	rankTrad="ace";
+            	rankTrad="Ace";
             break;
             case 11:
-            	rankTrad="jack";
+            	rankTrad="Jack";
             break;
             case 12:
-            	rankTrad="queen";
+            	rankTrad="Queen";
             break;
             case 13:
-            	rankTrad="king";
+            	rankTrad="King";
             break;
             default:
             	rankTrad=this.rank+"";

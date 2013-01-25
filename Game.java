@@ -1,18 +1,24 @@
 public class Game{
-	Deck theDeck = new Deck()
+	Deck theDeck = new Deck();
 
-	Hand[] players = new Hand[2];
+	Player[] players = new Player[2];
 
-	static final PLAYER = 0;
+	static final int PLAYER = 0;
 
-	static final COMPUTER = 1;
+	static final int COMPUTER = 1;
 
 	int currentPlayer = 0;
 
-	Interface ui = new Interface();
 
-	int scores [] = {0,0};
+	/**
+	*Deals out 5 cards to each player, decides whose turn it is first, displays rules and credits
+	*@param game the game to setup
+	*@return the game that has been setup
+	*/
+	public static Game setUpGame(Game game){
 
+		return game;
+	}
 
 	/**
 	*Decides if the game is going to continue or not.

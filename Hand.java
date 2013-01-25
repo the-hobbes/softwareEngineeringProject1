@@ -11,17 +11,15 @@ public class Hand{
 	private Card[] cards; // our hand
 	private int numCards;
 	private int totalHand;
-	public int id;
 
-	public Hand(Card[] cards, int id){
+	public Hand(Card[] cards){
 		setCards(cards);
-		this.id = id;
 		this.numCards = cards.length;
-		this.totalHand = this.calcTotal();
+		// this.totalHand = this.calcTotal();
 	}
 
 	public void setCards(Card[] cards){
-		this.cards = cards;
+		this.cards = cards; 
 	}
 
 	/**
@@ -30,6 +28,15 @@ public class Hand{
 	*/
 	public Card[] getCards(){
 		return this.cards;
+	}
+
+	public boolean hasCard(int cno){
+		for(Card c : cards){
+			if(c.getRank() == cno){
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -49,6 +56,33 @@ public class Hand{
 		Arrays.sort(this.cards, customComparator);
 		this.totalHand = this.calcTotal();
 	}
+
+	public void removeCard(){
+		this.numCards--;
+	}
+
+	// /**
+	//   * removeSpecificCard
+	//   * @author Phelan
+	//   * @param elementIndex, the index of the element you wish to delete
+	//   * Used to remove a specific card from the cards array
+	//   */
+	// public void removeSpecificCard(int elementIndex){
+	// 	//set up temporary holder for smaller array
+	// 	Card[] tempCards = new Card[(cards.length-1)];
+	// 	int nextIndex = 0;
+
+	// 	//loop through current array, adding all elements not at the index to the temporary array
+	// 	for(int i = 0; i<cards.length; i++){
+	// 		// System.out.println(cards[i]);
+	// 		if(i != elementIndex){
+	// 			tempCards[nextIndex] = cards[i];
+	// 			nextIndex++;
+	// 		}
+	// 	}
+	// 	//copy the temporary array into the cards array
+	// 	this.cards = tempCards;
+	// }
 
 	public int calcTotal(){
 		int total = 0;
@@ -78,9 +112,13 @@ public class Hand{
 		this.cards = emptyHand;
 	}
 
+	public int getNumCards(){
+		return this.numCards;
+	}
+
 	/**
 	* return a string representation of the hand
-	*@return String representation fo the hand
+	*@return String representation of the hand
 	*/
 	public String toString(){
 		String tmp = "";
