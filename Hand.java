@@ -124,5 +124,9 @@ public class Hand{
 
 		return tmp;
 	} // end toString()
+
+	public Card[] getCardsByRank(int rank){
+		
+	} // end getCardsByRank()
 	
 } // end Hand
