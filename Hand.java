@@ -128,9 +128,7 @@ public class Hand{
 			tmp += "Card";
 			tmp += ii+1;
 			tmp += ": ";
-			tmp += this.cards[ii].getRank();
-			tmp += " of ";
-			tmp += this.cards[ii].getSuit();
+			tmp += this.cards[ii].toString();
 			tmp += "\n";
 			// System.out.println(tmp);
 		}
