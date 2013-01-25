@@ -35,7 +35,7 @@ public class HumanPlayer implements Player{
 		//add our specific card
 		cards[4] = newCard;
 
-		Hand hand = new Hand(cards, 1);
+		Hand hand = new Hand(cards);
 		HumanPlayer human = new HumanPlayer(hand);
 		
 		System.out.println(hand);
@@ -69,7 +69,8 @@ public class HumanPlayer implements Player{
 	public Deck doTurn(Deck gameDeck,Player opponent){
 		this.gameDeck = gameDeck;
 		this.opponent = opponent;
-		
+		ArrayList<Card> foundCards = new ArrayList<Card>();
+
 		//Display the user's hand to them
 		UserInterface.displayHand(playerHand);
 
@@ -84,7 +85,7 @@ public class HumanPlayer implements Player{
 		//request the card from the opponent until all of those cards have been taken
 		if (makeCardRequest(opponent, desiredCard)){
 			//get all instances of that card from the opponent
-			opponent.respondCardRequest(desiredCard);
+			foundCards = opponent.respondCardRequest(desiredCard);
 			//add them to your hand
 			//remove them from the opponent's hand
 			//check for a full set of cards in your hand
@@ -150,32 +151,52 @@ public class HumanPlayer implements Player{
 		//create a holder arraylist for the found cards
 		ArrayList<Card> foundCards = new ArrayList<Card>();
 
+		//oldhand is a container for the players current hand
+		Hand oldHand = playerHand;
+		//newhand is a stack to place the cards not culled from the players hand into
 		Stack<Card> newHand = new Stack<Card>();
-		Card [] hand = this.playerhand.getCards();
 
-		for(int i=0; i < this.playerhand.getNumCards(); i++){
-			if(hand[i].getRank() != desiredCard){
-				newHand.push(hand[i]);
-			}else{
-				foundCards.add(hand[i]);
+		//go through each card in the hand
+		for(int i=0; i<oldHand.getCards().length; i++){
+			Card currentCard = oldHand.getCards()[i];
+			//if the current card's rank isn't equal to the desired rank...
+			if(currentCard.getRank() != desiredCard){
+				//add that card to the new hand. it will not be given to the requesting player
+				newHand.push(currentCard);
+			}
+			else{
+				//otherwise, the card matches. add it to the arraylist keeping track of found cards
+				foundCards.add(currentCard);
 			}
 		}
+		//convert the new hand to a hand object
+		Hand[] freshHand = new Hand(newHand.toArray());
+		System.out.println(newHand.getClass());
 
-		this.playerHand = newHand.toArray();
+		/* Iterator Method */
+		//copy the player's hand to an array list so it can be iterated
+		// ArrayList<Card> handCopy = new ArrayList<Card>(Arrays.asList(playerHand.getCards()));
+		// Iterator<Card> it = handCopy.iterator();
 
-		// //go through each card in the playerhand.
-		// for(Card card : playerHand.getCards()){
-		// 	// System.out.println(index);
-		// // If the desired card rank is present, remove that card from the player hand and add it to the arraylist
-		// 	if(card.getRank() == desiredCard){
-		// 		//add it to the arraylist of cards
-		// 		foundCards.add(card);
-		// 		// remove the card from the hand if it is found
-		// 		playerHand.removeSpecificCard(index);
-		// 		// System.out.println("added and removed");
-		// 	}
-		// 	index++;
+		// while(it.hasNext()){
+		// 	Card currentCard = it.next();
+		// 	// System.out.println(currentCard);
+		// 	if(currentCard.getRank() == desiredCard){
+		// 		// System.out.println("same");
+		// 		// add the card to our temporary arraylist
+		// 		foundCards.add(currentCard);
+		// 		//remove the card from our hand
+		// 		it.remove();
+
+		// //add the remaining cards to a hand
+		// Card[] cards = new Card[handCopy.size()];
+		// for(int i=0; i<handCopy.size(); i++){
+		// 	cards[i] = handCopy.get(i); 
 		// }
+		// //set the hand field to the contents of the new hand
+		// Hand hand = new Hand(cards, 1);
+		// this.playerHand = hand;
+		/* END Iterator Method */
 		
 		//return the arraylist
 		return foundCards;
