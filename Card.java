@@ -119,11 +119,11 @@ public class Card implements Comparable{
 
 	private int getSuitValue(String suit){
 		int value;
-		if(suit.equals("clubs")){
+		if(suit.equals("Clubs")){
 			value = 3;
-		}else if(suit.equals("diamonds")){
+		}else if(suit.equals("Diamonds")){
 			value = 2;
-		}else if(suit.equals("hearts")){
+		}else if(suit.equals("Hearts")){
 			value = 1;			
 		}else{
 			value = 0;

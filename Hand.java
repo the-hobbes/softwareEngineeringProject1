@@ -19,7 +19,9 @@ public class Hand{
 	}
 
 	public void setCards(Card[] cards){
-		this.cards = cards; 
+		this.cards = cards;
+		CustomComparator customComparator= new CustomComparator();
+		Arrays.sort(this.cards, customComparator);
 	}
 
 	/**
@@ -143,15 +145,23 @@ public class Hand{
 		for(int i=0; i < 25; i++){
 			cards[i] = deck.getTopCard();
 		}
-		Hand hand = new Hand(cards, 1);		
-		hand.addCard(deck.getTopCard());
+		Hand hand = new Hand(cards);
 		System.out.println(hand.toString());
 	}
 
 	/**
 	*CustomComparator
+	*@Author Scott MacEwan
+	*Custom implementation of the Comparator class to use in sorting hte array
 	*/
 	static class CustomComparator implements Comparator<Card>{
+
+		/**
+		*Compares to cards to each other
+		*@param Card to be compared
+		*@param Other card to be compared
+		*@return int to specify if a is less than b (-), a is greater than b (+), a is equal to b (0)
+		*/
 		public int compare(Card a, Card b){
 			return b.compareTo(a);
 		}
