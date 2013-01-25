@@ -38,9 +38,15 @@ public class HumanPlayer implements Player{
 		Hand hand = new Hand(cards);
 		HumanPlayer human = new HumanPlayer(hand);
 		
+		System.out.println("Before Hand");
 		System.out.println(hand);
 		ArrayList<Card> returnedRequest = human.respondCardRequest(1);
+		System.out.println("");
+		System.out.println("The matched cards");
 		System.out.println(returnedRequest);
+		System.out.println("");
+		System.out.println("the new hand, minus those cards");
+		System.out.println(human.getHand());
 
 		/***/
 		// Hand hand = new Hand(cards, 1);
@@ -173,7 +179,8 @@ public class HumanPlayer implements Player{
 		// convert the new hand to a hand object, and make that the new player hand
 		Card[] cardHolder = new Card[newHand.size()];
 		for(int j=0; j<newHand.size(); j++){
-			cardHolder[j] = newHand.pop();
+			cardHolder[j] = newHand.get(j);
+			System.out.println(cardHolder[j]);
 		}
 		Hand freshHand = new Hand(cardHolder);
 		this.playerHand = freshHand;
