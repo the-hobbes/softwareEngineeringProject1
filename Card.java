@@ -7,11 +7,10 @@
  * @param imgFilename is the filename of the graphic for the face of the card
  */
 
-public class Card{
+public class Card implements Comparable{
 
 	private String suit;
 	private int rank;
-	private String imgFilename;
 
 	/**
 	 * default constructor of the Card class
@@ -33,16 +32,16 @@ public class Card{
 		String rankTrad ="";
 		switch (this.rank) {
 			case 1:
-            	rankTrad="ace";
+            	rankTrad="Ace";
             break;
             case 11:
-            	rankTrad="jack";
+            	rankTrad="Jack";
             break;
             case 12:
-            	rankTrad="queen";
+            	rankTrad="Queen";
             break;
             case 13:
-            	rankTrad="king";
+            	rankTrad="King";
             break;
             default:
             	rankTrad=this.rank+"";
@@ -96,5 +95,40 @@ public class Card{
 	public String toString(){
 		String tmp = this.getRankTrad()+" of "+this.getSuit();
 		return tmp;
+	}
+
+
+	/**
+	 *compareTo
+	 *compares the rank this card to a given card, returns an integer signifying less than (-), equal(0), or greater than (+)
+	 *@param card
+	 *@return int
+	 */
+	public int compareTo(Object card){
+		Card newCard = (Card) card;
+		int order;
+		if(this.rank == newCard.getRank()){
+			int valueThis = getSuitValue(this.suit);
+			int valueOther = getSuitValue(newCard.getSuit());
+			order = valueThis - valueOther;
+		}else{
+			order = this.rank - newCard.getRank();
+		}
+		return order;
+	}
+
+	private int getSuitValue(String suit){
+		int value;
+		if(suit.equals("Clubs")){
+			value = 3;
+		}else if(suit.equals("Diamonds")){
+			value = 2;
+		}else if(suit.equals("Hearts")){
+			value = 1;			
+		}else{
+			value = 0;
+		}
+
+		return value;
 	}
 } // end Card
