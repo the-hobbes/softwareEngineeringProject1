@@ -89,7 +89,7 @@ public class AI implements Player{
 		if(hand.hasCard(desiredCard)){
 			int counter = 0;
 			for(int ii=0; ii<hand.getNumCards(); ii++){
-				if 
+				// if 
 			}
 		}
 		ArrayList<Card> cardsToReturn = new ArrayList<Card>(3);

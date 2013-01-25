@@ -136,9 +136,9 @@ public class Hand{
 		return tmp;
 	} // end toString()
 
-	public Card[] getCardsByRank(int rank){
+	// public Card[] getCardsByRank(int rank){
 		
-	} // end getCardsByRank()
+	// } // end getCardsByRank()
 	
 	public static void main(String[] args){
 		Deck deck = new Deck();
