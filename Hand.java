@@ -63,6 +63,26 @@ public class Hand{
 		this.numCards--;
 	}
 
+	/**
+	  * containsFourOfAKind
+	  * @author Phelan
+	  * @param desiredCardRank
+	  * @return a boolean indicating the presence of a full set
+	  */
+	public boolean containsFourOfAKind(int desiredCardRank){
+		boolean contains = false;
+		int numCardInstances = 0;
+		for (Card card : this.cards) {
+		    if (card.getRank() == desiredCardRank) { 
+		        // found it
+		        numCardInstances++;
+		    }
+		}
+		if(numCardInstances == 4){
+			contains = true;
+		}
+		return contains;
+	}
 	// /**
 	//   * removeSpecificCard
 	//   * @author Phelan

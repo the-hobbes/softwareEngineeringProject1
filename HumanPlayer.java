@@ -107,13 +107,20 @@ public class HumanPlayer implements Player{
 			for(Card card : playerHand.getCards()){
 				foundCards.add(card);
 			}
+			Card[] tempCard = new Card[foundCards.size()];
+			for(int i=0; i<tempCard.length; i++){
+				tempCard[i] = foundCards.get(i);
+			}
+			Hand newplayerhand = new Hand(tempCard);
+			this.playerHand = newplayerhand;
+
 			System.out.println("Your new hand");
-			System.out.println(foundCards);
+			System.out.println(playerHand);
 			System.out.println("Opponents new hand");
 			System.out.println(opponent.getHand());
 
 			//check for a full set of cards in your hand
-			
+			boolean isFullSet = playerHand.containsFourOfAKind(desiredCard);
 			//play the full set down, if there are any
 			//call doTurn() again
 		}

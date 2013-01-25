@@ -45,6 +45,7 @@ public class UserInterface{
 		//Handle quit or play
 
 		//Handle errorful input
+		return false;
 	}
 
 	/**
