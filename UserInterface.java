@@ -54,18 +54,32 @@ public class UserInterface{
 	*Get the user input and handle it
 	*@return Returns the card the user asked for (-1) if the user has no cards left
 	*/
-	public static int getCommand(Hand userHand){
+	public static int getCommand(Hand h){
 		//While there is a card in the user's hand and they haven't chosen a card from it
 
 		int rank = -1;
 		//User input:
 		Scanner scan = new Scanner(System.in);
 		boolean valid = false;
-		while(!valid){
+		while(!valid && !h.isEmpty()){
+			//Assumption of displayed the person hand already
+			System.out.println("Which Card would you like to pick?");
+			System.out.print(">");
 			String in = scan.nextLine();
 			Scanner internalScanner = new Scanner(in);
 			try{
 				rank = internalScanner.nextInt();
+				if(rank < 11 && rank > 1){
+					if(h.hasCard(rank)){
+						valid = true;	
+					}else{
+						System.out.println("You must have the card in your hand to ask for it.");
+					}
+					
+				}else{
+					//It's not a true mismatch exception, but at the very least it will yell our error message easily.
+					throw new InputMismatchException();
+				}
 			}catch(InputMismatchException ime){
 				//Catch the exception of using a J,A,K,Q or anyhting other than an integer
 				if(in.equals("J")){
@@ -98,7 +112,8 @@ public class UserInterface{
 		//Unit Tests for each function
 		UserInterface.displayCredits();
 		UserInterface.displayHelp();
-		System.out.println(UserInterface.getCommand(new Hand(new Card[4],4)));
+		Hand testHand = new Hand(new Card[]{new Card("H",3)},2);
+		System.out.println(UserInterface.getCommand(testHand));
 	}
 
 }
