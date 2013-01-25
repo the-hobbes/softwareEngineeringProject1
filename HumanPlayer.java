@@ -8,6 +8,8 @@
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Arrays;  
+import java.util.Stack;
+
 
 public class HumanPlayer implements Player{
 	private Deck gameDeck;
@@ -148,30 +150,18 @@ public class HumanPlayer implements Player{
 		//create a holder arraylist for the found cards
 		ArrayList<Card> foundCards = new ArrayList<Card>();
 
-		//copy the player's hand to an array list so it can be iterated
-		ArrayList<Card> handCopy = new ArrayList<Card>(Arrays.asList(playerHand.getCards()));
-		Iterator<Card> it = handCopy.iterator();
+		Stack<Card> newHand = new Stack<Card>();
+		Card [] hand = this.playerhand.getCards();
 
-		while(it.hasNext()){
-			Card currentCard = it.next();
-			// System.out.println(currentCard);
-			if(currentCard.getRank() == desiredCard){
-				// System.out.println("same");
-				// add the card to our temporary arraylist
-				foundCards.add(currentCard);
-				//remove the card from our hand
-				it.remove();
+		for(int i=0; i < this.playerhand.getNumCards(); i++){
+			if(hand[i].getRank() != desiredCard){
+				newHand.push(hand[i]);
+			}else{
+				foundCards.add(hand[i]);
 			}
 		}
 
-		//add the remaining cards to a hand
-		Card[] cards = new Card[handCopy.size()];
-		for(int i=0; i<handCopy.size(); i++){
-			cards[i] = handCopy.get(i); 
-		}
-		//set the hand field to the contents of the new hand
-		Hand hand = new Hand(cards, 1);
-		this.playerHand = hand;
+		this.playerHand = newHand.toArray();
 
 		// //go through each card in the playerhand.
 		// for(Card card : playerHand.getCards()){
