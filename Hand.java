@@ -5,7 +5,7 @@
  * @param cards is an array of cards in this hand
  * @param numCards is the number of cards in this hand. 
  */
-
+import java.util.*;
 public class Hand{
 
 	private Card[] cards; // our hand
@@ -24,12 +24,17 @@ public class Hand{
 		this.cards = cards;
 	}
 
+	/**
+	*Returns the array of cards in the hand
+	*@return Card[] of cards from the players hand
+	*/
 	public Card[] getCards(){
 		return this.cards;
 	}
 
 	/**
-	* increases the size of the Card{] array by 1, and adds a new card to the end of the array
+	*Increases the size of the Card[] array by 1, and adds a new card to the end of the array
+	*@param A card to be added to the hand
 	*/
 	public void addCard(Card addedCard){
 		int sizeOldArray = cards.length;
@@ -40,6 +45,8 @@ public class Hand{
 		}
 		newHand[sizeOldArray] = addedCard;
 		this.cards = newHand;
+		CustomComparator customComparator= new CustomComparator();
+		Arrays.sort(this.cards, customComparator);
 		this.totalHand = this.calcTotal();
 	}
 
@@ -71,6 +78,10 @@ public class Hand{
 		this.cards = emptyHand;
 	}
 
+	/**
+	* return a string representation of the hand
+	*@return String representation fo the hand
+	*/
 	public String toString(){
 		String tmp = "";
 		for(int ii=0; ii<this.cards.length; ii++){
@@ -87,4 +98,24 @@ public class Hand{
 		return tmp;
 	} // end toString()
 	
+	public static void main(String[] args){
+		Deck deck = new Deck();
+		deck.shuffle();
+		Card[] cards = new Card[25];
+		for(int i=0; i < 25; i++){
+			cards[i] = deck.getTopCard();
+		}
+		Hand hand = new Hand(cards, 1);		
+		hand.addCard(deck.getTopCard());
+		System.out.println(hand.toString());
+	}
+
+	/**
+	*CustomComparator
+	*/
+	static class CustomComparator implements Comparator<Card>{
+		public int compare(Card a, Card b){
+			return b.compareTo(a);
+		}
+	}
 } // end Hand
