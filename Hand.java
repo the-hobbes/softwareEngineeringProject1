@@ -135,6 +135,10 @@ public class Hand{
 
 		return tmp;
 	} // end toString()
+
+	// public Card[] getCardsByRank(int rank){
+		
+	// } // end getCardsByRank()
 	
 	public static void main(String[] args){
 		Deck deck = new Deck();
