@@ -83,28 +83,28 @@ public class Hand{
 		}
 		return contains;
 	}
-	// /**
-	//   * removeSpecificCard
-	//   * @author Phelan
-	//   * @param elementIndex, the index of the element you wish to delete
-	//   * Used to remove a specific card from the cards array
-	//   */
-	// public void removeSpecificCard(int elementIndex){
-	// 	//set up temporary holder for smaller array
-	// 	Card[] tempCards = new Card[(cards.length-1)];
-	// 	int nextIndex = 0;
+	/**
+	  * removeFullSet
+	  * @author Phelan
+	  * @param cardRank, the rank of the cards you wish to delete
+	  * Used to remove a full set of specific cards from the cards array
+	  */
+	public void removeFullSet(int cardRank){
+		//set up temporary holder for smaller array
+		Card[] tempCards = new Card[(cards.length-4)];
+		int nextIndex = 0;
 
-	// 	//loop through current array, adding all elements not at the index to the temporary array
-	// 	for(int i = 0; i<cards.length; i++){
-	// 		// System.out.println(cards[i]);
-	// 		if(i != elementIndex){
-	// 			tempCards[nextIndex] = cards[i];
-	// 			nextIndex++;
-	// 		}
-	// 	}
-	// 	//copy the temporary array into the cards array
-	// 	this.cards = tempCards;
-	// }
+		//loop through current array, adding all elements not at the index to the temporary array
+		for(int i = 0; i<cards.length; i++){
+			// System.out.println(cards[i]);
+			if(cards[i].getRank() != cardRank){
+				tempCards[nextIndex] = cards[i];
+				nextIndex++;
+			}
+		}
+		//copy the temporary array into the cards array
+		this.cards = tempCards;
+	}
 
 	public int calcTotal(){
 		int total = 0;

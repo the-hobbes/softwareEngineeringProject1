@@ -17,7 +17,7 @@ public class HumanPlayer implements Player{
 	private boolean hasCards;
 	private boolean opponentHasCard;
 	private Hand playerHand;
-
+	private int currentScore;
 	/**
 	 * main method for testing purposes
 	 */
@@ -73,6 +73,7 @@ public class HumanPlayer implements Player{
 	 */
 	public HumanPlayer(Hand playerHand){
 		this.playerHand = playerHand;
+		this.currentScore = 0;
 	}
 	
 	/**
@@ -85,6 +86,7 @@ public class HumanPlayer implements Player{
 	public Deck doTurn(Deck gameDeck,Player opponent){
 		this.gameDeck = gameDeck;
 		this.opponent = opponent;
+		
 		ArrayList<Card> foundCards = new ArrayList<Card>();
 
 		//Display the user's hand to them
@@ -121,21 +123,50 @@ public class HumanPlayer implements Player{
 
 			//check for a full set of cards in your hand
 			boolean isFullSet = playerHand.containsFourOfAKind(desiredCard);
+			System.out.println(isFullSet);
 			//play the full set down, if there are any
+			if(isFullSet)
+				playFullSet(desiredCard);
+			
 			//call doTurn() again
+			doTurn(gameDeck, opponent);
 		}
 		//the opponent doesn't have the card, and the player must go fish
 		else{
+			System.out.println("Nope, go fish");
 			//remove the top card from the deck
+			Card drawnCard = gameDeck.getTopCard();
 			//add that card to your hand
+			this.playerHand.addCard(drawnCard);
 			//check for the presence of a full set
+			boolean isFullSet = playerHand.containsFourOfAKind(drawnCard.getRank());
 			//play that full set if there is one
+			if(isFullSet)
+				playFullSet(desiredCard);
+			
 			//if the card pulled from the deck is the one asked for, call doTurn()
+			if(drawnCard.getRank() == desiredCard)
+				doTurn(gameDeck, opponent);
 		}
 		
 		return gameDeck;
 	}
-	
+
+	/**
+	  * playFullSet
+	  * @param the card which has just been added to the hand
+	  * Used to remove a full set from the hand and increment the score
+	  */
+	private void playFullSet(int desiredCard){
+		//display message
+		System.out.println("You got a full set of " + Integer.toString(desiredCard) + "'s");
+		//increment score
+		this.currentScore++;
+		//remove those cards from the hand
+		playerHand.removeFullSet(desiredCard);
+		System.out.println("Here's the hand, minus the 4 cards");
+		System.out.println(playerHand);
+	}	
 	/**
 	 * hasCards
 	 * Function to determine if the player has any cards in their hand
