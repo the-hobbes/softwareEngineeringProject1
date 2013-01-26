@@ -17,7 +17,7 @@ public class HumanPlayer implements Player{
 	private boolean hasCards;
 	private boolean opponentHasCard;
 	private Hand playerHand;
-	private int currentScore;
+	public int currentScore;
 	/**
 	 * main method for testing purposes
 	 */
@@ -150,6 +150,14 @@ public class HumanPlayer implements Player{
 		}
 		
 		return gameDeck;
+	}
+
+	/**
+	  * getCurrentScore
+	  * @return currentScore, the score for the turn
+	  */
+	public int getCurrentScore(){
+		return this.currentScore;
 	}
 
 	/**
