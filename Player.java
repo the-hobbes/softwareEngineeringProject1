@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public interface Player{
 	
-	public Deck doTurn(Deck gameDeck,Player opponent);
+	public Deck doTurn(Deck gameDeck,Player opponent, Turn[] turnHistory);
 	public boolean hasCards();
 	/**
 	*Asks the other player for a card

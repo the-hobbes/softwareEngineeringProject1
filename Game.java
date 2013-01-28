@@ -1,4 +1,5 @@
 public class Game{
+	public Turn[] turnHistory = new Turn[30]; // history of each turn
 	Deck theDeck = new Deck();
 
 	Player[] players = new Player[2];

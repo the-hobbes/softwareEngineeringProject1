@@ -12,6 +12,7 @@ import java.util.Stack;
 
 
 public class HumanPlayer implements Player{
+	private String name = "human"; 
 	private Deck gameDeck;
 	private Player opponent;
 	private boolean hasCards;
@@ -83,9 +84,10 @@ public class HumanPlayer implements Player{
 	 * @param opponent
 	 * @return deck
 	 */
-	public Deck doTurn(Deck gameDeck,Player opponent){
+	public Deck doTurn(Deck gameDeck,Player opponent, Turn[] turnHistory){
 		this.gameDeck = gameDeck;
 		this.opponent = opponent;
+		this.turnHistory = turnHistory;
 		
 		ArrayList<Card> foundCards = new ArrayList<Card>();
 
