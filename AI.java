@@ -199,6 +199,7 @@ public class AI implements Player{
 						for(int jj=0; jj<cards.length; jj++){
 							if(cards[jj].getRank()!=rankRequested){
 								output = cards[jj].getRank();
+								
 								break;
 							}else{
 								output = cards[0].getRank();
