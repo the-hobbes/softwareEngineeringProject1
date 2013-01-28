@@ -33,16 +33,52 @@ public class UserInterface{
 		System.out.println(userHand);
 	}
 
+	public static void displayMainMenu(){
+		String men= "=================================================================\n"
+		       	  + "= OOOOOOOO OOOOOOOO         OOOOOOOO OOOOOOOO OOOOOOOO OO    OO =\n"
+		          + "= OO    OO OO    OO         OO          OO    OO       OO    OO =\n"
+		          + "= OO   ___ OO    OO         OOOOO       OO    OOOOOOOO OOOOOOOO =\n"
+		          + "= OO    OO OO    OO         OO          OO          OO OO    OO =\n"
+		          + "= OOOOOOOO OOOOOOOO         OO        OOOOOOO OOOOOOOO OO    OO =\n"
+		          + "=================================================================\n"
+		          + "=     [P]lay        [C]redits        [H]elp          [Q]uit     =\n"
+		          + "=================================================================\n";
+		System.out.println(men);
+	}
+
 	/**
 	*Function to accept user input from the main menu, returns true to play the game, false to quit.
 	*@return True if the game should begin, false if the user wishes to quit
 	*/
 	public static boolean getMenuOption(){
+		//The user inputs can be the following:
+		//P for play game, H for help, C for credits, Q for quit
+		//full names like play,help,credits,quit will all work as well.
+
 		//Get user input
-
-		//Handle help and credits
-
-		//Handle quit or play
+		for (int i = 0; i < 50; ++i) System.out.println();
+		
+		Scanner scan = new Scanner(System.in);
+		boolean valid = false;
+		while(!valid){
+			displayMainMenu();
+			String in = scan.nextLine();
+			if(in.toUpperCase().equals("P") || in.toUpperCase().equals("PLAY")){
+				return true;
+			}else if(in.toUpperCase().equals("H") || in.toUpperCase().equals("HELP")){
+				displayHelp();
+			}else if(in.toUpperCase().equals("C") || in.toUpperCase().equals("CREDITS")){
+				displayCredits();
+				//Extra newline to make it look almost like the screen refreshed
+				System.out.println("\n");
+			}else if(in.toUpperCase().equals("Q") || in.toUpperCase().equals("QUIT")){
+				valid = true;
+			}else{
+				//Tell them they suck
+				System.out.println("The command you entered is not recognized, please enter P,H,C or Q.");
+			}
+			//Display the menu text.
+		}
 
 		//Handle errorful input
 		return false;
@@ -62,7 +98,7 @@ public class UserInterface{
 					 + "If the player recieved a card from their opponent, then it is still their turn and they ask again until they"
 					 + " are told to \"Go Fish\"."
 					 + "5) When any player has 4 cards of the same rank, they reveal these cards, remove them from their hand, and recieve a point.\n"
-					 + "6) The game ends when all cards are discarded or a player runs out of cards. The player with the highest score wins!\n\n";
+					 + "6) The game ends when all cards are discarded or a player runs out of cards. The player with the highest score wins!\n";
 		System.out.println(rules);
 	}
 
@@ -135,7 +171,7 @@ public class UserInterface{
 		Hand testHand = new Hand(new Card[]{new Card("Hearts",3), new Card("Spades",1)});
 		UserInterface.displayHand(testHand);
 		System.out.println(UserInterface.getCommand(testHand));
-
+		UserInterface.getMenuOption();
 	}
 
 }
