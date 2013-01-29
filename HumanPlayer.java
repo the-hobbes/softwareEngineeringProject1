@@ -20,27 +20,29 @@ public class HumanPlayer implements Player{
 	private Hand playerHand;
 	public int currentScore;
 	public Turn[] turnHistory;
+	private boolean continueGame;
+
 	/**
 	 * main method for testing purposes
 	 */
 	public static void main(String[] args) {
-		Deck deck = new Deck();
-		deck.shuffle();
+		// Deck deck = new Deck();
+		// deck.shuffle();
 
 		/* Test the respondCardRequest function */
-		Card[] cards = new Card[5];
+		// Card[] cards = new Card[5];
 		//add a specific card to the hand so we know what we are looking for
-		Card newCard = new Card("spades", 1);
+		// Card newCard = new Card("spades", 1);
 
 		//add cards from the deck to the cards array
-		for(int ii=0; ii<4; ii++){
-			cards[ii] = deck.getTopCard(); 
-		}
+		// for(int ii=0; ii<4; ii++){
+		// 	cards[ii] = deck.getTopCard(); 
+		// }
 		//add our specific card
-		cards[4] = newCard;
+		// cards[4] = newCard;
 
-		Hand hand = new Hand(cards);
-		HumanPlayer human = new HumanPlayer(hand);
+		// Hand hand = new Hand(cards);
+		// HumanPlayer human = new HumanPlayer(hand);
 		
 		/*Test the respondCardRequest function
 		System.out.println("Before Hand");
@@ -89,6 +91,7 @@ public class HumanPlayer implements Player{
 		this.gameDeck = gameDeck;
 		this.opponent = opponent;
 		this.turnHistory = turnHistory;
+		this.continueGame = true;
 		
 		ArrayList<Card> foundCards = new ArrayList<Card>();
 
@@ -102,6 +105,7 @@ public class HumanPlayer implements Player{
 		//if the opponent has no cards in their hand, the game is over
 		if(desiredCard == -1){
 			//call the endgame functions
+			this.continueGame = false;
 		}
 		
 		//request all the cards of desired type from the opponent
@@ -154,6 +158,16 @@ public class HumanPlayer implements Player{
 		
 		return gameDeck;
 	}
+
+	/**
+	  * getContinueGame
+	  * @return continueGame, a boolean value
+	  * used to determine if the game should continue, due to the opponent having no cards in their hand
+	  */
+	public boolean getContinueGame(){
+		return this.continueGame;
+	}
+
 
 	/**
 	  * getCurrentScore
