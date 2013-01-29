@@ -31,6 +31,14 @@ public class GamePlay{
 
 		goFish.endGame();
 
+		/*
+		while (they want to play)
+			getmenuoption()
+			while(continuegameplay)
+				do the functions of a turn
+				turns are taken and such
+		*/
+
 	}//main function
 
 }//GamePlay class
