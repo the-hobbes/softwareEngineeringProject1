@@ -15,6 +15,7 @@ public class AI implements Player{
 	private Deck gameDeck;
 	public int currentScore;
 	public Turn[] turnHistory;
+	private boolean hasCards;
 
 	// a main() function has been included to
 	// allow for testing
@@ -23,23 +24,21 @@ public class AI implements Player{
 		deck.shuffle();
 		Card[] cards = new Card[5];
 
-		for(int ii=0; ii<5; ii++){
+		for(int ii=0; ii<2; ii++){
 			cards[ii] = deck.getTopCard(); 
 		}
+
+		cards[2] = new Card("clubs", 3);
+		cards[3] = new Card("spades", 3);
+		cards[4] = new Card("diamond", 3);
 
 		Hand playerHand = new Hand(cards);
 		System.out.println(playerHand);
 		// System.out.println("_____");
 
 		AI comp = new AI(playerHand);
+		System.out.println(comp.analyzeHand());
 
-		// System.out.println(comp.hasSet());
-		if(comp.hasSet() >= 1){
-			int requestRank = comp.hasSet();
-			int setQTY = comp.countSetQTY(requestRank);
-			System.out.println("Number of elements in our set: "+setQTY);
-
-		}
 	} // end main()
 
 	public AI(Hand hand){
@@ -116,6 +115,19 @@ public class AI implements Player{
 	*@return rank of desired card
 	*/
 	private int analyzeHand(){
+		// for testing create an artifical turnHistory *******
+		this.turnHistory = new Turn[3];
+		this.turnHistory[0] = new Turn("human", true, 3);
+		this.turnHistory[1] = new Turn("ai", false, 7);
+		this.turnHistory[2] = new Turn("human", false, 13);
+		this.turnHistory[1] = new Turn("ai", true, 8);
+		this.turnHistory[2] = new Turn("human", false, 11);
+		this.turnHistory[1] = new Turn("ai", false, 7);
+		this.turnHistory[2] = new Turn("human", false, 10);
+		this.turnHistory[1] = new Turn("ai", true, 7);
+		this.turnHistory[2] = new Turn("human", false, 3);
+		// end testing artifical turnHistory *******
+
 		// go through our hand
 		// priority1: we have 3 of a kind, and the opponent has drawn cards 
 		// since we last asked for that rank
@@ -123,6 +135,7 @@ public class AI implements Player{
 		int setRank = this.hasSet();
 		int drewCounter = 0; // counts the numbner of cards drawn as we loop through our turns
 		int countRequested = 0; // the number of times we have requested this card
+		int output = -1;
 		// if we have a set, and that set is 3 cards
 		if(setRank!=-1 && countSetQTY(setRank)==3){
 			// go through our turn history and see if the opponent has
@@ -144,19 +157,68 @@ public class AI implements Player{
 						// if we have requested this card before, but opponent has drawn since
 						// or if we haven't asked for that card before
 						if((drewCounter>0 && countRequested>0)||countRequested <1){
-							return setRank;
+							output = setRank;
+						}
+					}
+				}
+			} // end for Turn iterator
+		// we have a set, but only a pair
+		}else if(setRank!=-1){
+			for(Turn turn : this.turnHistory){
+				// if the turn has been taken
+				if(turn != null){
+					// if the human took a turn and drew a card
+					if(turn.drewCard() && turn.isHuman()){
+						drewCounter++;
+					}
+					// if the turn was taken by a computer
+					if(!turn.isHuman()){
+						int rankRequested = turn.getRequested();
+						// if we have requested this rank before
+						if(rankRequested == setRank){
+							countRequested++;
+						}
+						// if we have requested this card before, but opponent has drawn since
+						// or if we haven't asked for that card before
+						if((drewCounter>0 && countRequested>0)||countRequested <1){
+							output = setRank;
+						}
+					}
+				}
+			} // end for Turn iterator
+		}else{
+			// we have no sets, iterate through the most recent turns 
+			for(int ii=0; ii<this.turnHistory.length; ii++){
+				// look back 3 turns, if the turn has been taken
+				if(turnHistory[ii] != null && ii<4){
+					// and the turn is AI 
+					if(!turnHistory[ii].isHuman()){
+						// request a card that wasn't requested recently
+						int rankRequested = turnHistory[ii].getRequested();
+						Card[] cards = playerHand.getCards();
+						for(int jj=0; jj<cards.length; jj++){
+							if(cards[jj].getRank()!=rankRequested){
+								output = cards[jj].getRank();
+								
+								break;
+							}else{
+								output = cards[0].getRank();
+							}
 						}
 					}
 				}
 			}
 		}
-		// priority2: we have a set 
-		// priority3: 
-		return -1;
+		return output;
 	} // end analyze hand
 	
 	public boolean hasCards(){
-		return true;
+		if(playerHand.calcTotal() > 0){
+			hasCards = true;
+		}else{
+			hasCards = false;
+		}
+		return hasCards;
 	} // end hasCards()
 
 	/**
@@ -172,18 +234,37 @@ public class AI implements Player{
 	*@return count of the number of cards in a set
 	*/
 	public ArrayList<Card> respondCardRequest(int desiredCard){
-		// loop through our hand and count the number of instances 
-		// of the requested card
+				//create a holder arraylist for the found cards
+		ArrayList<Card> foundCards = new ArrayList<Card>();
 
-		if(playerHand.hasCard(desiredCard)){
-			int counter = 0;
-			for(int ii=0; ii<playerHand.getNumCards(); ii++){
-				// if 
+		//oldhand is a container for the players current hand
+		Hand oldHand = playerHand;
+		//newhand is a stack to place the cards not culled from the players hand into
+		Stack<Card> newHand = new Stack<Card>();
+
+		//go through each card in the hand
+		for(int i=0; i<oldHand.getCards().length; i++){
+			Card currentCard = oldHand.getCards()[i];
+			//if the current card's rank isn't equal to the desired rank...
+			if(currentCard.getRank() != desiredCard){
+				//add that card to the new hand. it will not be given to the requesting player
+				newHand.push(currentCard);
+			}
+			else{
+				//otherwise, the card matches. add it to the arraylist keeping track of found cards
+				foundCards.add(currentCard);
 			}
 		}
-		ArrayList<Card> cardsToReturn = new ArrayList<Card>(3);
-		// Card card = new Card("test",1);
-		return cardsToReturn;
+		// convert the new hand to a hand object, and make that the new player hand
+		Card[] cardHolder = new Card[newHand.size()];
+		for(int j=0; j<newHand.size(); j++){
+			cardHolder[j] = newHand.get(j);
+			System.out.println(cardHolder[j]);
+		}
+		Hand freshHand = new Hand(cardHolder);
+		this.playerHand = freshHand;
+		//return the arraylist
+		return foundCards;
 	} // end respondCardRequest()
 
 	/**

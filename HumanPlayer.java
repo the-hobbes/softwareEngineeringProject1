@@ -19,6 +19,7 @@ public class HumanPlayer implements Player{
 	private boolean opponentHasCard;
 	private Hand playerHand;
 	public int currentScore;
+	public Turn[] turnHistory;
 	/**
 	 * main method for testing purposes
 	 */
@@ -53,19 +54,19 @@ public class HumanPlayer implements Player{
 		System.out.println(human.getHand());*/
 
 		/* test the doTurn function, creating a new player as an opponent*/ 
-		Card[] cards2 = new Card[5];
-		deck.shuffle();
-		for(int ii=0; ii<5; ii++){
-			cards2[ii] = deck.getTopCard(); 
-		}
-		Hand hand2 = new Hand(cards2);
-		HumanPlayer computer = new HumanPlayer(hand2);
+		// Card[] cards2 = new Card[5];
+		// deck.shuffle();
+		// for(int ii=0; ii<5; ii++){
+		// 	cards2[ii] = deck.getTopCard(); 
+		// }
+		// Hand hand2 = new Hand(cards2);
+		// HumanPlayer computer = new HumanPlayer(hand2);
 
-		System.out.println("Opponents Hand");
-		System.out.println(computer.getHand());
-		System.out.println("");
+		// System.out.println("Opponents Hand");
+		// System.out.println(computer.getHand());
+		// System.out.println("");
 
-		human.doTurn(deck, computer);
+		// human.doTurn(deck, computer);
 	}
 	
 	/**
@@ -131,7 +132,7 @@ public class HumanPlayer implements Player{
 				playFullSet(desiredCard);
 			
 			//call doTurn() again
-			doTurn(gameDeck, opponent);
+			doTurn(gameDeck, opponent, turnHistory);
 		}
 		//the opponent doesn't have the card, and the player must go fish
 		else{
@@ -148,7 +149,7 @@ public class HumanPlayer implements Player{
 			
 			//if the card pulled from the deck is the one asked for, call doTurn()
 			if(drawnCard.getRank() == desiredCard)
-				doTurn(gameDeck, opponent);
+				doTurn(gameDeck, opponent, turnHistory);
 		}
 		
 		return gameDeck;
