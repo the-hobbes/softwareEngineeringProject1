@@ -1,4 +1,4 @@
-/**
+/***
 *@author Danielle Steimke
 *Main function for gameplay
 *
