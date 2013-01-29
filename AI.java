@@ -116,16 +116,16 @@ public class AI implements Player{
 	*/
 	private int analyzeHand(){
 		// for testing create an artifical turnHistory *******
-		this.turnHistory = new Turn[3];
-		this.turnHistory[0] = new Turn("human", true, 3);
-		this.turnHistory[1] = new Turn("ai", false, 7);
-		this.turnHistory[2] = new Turn("human", false, 13);
-		this.turnHistory[1] = new Turn("ai", true, 8);
-		this.turnHistory[2] = new Turn("human", false, 11);
-		this.turnHistory[1] = new Turn("ai", false, 7);
-		this.turnHistory[2] = new Turn("human", false, 10);
-		this.turnHistory[1] = new Turn("ai", true, 7);
-		this.turnHistory[2] = new Turn("human", false, 3);
+		// this.turnHistory = new Turn[3];
+		// this.turnHistory[0] = new Turn("human", true, 3);
+		// this.turnHistory[1] = new Turn("ai", false, 7);
+		// this.turnHistory[2] = new Turn("human", false, 13);
+		// this.turnHistory[1] = new Turn("ai", true, 8);
+		// this.turnHistory[2] = new Turn("human", false, 11);
+		// this.turnHistory[1] = new Turn("ai", false, 7);
+		// this.turnHistory[2] = new Turn("human", false, 10);
+		// this.turnHistory[1] = new Turn("ai", true, 7);
+		// this.turnHistory[2] = new Turn("human", false, 3);
 		// end testing artifical turnHistory *******
 
 		// go through our hand
@@ -224,8 +224,19 @@ public class AI implements Player{
 	/**
 	*Asks the other player for a card
 	*/
-	public boolean makeCardRequest(Player opponent, int rank){
-		return true;
+	public boolean makeCardRequest(Player opponent, int desiredCard){
+		this.opponent = opponent;
+		opponentHasCard = false;
+
+		//if the card is in the opponent's hand, then return true. otherwise, false.
+		for(Card card : opponent.getHand().getCards()){
+			if(card.getRank() == desiredCard){
+				opponentHasCard = true;
+				return opponentHasCard;
+			}
+		}
+
+		return opponentHasCard;
 	} // end makeCardRequest
 
 	/**
