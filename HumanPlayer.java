@@ -12,33 +12,37 @@ import java.util.Stack;
 
 
 public class HumanPlayer implements Player{
+	private String name = "human"; 
 	private Deck gameDeck;
 	private Player opponent;
 	private boolean hasCards;
 	private boolean opponentHasCard;
 	private Hand playerHand;
 	public int currentScore;
+	public Turn[] turnHistory;
+	private boolean continueGame;
+
 	/**
 	 * main method for testing purposes
 	 */
 	public static void main(String[] args) {
-		Deck deck = new Deck();
-		deck.shuffle();
+		// Deck deck = new Deck();
+		// deck.shuffle();
 
 		/* Test the respondCardRequest function */
-		Card[] cards = new Card[5];
+		// Card[] cards = new Card[5];
 		//add a specific card to the hand so we know what we are looking for
-		Card newCard = new Card("spades", 1);
+		// Card newCard = new Card("spades", 1);
 
 		//add cards from the deck to the cards array
-		for(int ii=0; ii<4; ii++){
-			cards[ii] = deck.getTopCard(); 
-		}
+		// for(int ii=0; ii<4; ii++){
+		// 	cards[ii] = deck.getTopCard(); 
+		// }
 		//add our specific card
-		cards[4] = newCard;
+		// cards[4] = newCard;
 
-		Hand hand = new Hand(cards);
-		HumanPlayer human = new HumanPlayer(hand);
+		// Hand hand = new Hand(cards);
+		// HumanPlayer human = new HumanPlayer(hand);
 		
 		/*Test the respondCardRequest function
 		System.out.println("Before Hand");
@@ -52,19 +56,19 @@ public class HumanPlayer implements Player{
 		System.out.println(human.getHand());*/
 
 		/* test the doTurn function, creating a new player as an opponent*/ 
-		Card[] cards2 = new Card[5];
-		deck.shuffle();
-		for(int ii=0; ii<5; ii++){
-			cards2[ii] = deck.getTopCard(); 
-		}
-		Hand hand2 = new Hand(cards2);
-		HumanPlayer computer = new HumanPlayer(hand2);
+		// Card[] cards2 = new Card[5];
+		// deck.shuffle();
+		// for(int ii=0; ii<5; ii++){
+		// 	cards2[ii] = deck.getTopCard(); 
+		// }
+		// Hand hand2 = new Hand(cards2);
+		// HumanPlayer computer = new HumanPlayer(hand2);
 
-		System.out.println("Opponents Hand");
-		System.out.println(computer.getHand());
-		System.out.println("");
+		// System.out.println("Opponents Hand");
+		// System.out.println(computer.getHand());
+		// System.out.println("");
 
-		human.doTurn(deck, computer);
+		// human.doTurn(deck, computer);
 	}
 	
 	/**
@@ -83,9 +87,11 @@ public class HumanPlayer implements Player{
 	 * @param opponent
 	 * @return deck
 	 */
-	public Deck doTurn(Deck gameDeck,Player opponent){
+	public Deck doTurn(Deck gameDeck,Player opponent, Turn[] turnHistory){
 		this.gameDeck = gameDeck;
 		this.opponent = opponent;
+		this.turnHistory = turnHistory;
+		this.continueGame = true;
 		
 		ArrayList<Card> foundCards = new ArrayList<Card>();
 
@@ -99,6 +105,7 @@ public class HumanPlayer implements Player{
 		//if the opponent has no cards in their hand, the game is over
 		if(desiredCard == -1){
 			//call the endgame functions
+			this.continueGame = false;
 		}
 		
 		//request all the cards of desired type from the opponent
@@ -129,7 +136,7 @@ public class HumanPlayer implements Player{
 				playFullSet(desiredCard);
 			
 			//call doTurn() again
-			doTurn(gameDeck, opponent);
+			doTurn(gameDeck, opponent, turnHistory);
 		}
 		//the opponent doesn't have the card, and the player must go fish
 		else{
@@ -146,11 +153,21 @@ public class HumanPlayer implements Player{
 			
 			//if the card pulled from the deck is the one asked for, call doTurn()
 			if(drawnCard.getRank() == desiredCard)
-				doTurn(gameDeck, opponent);
+				doTurn(gameDeck, opponent, turnHistory);
 		}
 		
 		return gameDeck;
 	}
+
+	/**
+	  * getContinueGame
+	  * @return continueGame, a boolean value
+	  * used to determine if the game should continue, due to the opponent having no cards in their hand
+	  */
+	public boolean getContinueGame(){
+		return this.continueGame;
+	}
+
 
 	/**
 	  * getCurrentScore

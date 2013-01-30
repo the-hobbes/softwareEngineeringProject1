@@ -76,6 +76,19 @@ public class Deck{
 		Collections.shuffle(cardCollection);
 	} // end shuffle
 
+
+	/**
+	* checks to see if there are any cards left in the deck
+	*@return true is deck is empty, false if there are still cards
+	*/
+	public boolean isEmpty(){
+		boolean empty = false;
+		if(cardCollection.empty()){
+			empty = true;
+		}
+		return empty;
+	}
+
 	/**
 	* uses the Stack pop() method to display (and empty) the remaining deck
 	* @return a concatenated string of all the cards left in the deck

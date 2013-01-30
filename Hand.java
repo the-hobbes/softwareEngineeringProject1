@@ -12,6 +12,10 @@ public class Hand{
 	private int numCards;
 	private int totalHand;
 
+	public Hand(){
+		this.numCards = 0;
+		this.cards = new Card[0];
+	}
 	public Hand(Card[] cards){
 		setCards(cards);
 		this.numCards = cards.length;
