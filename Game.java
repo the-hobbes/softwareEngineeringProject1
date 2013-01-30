@@ -101,6 +101,13 @@ public class Game{
 		return this.theDeck;
 	}
 
+	public Player getComputerPlayer(){
+		return players[COMPUTER];
+	}
+
+	public Player getHumanPlayer(){
+		return players[PLAYER];
+	}
 	/**
 	*Checks to see if the hand has 4 of a kind, and increments the score if so.
 	*@param pHand The hand to be processed

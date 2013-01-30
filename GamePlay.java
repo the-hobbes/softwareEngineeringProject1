@@ -4,9 +4,6 @@
 *
 */
 
-import java.util.Scanner;
-
-
 
 public class GamePlay{
 	
@@ -14,30 +11,24 @@ public class GamePlay{
 		
 		//start game
 		Game goFish = new Game();
-		goFish.setUpGame(goFish);
+		goFish.setUpGame();
 
-		//find out if user needs help with the rules
-		String userInput;
-		System.out.println("Do you need help with the rules? (type yes or no)");
-		Scanner keyboard = new Scanner(System.in);//reads user keyboard input
-		userInput = keyboard.nextLine();//Line that is entered by user
-		if (userInput.compareToIgnoreCase("yes")) displayHelp();
-
-		while (goFish.continueGame()){
-			humanPlayer.doTurn(deck, artificialIntelligence);
-			goFish.processHand(humanHand);
-			artificialIntelligence.doTurn(deck, humanPlayer);
-			goFish.processHand(artificicialIntelligenceHand);}
-
+		
+		while (UserInterface.getMenuOption())
+		{
+			UserInterface.getMenuOption();
+			while(goFish.continueGame())
+			{
+				goFish.getHumanPlayer().doTurn(goFish.getDeck(), goFish.getComputerPlayer(), goFish.turnHistory);
+				goFish.processHand(goFish.getHumanPlayer().getHand());
+				goFish.getComputerPlayer().doTurn(goFish.getDeck(), goFish.getHumanPlayer(), goFish.turnHistory);
+				goFish.processHand(goFish.getComputerPlayer().getHand());
+				
+				
+			}			
+		}
+		
 		goFish.endGame();
-
-		/*
-		while (they want to play)
-			getmenuoption()
-			while(continuegameplay)
-				do the functions of a turn
-				turns are taken and such
-		*/
 
 	}//main function
 
