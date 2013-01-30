@@ -33,11 +33,12 @@ public class Game{
 			playerHand.addCard(theDeck.getTopCard());
 			aiHand.addCard(theDeck.getTopCard());
 		}
-
+		/*
 		System.out.println("Player Hand:\n");
 		System.out.println(playerHand.toString());
 		System.out.println("AI Hand:\n");
 		System.out.println(aiHand.toString());
+		*/
 		//create the two players with the created hands
 		AI ai = new AI(aiHand);
 		HumanPlayer player = new HumanPlayer(playerHand);
@@ -56,10 +57,8 @@ public class Game{
 		Random rand = new Random();
 		boolean turn = rand.nextBoolean();
 		if(turn){
-			System.out.println("\nHUMAN WILL PLAY FIRST");
 			currentPlayer = 0;
 		}else{
-			System.out.println("\nCOMPUTER WILL PLAY FIRST");
 			currentPlayer = 1;
 		}
 	}
@@ -69,7 +68,7 @@ public class Game{
 	*/
 	public boolean continueGame(){
 		boolean continueGame = true;
-		if(theDeck.isEmpty() || players[0].hasCards() || players[1].hasCards()){
+		if(theDeck.isEmpty() || players[PLAYER].hasCards() || players[COMPUTER].hasCards()){
 			continueGame = false;
 		}
 		return continueGame;
@@ -79,7 +78,27 @@ public class Game{
 	*Displays Scores and relevant information to the end game
 	*/
 	public void endGame(){
+		if(players[PLAYER].getCurrentScore() > players[COMPUTER].getCurrentScore()){
+			System.out.println("YOU WIN!");
+			System.out.println("Your Score: " + players[PLAYER].getCurrentScore());
+			System.out.println("Computer's Score: " + players[COMPUTER].getCurrentScore());
+		}else if(players[COMPUTER].getCurrentScore() > players[PLAYER].getCurrentScore()){
+			System.out.println("YOU LOSE!");
+			System.out.println("Computer's Score: " + players[COMPUTER].getCurrentScore());
+			System.out.println("Your Score: " + players[PLAYER].getCurrentScore());
+		}else{
+			System.out.println("YOU TIED!");
+			System.out.println("Your Score: " + players[PLAYER].getCurrentScore());
+			System.out.println("Computer's Score: " + players[COMPUTER].getCurrentScore());
+		}
+	}
 
+	/**
+	*Return the game deck
+	*@return The game deck
+	*/
+	public Deck getDeck(){
+		return this.theDeck;
 	}
 
 	/**
@@ -90,16 +109,10 @@ public class Game{
 
 	}
 
-	/**
-	*Deals 5 cards 
-	*/
-	public void dealHand(){
-
-	}
-
 	public static void main(String[] args) {
 		Game game = new Game();
 		game.setUpGame();
+		game.endGame();
 	}
 
 
