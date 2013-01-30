@@ -1,5 +1,11 @@
+/**
+*@author Scott MacEwan
+*
+*/
+import java.util.Random;
+
 public class Game{
-	publicTurn[] turnHistory = new Turn[30]; // history of each turn
+	public Turn[] turnHistory = new Turn[30]; // history of each turn
 	Deck theDeck = new Deck();
 
 	Player[] players = new Player[2];
@@ -13,19 +19,60 @@ public class Game{
 
 	/**
 	*Deals out 5 cards to each player, decides whose turn it is first, displays rules and credits
-	*@param game the game to setup
-	*@return the game that has been setup
 	*/
-	public static Game setUpGame(Game game){
+	public void setUpGame(){
+		//shuffle the deck
+		theDeck.shuffle();
 
-		return game;
+		//instantiate the two players' hands
+		Hand playerHand = new Hand();
+		Hand aiHand = new Hand();
+
+		//deal out 7 cards to each plater
+		for(int i = 0; i<7; i++){
+			playerHand.addCard(theDeck.getTopCard());
+			aiHand.addCard(theDeck.getTopCard());
+		}
+
+		System.out.println("Player Hand:\n");
+		System.out.println(playerHand.toString());
+		System.out.println("AI Hand:\n");
+		System.out.println(aiHand.toString());
+		//create the two players with the created hands
+		AI ai = new AI(aiHand);
+		HumanPlayer player = new HumanPlayer(playerHand);
+
+		//add them to the player array
+		players[PLAYER] = player;
+		players[COMPUTER] = ai;
+
+
+		//display credits and help
+		UserInterface.displayCredits();
+		UserInterface.displayHelp();
+
+
+		//generate random boolean to see who goes first
+		Random rand = new Random();
+		boolean turn = rand.nextBoolean();
+		if(turn){
+			System.out.println("\nHUMAN WILL PLAY FIRST");
+			currentPlayer = 0;
+		}else{
+			System.out.println("\nCOMPUTER WILL PLAY FIRST");
+			currentPlayer = 1;
+		}
 	}
 
 	/**
 	*Decides if the game is going to continue or not.
 	*/
 	public boolean continueGame(){
-		return false;
+		boolean continueGame = true;
+		if(theDeck.isEmpty() || players[0].hasCards() || players[1].hasCards()){
+			continueGame = false;
+		}
+		return continueGame;
 	}
 
 	/**
@@ -51,7 +98,8 @@ public class Game{
 	}
 
 	public static void main(String[] args) {
-		
+		Game game = new Game();
+		game.setUpGame();
 	}
 
 
