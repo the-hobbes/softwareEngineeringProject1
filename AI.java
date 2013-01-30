@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Arrays;  
 import java.util.Stack;
+import java.math.*;
 
 
 public class AI implements Player{
@@ -21,24 +22,25 @@ public class AI implements Player{
 	// a main() function has been included to
 	// allow for testing
 	public static void main(String[] args) {
-		Deck deck = new Deck();
-		deck.shuffle();
-		Card[] cards = new Card[5];
+		// Deck deck = new Deck();
+		// deck.shuffle();
+		// Card[] cards = new Card[5];
 
-		for(int ii=0; ii<2; ii++){
-			cards[ii] = deck.getTopCard(); 
-		}
+		// for(int ii=0; ii<2; ii++){
+		// 	cards[ii] = deck.getTopCard(); 
+		// }
 
-		cards[2] = new Card("clubs", 3);
-		cards[3] = new Card("spades", 3);
-		cards[4] = new Card("diamond", 3);
+		// cards[2] = new Card("clubs", 3);
+		// cards[3] = new Card("spades", 3);
+		// cards[4] = new Card("diamond", 3);
 
-		Hand playerHand = new Hand(cards);
-		System.out.println(playerHand);
-		// System.out.println("_____");
+		// Hand playerHand = new Hand(cards);
+		// System.out.println(playerHand);
+		// // System.out.println("_____");
 
-		AI comp = new AI(playerHand);
-		System.out.println(comp.analyzeHand());
+		// AI comp = new AI(playerHand);
+		// System.out.println(comp.analyzeHand());
+		System.out.println((int)(Math.random()*10));
 
 	} // end main()
 
@@ -50,10 +52,6 @@ public class AI implements Player{
 		return this.playerHand;
 	} // end getHand()
 
-	public int getCurrentScore(){
-		return this.currentScore;
-	}
-	
 	public Deck doTurn(Deck gameDeck, Player opponent, Turn[] turnHistory){
 		this.gameDeck = gameDeck;
 		this.opponent = opponent;
@@ -207,7 +205,9 @@ public class AI implements Player{
 								
 								break;
 							}else{
-								output = cards[0].getRank();
+								int num = cards.length-1;
+								int ran = (int)(Math.random()*num)
+								output = cards[ran].getRank();
 							}
 						}
 					}
@@ -355,5 +355,9 @@ public class AI implements Player{
 
 	public void endTurn(){
 	} // end endTurn()
+
+	public int getCurrentScore(){
+		return this.currentScore;
+	}
 
 }
