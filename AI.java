@@ -16,6 +16,7 @@ public class AI implements Player{
 	public int currentScore;
 	public Turn[] turnHistory;
 	private boolean hasCards;
+	private boolean opponentHasCard;
 
 	// a main() function has been included to
 	// allow for testing
@@ -49,6 +50,10 @@ public class AI implements Player{
 		return this.playerHand;
 	} // end getHand()
 
+	public int getCurrentScore(){
+		return this.currentScore;
+	}
+	
 	public Deck doTurn(Deck gameDeck, Player opponent, Turn[] turnHistory){
 		this.gameDeck = gameDeck;
 		this.opponent = opponent;
