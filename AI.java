@@ -285,13 +285,11 @@ public class AI implements Player{
 	  */
 	private void playFullSet(int desiredCard){
 		//display message
-		System.out.println("You got a full set of " + Integer.toString(desiredCard) + "'s");
+		System.out.println("The computer has a full set of " + Integer.toString(desiredCard) + "'s");
 		//increment score
 		this.currentScore++;
 		//remove those cards from the hand
 		playerHand.removeFullSet(desiredCard);
-		System.out.println("Here's the hand, minus the 4 cards");
-		System.out.println(playerHand);
 	} // end playFullSet()
 
 	/**
