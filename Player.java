@@ -12,4 +12,5 @@ public interface Player{
 	public void endTurn();	
 	public Card[] getMyCompleteSets();
 	public Hand getHand();
+	public int getCurrentScore();
 }
