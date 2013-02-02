@@ -30,12 +30,12 @@ public class GamePlay{
 				}
 				goFish.setDeck(tempDeck);				
 			}	
-
+			goFish.endGame();
 			continueGoFish = UserInterface.getMenuOption();		
 
 		}
 		
-		goFish.endGame();
+		
 
 
 	}//main function
