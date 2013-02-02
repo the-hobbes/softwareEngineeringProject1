@@ -243,7 +243,6 @@ public class HumanPlayer implements Player{
 		}else{
 			System.out.println("Opponent did not have the card \n");
 		}
-		System.out.println("Make card request: " + opponentHasCard);
 		return opponentHasCard;
 	}
 	
@@ -280,9 +279,6 @@ public class HumanPlayer implements Player{
 
 		// convert the new hand to a hand object, and make that the new player hand
 		Card[] cardHolder = new Card[newHand.size()];
-		System.out.println("Card holder Human:");
-		System.out.println("newHand Size:" + Integer.toString(newHand.size()));
-		System.out.println("\n" + newHand.toString());
 		for(int j = 0; j < newHand.size(); j++){
 			cardHolder[j] = newHand.get(j);
 			
@@ -290,9 +286,6 @@ public class HumanPlayer implements Player{
 		Hand freshHand = new Hand(cardHolder);
 		this.playerHand = freshHand;		
 		//return the arraylist
-		System.out.println("***************************************************************");
-		System.out.println(foundCards.toString() + "\n");
-		System.out.println(foundCards.size());
 		return foundCards;
 	}
 
