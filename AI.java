@@ -91,7 +91,7 @@ public class AI implements Player{
 				playFullSet(desiredCard);
 			
 			//call doTurn() again
-			doTurn(gameDeck, opponent, turnHistory);
+			gameDeck = doTurn(gameDeck, opponent, turnHistory);
 		}
 		//the opponent doesn't have the card, and the player must go fish
 		else{
@@ -107,7 +107,7 @@ public class AI implements Player{
 			
 			//if the card pulled from the deck is the one asked for, call doTurn()
 			if(drawnCard.getRank() == desiredCard)
-				doTurn(gameDeck, opponent, turnHistory);
+				gameDeck = doTurn(gameDeck, opponent, turnHistory);
 		}
 		
 		return gameDeck;
