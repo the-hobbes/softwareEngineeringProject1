@@ -13,8 +13,9 @@ public class GamePlay{
 		Game goFish = new Game();
 		goFish.setUpGame();
 
-		
-		while (UserInterface.getMenuOption())
+		boolean continueGoFish = UserInterface.getMenuOption();
+
+		while (continueGoFish)
 		{
 
 			System.out.println( "-----------------------------------------------------------------");
@@ -28,7 +29,7 @@ public class GamePlay{
 				
 			}	
 
-			UserInterface.getMenuOption();		
+			continueGoFish = UserInterface.getMenuOption();		
 		}
 		
 		goFish.endGame();
