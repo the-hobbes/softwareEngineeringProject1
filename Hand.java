@@ -25,6 +25,8 @@ public class Hand{
 
 	public void setCards(Card[] cards){
 		this.cards = cards;
+		for(int i = 0; i < cards.length; i++){
+		}
 		CustomComparator customComparator= new CustomComparator();
 		Arrays.sort(this.cards, customComparator);
 	}
@@ -58,6 +60,15 @@ public class Hand{
 		Card[] tempHand = this.cards;
 		Card[] newHand = new Card[sizeOldArray+1];
 		for(int jj=0; jj<sizeOldArray; jj++){
+			if(tempHand[jj]==null){
+				StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
+				for(int ii = 0; ii < stackTraceElements.length; ii ++){
+					System.out.println(stackTraceElements[ii].getFileName() + " ");
+					System.out.println(stackTraceElements[ii].getClassName()+ " ");
+					System.out.println(stackTraceElements[ii].getLineNumber()+ " ");
+					System.out.println(stackTraceElements[ii].getMethodName()+ " \n");
+				}
+			}
 			newHand[jj] = tempHand[jj];
 		}
 		newHand[sizeOldArray] = addedCard;
@@ -102,7 +113,6 @@ public class Hand{
 		// Card[] tempCards = new Card[(cards.length-4)];
 		// int nextIndex = 0;
 		Stack<Card> tempCards = new Stack<Card>();
-
 		//loop through current array, adding all elements not at the index to the temporary array
 		for(int i = 0; i<cards.length; i++){
 			// System.out.println(cards[i]);
@@ -112,6 +122,7 @@ public class Hand{
 		}
 		//copy the temporary array into the cards array
 		// this.cards = tempCards;
+		this.cards = new Card[tempCards.size()];
 		this.cards = tempCards.toArray(this.cards);
 	}
 
@@ -154,12 +165,14 @@ public class Hand{
 	public String toString(){
 		String tmp = "";
 		for(int ii=0; ii<this.cards.length; ii++){
-			tmp += "Card";
-			tmp += ii+1;
-			tmp += ": ";
-			tmp += this.cards[ii].toString();
-			tmp += "\n";
-			// System.out.println(tmp);
+			if(this.cards[ii] != null){
+				tmp += "Card";
+				tmp += ii+1;
+				tmp += ": ";
+				tmp += this.cards[ii].toString();
+				tmp += "\n";
+				// System.out.println(tmp);
+			}
 		}
 
 		return tmp;

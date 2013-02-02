@@ -109,7 +109,7 @@ public class AI implements Player{
 			boolean isFullSet = playerHand.containsFourOfAKind(drawnCard.getRank());
 			//play that full set if there is one
 			if(isFullSet)
-				playFullSet(desiredCard);
+				playFullSet(drawnCard.getRank());
 			
 			//if the card pulled from the deck is the one asked for, call doTurn()
 			if(drawnCard.getRank() == desiredCard)
@@ -254,11 +254,11 @@ public class AI implements Player{
 	*@return count of the number of cards in a set
 	*/
 	public ArrayList<Card> respondCardRequest(int desiredCard){
-				//create a holder arraylist for the found cards
+		//create a holder arraylist for the found cards
 		ArrayList<Card> foundCards = new ArrayList<Card>();
 
 		//oldhand is a container for the players current hand
-		Hand oldHand = playerHand;
+		Hand oldHand = this.playerHand;
 		//newhand is a stack to place the cards not culled from the players hand into
 		Stack<Card> newHand = new Stack<Card>();
 
@@ -269,23 +269,27 @@ public class AI implements Player{
 			if(currentCard.getRank() != desiredCard){
 				//add that card to the new hand. it will not be given to the requesting player
 				newHand.push(currentCard);
+				System.out.println(currentCard.toString());
 			}
 			else{
 				//otherwise, the card matches. add it to the arraylist keeping track of found cards
 				foundCards.add(currentCard);
 			}
 		}
+
 		// convert the new hand to a hand object, and make that the new player hand
 		Card[] cardHolder = new Card[newHand.size()];
-		System.out.println("The computer's hand: \n");
-		for(int j=0; j<newHand.size(); j++){
+		System.out.println("Card holder AI:");
+		System.out.println("newHand Size:" + Integer.toString(newHand.size()));
+		System.out.println("\n" + newHand.toString());
+		for(int j = 0; j < newHand.size(); j++){
 			cardHolder[j] = newHand.get(j);
-			System.out.println(cardHolder[j]);
 		}
-
-		System.out.println("------------------- \n");
+		System.out.println(cardHolder.length);
+		System.out.println(cardHolder.toString());
 		Hand freshHand = new Hand(cardHolder);
 		this.playerHand = freshHand;
+		
 		//return the arraylist
 		return foundCards;
 	} // end respondCardRequest()

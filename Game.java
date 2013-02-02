@@ -23,7 +23,7 @@ public class Game{
 	public void setUpGame(){
 		//shuffle the deck
 		theDeck = new Deck();
-		//theDeck.shuffle();
+		theDeck.shuffle();
 
 		//instantiate the two players' hands
 		Hand playerHand = new Hand();
