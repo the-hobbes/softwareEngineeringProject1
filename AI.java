@@ -65,9 +65,8 @@ public class AI implements Player{
 		// analyze hand inspects the state of the hand, and previous turns, and returns an
 		// int indicating the rank of the desired card 
 		int desiredCard = this.analyzeHand();
-		System.out.println("Computer's hand: \n"+this.playerHand);
-		System.out.println("Computer requests a "+this.getRankTrad(desiredCard));
-		System.out.println("\n");
+
+		System.out.println("\n Computer requests a "+desiredCard);
 		
 		//if the opponent has no cards in their hand, the game is over
 		if(desiredCard == -1){
@@ -134,8 +133,12 @@ public class AI implements Player{
 		int countRequested = 0; // the number of times we have requested this card
 		Card[] cards = playerHand.getCards();
 		int output = cards[0].getRank();
+		
+
 		// if we have a set, and that set is 3 cards
 		if(setRank!=-1 && countSetQTY(setRank)==3){
+			// if we asked for the same card 3 times in a row ask for a different card
+			int histCounter = 0;
 			// go through our turn history and see if the opponent has
 			// drawn a card since we last asked for that rank
 			for(Turn turn : this.turnHistory){
@@ -155,7 +158,18 @@ public class AI implements Player{
 						// if we have requested this card before, but opponent has drawn since
 						// or if we haven't asked for that card before
 						if((drewCounter>0 && countRequested>0)||countRequested <1){
-							output = setRank;
+							if(this.turnHistory.length > 4){
+								for(int ii=3; ii > -1; ii--){
+									if(this.turnHistory[ii].getRequested() == setRank && !this.turnHistory[ii].isHuman()){
+										histCounter++;
+									}
+								}
+							}
+							if(histCounter > 2){
+								output = cards[0].getRank();
+							}else{
+								output = setRank;
+							}
 						}
 					}
 				}
@@ -196,7 +210,6 @@ public class AI implements Player{
 						for(int jj=0; jj<cards.length; jj++){
 							if(cards[jj].getRank()!=rankRequested){
 								output = cards[jj].getRank();
-								
 								break;
 							}else{
 								output = cards[0].getRank();
@@ -212,7 +225,6 @@ public class AI implements Player{
 		}else{
 			output = cards[0].getRank();
 		}
-
 		return output;
 	} // end analyze hand
 	
@@ -242,9 +254,9 @@ public class AI implements Player{
 			}
 		}
 		if(opponentHasCard){
-			System.out.println("Opponent had the card! \n");
+			System.out.println("You had the card! \n");
 		}else{
-			System.out.println("Opponent did not have the card \n");
+			System.out.println("You did not have the card \n");
 		}
 		return opponentHasCard;
 	} // end makeCardRequest
