@@ -137,7 +137,8 @@ public class HumanPlayer implements Player{
 					playFullSet(desiredCard);
 				
 				//call doTurn() again
-				this.gameDeck = doTurn(this.gameDeck, opponent, turnHistory);
+				if(playerHand.isEmpty() || gameDeck.isEmpty())
+					this.gameDeck = doTurn(this.gameDeck, opponent, turnHistory);
 			}
 		}
 		//the opponent doesn't have the card, and the player must go fish
@@ -158,15 +159,10 @@ public class HumanPlayer implements Player{
 				playFullSet(drawnCard.getRank());
 			
 			//if the card pulled from the deck is the one asked for, call doTurn()
-			if(drawnCard.getRank() == desiredCard){
-				//check endgame conditions, kill game if endgame met
-				if((opponent.hasCards() == false) || (this.hasCards() == false)){
-					System.out.println("Kill the game");
-					return this.gameDeck;
-				}
-
-				//otherwise continue
-				this.gameDeck = doTurn(this.gameDeck, opponent, turnHistory);
+			if(drawnCard.getRank() == desiredCard)
+			{
+				if(playerHand.isEmpty() || gameDeck.isEmpty())
+					this.gameDeck = doTurn(this.gameDeck, opponent, turnHistory);
 			}
 		}
 		
