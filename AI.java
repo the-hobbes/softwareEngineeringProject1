@@ -52,6 +52,7 @@ public class AI implements Player{
 		return this.playerHand;
 	} // end getHand()
 
+	@Override
 	public Deck doTurn(Deck gameDeck, Player opponent, Turn[] turnHistory){
 		this.gameDeck = gameDeck;
 		this.opponent = opponent;

@@ -18,7 +18,6 @@ public class GamePlay{
 		{
 
 			System.out.println( "-----------------------------------------------------------------");
-
 			while(goFish.continueGame())
 			{
 				goFish.getHumanPlayer().doTurn(goFish.getDeck(), goFish.getComputerPlayer(), goFish.turnHistory);
@@ -27,8 +26,6 @@ public class GamePlay{
 				goFish.processHand(goFish.getComputerPlayer().getHand());
 				
 			}	
-
-			UserInterface.getMenuOption();		
 		}
 		
 		goFish.endGame();
