@@ -101,6 +101,10 @@ public class Game{
 		return this.theDeck;
 	}
 
+	public void setDeck(Deck deck){
+		this.theDeck = deck;
+	}
+
 	public Player getComputerPlayer(){
 		return players[COMPUTER];
 	}
