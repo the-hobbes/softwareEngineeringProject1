@@ -124,11 +124,6 @@ public class HumanPlayer implements Player{
 				Hand newplayerhand = new Hand(tempCard);
 				this.playerHand = newplayerhand;
 
-				// System.out.println("Your new hand");
-				// System.out.println(playerHand);
-				// System.out.println("Opponents new hand");
-				// System.out.println(opponent.getHand());
-
 				//check for a full set of cards in your hand
 				boolean isFullSet = playerHand.containsFourOfAKind(desiredCard);
 				// System.out.println(isFullSet);
@@ -143,7 +138,7 @@ public class HumanPlayer implements Player{
 		}
 		//the opponent doesn't have the card, and the player must go fish
 		else if(! this.gameDeck.isEmpty()){
-			System.out.println("Nope, go fish");
+			System.out.println("Go fish!");
 			//remove the top card from the deck
 
 			Card drawnCard = this.gameDeck.getTopCard();					
