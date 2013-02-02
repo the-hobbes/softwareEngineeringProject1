@@ -132,16 +132,16 @@ public class HumanPlayer implements Player{
 					playFullSet(desiredCard);
 				
 				//call doTurn() again
-<<<<<<< HEAD
+// <<<<<<< HEAD
 				if(playerHand.isEmpty() || gameDeck.isEmpty())
 					this.gameDeck = doTurn(this.gameDeck, opponent);
-=======
-				if(!playerHand.isEmpty())
-				{
-					if(!gameDeck.isEmpty())
-						this.gameDeck = doTurn(this.gameDeck, opponent, turnHistory);
-				}
->>>>>>> 92f0f05642f8d899fe4bf21c3fe89d9abae4d50d
+// =======
+// 				if(!playerHand.isEmpty())
+// 				{
+// 					if(!gameDeck.isEmpty())
+// 						this.gameDeck = doTurn(this.gameDeck, opponent, turnHistory);
+// 				}
+// >>>>>>> 92f0f05642f8d899fe4bf21c3fe89d9abae4d50d
 			}
 		}
 		//the opponent doesn't have the card, and the player must go fish
@@ -164,16 +164,16 @@ public class HumanPlayer implements Player{
 			//if the card pulled from the deck is the one asked for, call doTurn()
 			if(drawnCard.getRank() == desiredCard)
 			{
-<<<<<<< HEAD
+// <<<<<<< HEAD
 				if(playerHand.isEmpty() || gameDeck.isEmpty())
 					this.gameDeck = doTurn(this.gameDeck, opponent);
-=======
-				if (!playerHand.isEmpty())
-				{
-					if(!gameDeck.isEmpty())
-					this.gameDeck = doTurn(this.gameDeck, opponent, turnHistory);
-				}
->>>>>>> 92f0f05642f8d899fe4bf21c3fe89d9abae4d50d
+// =======
+// 				if (!playerHand.isEmpty())
+// 				{
+// 					if(!gameDeck.isEmpty())
+// 					this.gameDeck = doTurn(this.gameDeck, opponent, turnHistory);
+// 				}
+// >>>>>>> 92f0f05642f8d899fe4bf21c3fe89d9abae4d50d
 			}
 		}
 		else{

@@ -97,22 +97,22 @@ public class AI implements Player{
 			}
 			
 			//call doTurn() again
-<<<<<<< HEAD
+// // <<<<<<< HEAD
 			
-			if (playerHand.isEmpty() || gameDeck.isEmpty())
-				this.gameDeck = doTurn(this.gameDeck, opponent);
+// 			if (playerHand.isEmpty() || gameDeck.isEmpty())
+// 				this.gameDeck = doTurn(this.gameDeck, opponent);
 			
-		}
-		//the opponent doesn't have the card, and the player must go fish
-		else{
-			Turn singleTurn = new Turn("ai", false, desiredCard);
-			turnHistory.add(singleTurn);
-			System.out.println("Nope, go fish");
-=======
+// 		}
+// 		//the opponent doesn't have the card, and the player must go fish
+// 		else{
+// 			Turn singleTurn = new Turn("ai", false, desiredCard);
+// 			turnHistory.add(singleTurn);
+// 			System.out.println("Nope, go fish");
+// =======
 			if (!playerHand.isEmpty())
 			{
 				if(!gameDeck.isEmpty())
-					this.gameDeck = doTurn(this.gameDeck, opponent, turnHistory);
+					this.gameDeck = doTurn(this.gameDeck, opponent);
 			} 
 				
 			
@@ -120,7 +120,7 @@ public class AI implements Player{
 		//the opponent doesn't have the card, and the player must go fish
 		else if(! this.gameDeck.isEmpty()){
 			System.out.println("Go fish!");
->>>>>>> 92f0f05642f8d899fe4bf21c3fe89d9abae4d50d
+// >>>>>>> 92f0f05642f8d899fe4bf21c3fe89d9abae4d50d
 			//remove the top card from the deck
 			Card drawnCard = this.gameDeck.getTopCard();
 			//add that card to your hand
@@ -134,25 +134,25 @@ public class AI implements Player{
 			//if the card pulled from the deck is the one asked for, call doTurn()
 			if(drawnCard.getRank() == desiredCard)
 			{
-<<<<<<< HEAD
-				if (playerHand.isEmpty() || gameDeck.isEmpty())
-					this.gameDeck = doTurn(this.gameDeck, opponent);
-			}
-		}
+// // <<<<<<< HEAD
+// 				if (playerHand.isEmpty() || gameDeck.isEmpty())
+// 					this.gameDeck = doTurn(this.gameDeck, opponent);
+// 			}
+// 		}
 
 
-=======
+// // =======
 				if (!playerHand.isEmpty())
 				{
 					if(!gameDeck.isEmpty())
-						this.gameDeck = doTurn(this.gameDeck, opponent, turnHistory);
+						this.gameDeck = doTurn(this.gameDeck, opponent);
 				}
 			}
 		}
 		else{
 			System.out.println("no cards left in the deck!");
 		}
->>>>>>> 92f0f05642f8d899fe4bf21c3fe89d9abae4d50d
+// >>>>>>> 92f0f05642f8d899fe4bf21c3fe89d9abae4d50d
 		
 		return this.gameDeck;
 	} // end doTurn()
@@ -198,18 +198,18 @@ public class AI implements Player{
 		// for our first strategy, we want to see if we have 3 of a kind
 		// but we want to make sure not to ask for the same card over and over
 		int setRank = this.hasSet();
-<<<<<<< HEAD
+// <<<<<<< HEAD
 		int output = -1;
 		int drewCounter = 0;
 		int countRequested = 0;
 
-=======
-		int drewCounter = 0; // counts the numbner of cards drawn as we loop through our turns
-		int countRequested = 0; // the number of times we have requested this card
-		Card[] cards = playerHand.getCards();
-		int output = cards[0].getRank();
+// =======
+// 		int drewCounter = 0; // counts the numbner of cards drawn as we loop through our turns
+// 		int countRequested = 0; // the number of times we have requested this card
+// 		Card[] cards = playerHand.getCards();
+// 		int output = cards[0].getRank();
 		
->>>>>>> 92f0f05642f8d899fe4bf21c3fe89d9abae4d50d
+// >>>>>>> 92f0f05642f8d899fe4bf21c3fe89d9abae4d50d
 		// if we have a set, and that set is 3 cards
 		if(setRank!=-1 && countSetQTY(setRank)==3){
 			// if we asked for the same card 3 times in a row ask for a different card
