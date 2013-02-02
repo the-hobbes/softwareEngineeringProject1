@@ -123,10 +123,10 @@ public class HumanPlayer implements Player{
 			Hand newplayerhand = new Hand(tempCard);
 			this.playerHand = newplayerhand;
 
-			System.out.println("Your new hand");
-			System.out.println(playerHand);
-			System.out.println("Opponents new hand");
-			System.out.println(opponent.getHand());
+			// System.out.println("Your new hand");
+			// System.out.println(playerHand);
+			// System.out.println("Opponents new hand");
+			// System.out.println(opponent.getHand());
 
 			//check for a full set of cards in your hand
 			boolean isFullSet = playerHand.containsFourOfAKind(desiredCard);
@@ -140,7 +140,7 @@ public class HumanPlayer implements Player{
 		}
 		//the opponent doesn't have the card, and the player must go fish
 		else{
-			System.out.println("Nope, go fish");
+			// System.out.println("Nope, go fish");
 			//remove the top card from the deck
 			Card drawnCard = gameDeck.getTopCard();
 			//add that card to your hand
@@ -184,13 +184,13 @@ public class HumanPlayer implements Player{
 	  */
 	private void playFullSet(int desiredCard){
 		//display message
-		System.out.println("You got a full set of " + Integer.toString(desiredCard) + "'s");
+		// System.out.println("You got a full set of " + Integer.toString(desiredCard) + "'s");
 		//increment score
 		this.currentScore++;
 		//remove those cards from the hand
 		playerHand.removeFullSet(desiredCard);
-		System.out.println("Here's the hand, minus the 4 cards");
-		System.out.println(playerHand);
+		// System.out.println("Here's the hand, minus the 4 cards");
+		// System.out.println(playerHand);
 	}	
 	/**
 	 * hasCards
