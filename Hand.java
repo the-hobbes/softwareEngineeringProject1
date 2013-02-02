@@ -103,16 +103,19 @@ public class Hand{
 		// int nextIndex = 0;
 		Stack<Card> tempCards = new Stack<Card>();
 
+		
+
 		//loop through current array, adding all elements not at the index to the temporary array
 		for(int i = 0; i<cards.length; i++){
-			// System.out.println(cards[i]);
 			if(cards[i].getRank() != cardRank){
 				tempCards.push(cards[i]);
 			}
 		}
 		//copy the temporary array into the cards array
 		// this.cards = tempCards;
+		System.out.println("");
 		this.cards = tempCards.toArray(this.cards);
+		System.out.println(tempCards.toString());
 	}
 
 	public int calcTotal(){

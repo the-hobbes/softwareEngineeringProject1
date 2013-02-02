@@ -22,7 +22,9 @@ public class GamePlay{
 			while(goFish.continueGame())
 			{
 				Deck tempDeck = goFish.getDeck();
+				System.out.println(goFish.getDeck().toString());
 				tempDeck = goFish.getHumanPlayer().doTurn(tempDeck, goFish.getComputerPlayer(), goFish.turnHistory);
+				System.out.println(tempDeck);
 				//goFish.processHand(goFish.getHumanPlayer().getHand());
 				tempDeck = goFish.getComputerPlayer().doTurn(tempDeck, goFish.getHumanPlayer(), goFish.turnHistory);
 				//goFish.processHand(goFish.getComputerPlayer().getHand());
