@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class Game{
 	public Turn[] turnHistory = new Turn[30]; // history of each turn
-	Deck theDeck = new Deck();
+	Deck theDeck;
 
 	Player[] players = new Player[2];
 
@@ -22,6 +22,7 @@ public class Game{
 	*/
 	public void setUpGame(){
 		//shuffle the deck
+		theDeck = new Deck();
 		theDeck.shuffle();
 
 		//instantiate the two players' hands

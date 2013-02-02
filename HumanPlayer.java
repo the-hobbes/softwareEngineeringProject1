@@ -112,52 +112,57 @@ public class HumanPlayer implements Player{
 		if (makeCardRequest(opponent, desiredCard)){
 			//get all instances of that card from the opponent (removing them from the opponent's hand as well)
 			foundCards = opponent.respondCardRequest(desiredCard);
-			//add them to your hand
-			for(Card card : playerHand.getCards()){
-				foundCards.add(card);
-			}
-			Card[] tempCard = new Card[foundCards.size()];
-			for(int i=0; i<tempCard.length; i++){
-				tempCard[i] = foundCards.get(i);
-			}
-			Hand newplayerhand = new Hand(tempCard);
-			this.playerHand = newplayerhand;
+			if(foundCards != null){
+				//add them to your hand
+				for(Card card : playerHand.getCards()){
+					foundCards.add(card);
+				}
+				Card[] tempCard = new Card[foundCards.size()];
+				for(int i=0; i<tempCard.length; i++){
+					tempCard[i] = foundCards.get(i);
+				}
+				Hand newplayerhand = new Hand(tempCard);
+				this.playerHand = newplayerhand;
 
-			// System.out.println("Your new hand");
-			// System.out.println(playerHand);
-			// System.out.println("Opponents new hand");
-			// System.out.println(opponent.getHand());
+				// System.out.println("Your new hand");
+				// System.out.println(playerHand);
+				// System.out.println("Opponents new hand");
+				// System.out.println(opponent.getHand());
 
-			//check for a full set of cards in your hand
-			boolean isFullSet = playerHand.containsFourOfAKind(desiredCard);
-			// System.out.println(isFullSet);
-			//play the full set down, if there are any
-			if(isFullSet)
-				playFullSet(desiredCard);
-			
-			//call doTurn() again
-			gameDeck = doTurn(gameDeck, opponent, turnHistory);
+				//check for a full set of cards in your hand
+				boolean isFullSet = playerHand.containsFourOfAKind(desiredCard);
+				// System.out.println(isFullSet);
+				//play the full set down, if there are any
+				if(isFullSet)
+					playFullSet(desiredCard);
+				
+				//call doTurn() again
+				this.gameDeck = doTurn(this.gameDeck, opponent, turnHistory);
+			}
 		}
 		//the opponent doesn't have the card, and the player must go fish
 		else{
 			System.out.println("Nope, go fish");
 			//remove the top card from the deck
-			Card drawnCard = gameDeck.getTopCard();
+			Card drawnCard = this.gameDeck.getTopCard();		
+
 			System.out.println("You drew a " + drawnCard.getRank() + " of " + drawnCard.getSuit());
 			//add that card to your hand
+			
 			this.playerHand.addCard(drawnCard);
+			System.out.println(this.getHand().toString());
 			//check for the presence of a full set
 			boolean isFullSet = playerHand.containsFourOfAKind(drawnCard.getRank());
 			//play that full set if there is one
 			if(isFullSet)
-				playFullSet(desiredCard);
+				playFullSet(drawnCard.getRank());
 			
 			//if the card pulled from the deck is the one asked for, call doTurn()
 			if(drawnCard.getRank() == desiredCard)
-				gameDeck = doTurn(gameDeck, opponent, turnHistory);
+				this.gameDeck = doTurn(this.gameDeck, opponent, turnHistory);
 		}
 		
-		return gameDeck;
+		return this.gameDeck;
 	}
 
 	/**
@@ -230,7 +235,7 @@ public class HumanPlayer implements Player{
 		}else{
 			System.out.println("Opponent did not have the card \n");
 		}
-
+		System.out.println("Make card request: " + opponentHasCard);
 		return opponentHasCard;
 	}
 	
@@ -246,7 +251,7 @@ public class HumanPlayer implements Player{
 		ArrayList<Card> foundCards = new ArrayList<Card>();
 
 		//oldhand is a container for the players current hand
-		Hand oldHand = playerHand;
+		Hand oldHand = this.playerHand;
 		//newhand is a stack to place the cards not culled from the players hand into
 		Stack<Card> newHand = new Stack<Card>();
 
@@ -257,6 +262,7 @@ public class HumanPlayer implements Player{
 			if(currentCard.getRank() != desiredCard){
 				//add that card to the new hand. it will not be given to the requesting player
 				newHand.push(currentCard);
+				System.out.println(currentCard.toString());
 			}
 			else{
 				//otherwise, the card matches. add it to the arraylist keeping track of found cards
@@ -266,14 +272,19 @@ public class HumanPlayer implements Player{
 
 		// convert the new hand to a hand object, and make that the new player hand
 		Card[] cardHolder = new Card[newHand.size()];
-		for(int j=0; j<newHand.size(); j++){
+		System.out.println("Card holder Human:");
+		System.out.println("newHand Size:" + Integer.toString(newHand.size()));
+		System.out.println("\n" + newHand.toString());
+		for(int j = 0; j < newHand.size(); j++){
 			cardHolder[j] = newHand.get(j);
-			// System.out.println(cardHolder[j]);
+			
 		}
 		Hand freshHand = new Hand(cardHolder);
-		this.playerHand = freshHand;
-		
+		this.playerHand = freshHand;		
 		//return the arraylist
+		System.out.println("***************************************************************");
+		System.out.println(foundCards.toString() + "\n");
+		System.out.println(foundCards.size());
 		return foundCards;
 	}
 
