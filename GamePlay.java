@@ -18,7 +18,7 @@ public class GamePlay{
 		while (continueGoFish)
 		{
 
-			System.out.println( "-----------------------------------------------------------------");
+			System.out.println( "=================================================================");
 			while(goFish.continueGame())
 			{
 				goFish.getHumanPlayer().doTurn(goFish.getDeck(), goFish.getComputerPlayer(), goFish.turnHistory);
