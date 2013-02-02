@@ -78,8 +78,10 @@ public class AI implements Player{
 		if (makeCardRequest(opponent, desiredCard)){
 			//get all instances of that card from the opponent (removing them from the opponent's hand as well)
 			foundCards = opponent.respondCardRequest(desiredCard);
+
 			//add them to your hand
 			for(Card card : playerHand.getCards()){
+				// System.out.println(card);
 				foundCards.add(card);
 			}
 			Card[] tempCard = new Card[foundCards.size()];
@@ -234,6 +236,8 @@ public class AI implements Player{
 		Hand opHand = opponent.getHand();
 		//if the card is in the opponent's hand, then return true. otherwise, false.
 		for(Card card : opponent.getHand().getCards()){
+			// System.out.println("COMPUTER DesiredCard :" + desiredCard + "opponents card: " + card);
+
 			if(card == null){
 				System.out.println("MY GOD");
 			}
@@ -287,7 +291,9 @@ public class AI implements Player{
 		System.out.println("------------------- \n");
 		Hand freshHand = new Hand(cardHolder);
 		this.playerHand = freshHand;
-		//return the arraylist
+		// //return the arraylist
+		// return foundCards;
+
 		return foundCards;
 	} // end respondCardRequest()
 

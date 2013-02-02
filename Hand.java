@@ -122,6 +122,7 @@ public class Hand{
 		}
 		//copy the temporary array into the cards array
 		// this.cards = tempCards;
+		this.cards = new Card[tempCards.size()];
 		this.cards = tempCards.toArray(this.cards);
 	}
 
