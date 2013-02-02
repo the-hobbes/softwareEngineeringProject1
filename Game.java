@@ -68,7 +68,7 @@ public class Game{
 	*/
 	public boolean continueGame(){
 		boolean continueGame = true;
-		if(theDeck.isEmpty() || players[PLAYER].hasCards() || players[COMPUTER].hasCards()){
+		if(theDeck.isEmpty() || !players[PLAYER].hasCards() || !players[COMPUTER].hasCards()){
 			continueGame = false;
 		}
 		return continueGame;
@@ -99,6 +99,10 @@ public class Game{
 	*/
 	public Deck getDeck(){
 		return this.theDeck;
+	}
+
+	public void setDeck(Deck deck){
+		this.theDeck = deck;
 	}
 
 	public Player getComputerPlayer(){

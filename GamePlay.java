@@ -18,11 +18,12 @@ public class GamePlay{
 		{
 			while(goFish.continueGame())
 			{
-				goFish.getHumanPlayer().doTurn(goFish.getDeck(), goFish.getComputerPlayer(), goFish.turnHistory);
-				goFish.processHand(goFish.getHumanPlayer().getHand());
-				goFish.getComputerPlayer().doTurn(goFish.getDeck(), goFish.getHumanPlayer(), goFish.turnHistory);
-				goFish.processHand(goFish.getComputerPlayer().getHand());
-				
+				Deck tempDeck = new Deck();
+				tempDeck = goFish.getHumanPlayer().doTurn(goFish.getDeck(), goFish.getComputerPlayer(), goFish.turnHistory);
+				//goFish.processHand(goFish.getHumanPlayer().getHand());
+				tempDeck = goFish.getComputerPlayer().doTurn(tempDeck, goFish.getHumanPlayer(), goFish.turnHistory);
+				//goFish.processHand(goFish.getComputerPlayer().getHand());
+				goFish.setDeck(tempDeck);
 				
 			}			
 		}
