@@ -124,11 +124,6 @@ public class HumanPlayer implements Player{
 				Hand newplayerhand = new Hand(tempCard);
 				this.playerHand = newplayerhand;
 
-				// System.out.println("Your new hand");
-				// System.out.println(playerHand);
-				// System.out.println("Opponents new hand");
-				// System.out.println(opponent.getHand());
-
 				//check for a full set of cards in your hand
 				boolean isFullSet = playerHand.containsFourOfAKind(desiredCard);
 				// System.out.println(isFullSet);
@@ -137,15 +132,24 @@ public class HumanPlayer implements Player{
 					playFullSet(desiredCard);
 				
 				//call doTurn() again
+<<<<<<< HEAD
 				if(playerHand.isEmpty() || gameDeck.isEmpty())
 					this.gameDeck = doTurn(this.gameDeck, opponent);
+=======
+				if(!playerHand.isEmpty())
+				{
+					if(!gameDeck.isEmpty())
+						this.gameDeck = doTurn(this.gameDeck, opponent, turnHistory);
+				}
+>>>>>>> 92f0f05642f8d899fe4bf21c3fe89d9abae4d50d
 			}
 		}
 		//the opponent doesn't have the card, and the player must go fish
-		else{
-			System.out.println("Nope, go fish");
+		else if(! this.gameDeck.isEmpty()){
+			System.out.println("Go fish!");
 			//remove the top card from the deck
-			Card drawnCard = this.gameDeck.getTopCard();		
+
+			Card drawnCard = this.gameDeck.getTopCard();					
 
 			System.out.println("You drew a " + drawnCard.getRank() + " of " + drawnCard.getSuit());
 			//add that card to your hand
@@ -160,9 +164,20 @@ public class HumanPlayer implements Player{
 			//if the card pulled from the deck is the one asked for, call doTurn()
 			if(drawnCard.getRank() == desiredCard)
 			{
+<<<<<<< HEAD
 				if(playerHand.isEmpty() || gameDeck.isEmpty())
 					this.gameDeck = doTurn(this.gameDeck, opponent);
+=======
+				if (!playerHand.isEmpty())
+				{
+					if(!gameDeck.isEmpty())
+					this.gameDeck = doTurn(this.gameDeck, opponent, turnHistory);
+				}
+>>>>>>> 92f0f05642f8d899fe4bf21c3fe89d9abae4d50d
 			}
+		}
+		else{
+			System.out.println("no cards left in the deck!");
 		}
 		
 		return this.gameDeck;
@@ -264,7 +279,6 @@ public class HumanPlayer implements Player{
 			if(currentCard.getRank() != desiredCard){
 				//add that card to the new hand. it will not be given to the requesting player
 				newHand.push(currentCard);
-				System.out.println(currentCard.toString());
 			}
 			else{
 				//otherwise, the card matches. add it to the arraylist keeping track of found cards

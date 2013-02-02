@@ -11,12 +11,16 @@ public class GamePlay{
 		
 		//start game
 		Game goFish = new Game();
-		goFish.setUpGame();
+
+		//taken out of the setup game due to repetition when a new game is started after an old game finishes
+		UserInterface.displayCredits();
+		UserInterface.displayHelp();
 
 		boolean continueGoFish = UserInterface.getMenuOption();
 
 		while (continueGoFish)
 		{
+			goFish.setUpGame();
 
 			System.out.println( "=================================================================");
 			while(goFish.continueGame())
