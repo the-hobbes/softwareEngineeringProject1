@@ -103,7 +103,7 @@ public class AI implements Player{
 			
 		}
 		//the opponent doesn't have the card, and the player must go fish
-		else{
+		else if(! this.gameDeck.isEmpty()){
 			System.out.println("Nope, go fish");
 			//remove the top card from the deck
 			Card drawnCard = this.gameDeck.getTopCard();
@@ -121,6 +121,9 @@ public class AI implements Player{
 				if (playerHand.isEmpty() || gameDeck.isEmpty())
 					this.gameDeck = doTurn(this.gameDeck, opponent, turnHistory);
 			}
+		}
+		else{
+			System.out.println("no cards left in the deck!");
 		}
 		
 		return this.gameDeck;
