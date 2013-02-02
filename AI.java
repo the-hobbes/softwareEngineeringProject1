@@ -112,8 +112,16 @@ public class AI implements Player{
 				playFullSet(drawnCard.getRank());
 			
 			//if the card pulled from the deck is the one asked for, call doTurn()
-			if(drawnCard.getRank() == desiredCard)
+			if(drawnCard.getRank() == desiredCard){
+				//check endgame conditions, kill game if endgame met
+				if(opponent.hasCards() == false) || (this.hasCards() == false)){
+					System.out.println("Kill the game");
+					return this.gameDeck;
+				}
+
+				//otherwise continue
 				this.gameDeck = doTurn(this.gameDeck, opponent, turnHistory);
+			}
 		}
 		
 		return this.gameDeck;
