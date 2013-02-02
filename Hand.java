@@ -71,6 +71,16 @@ public class Hand{
 		this.numCards--;
 	}
 
+	public Card takeCard(rank, suit){
+		for(int ii=0; ii<cards.length; ii++){
+			if (cards[ii].getRank()==rank && cards[ii].getSuit().equals("suit")){
+				return cards[ii];
+			}
+		}
+
+		return false;
+	}
+
 	/**
 	  * containsFourOfAKind
 	  * @author Phelan
@@ -104,10 +114,10 @@ public class Hand{
 		Stack<Card> tempCards = new Stack<Card>();
 
 		//loop through current array, adding all elements not at the index to the temporary array
-		for(int i = 0; i<cards.length; i++){
+		for(int i = 0; i<this.cards.length; i++){
 			// System.out.println(cards[i]);
-			if(cards[i].getRank() != cardRank){
-				tempCards.push(cards[i]);
+			if(this.cards[i].getRank() != cardRank){
+				tempCards.push(this.cards[i]);
 			}
 		}
 		//copy the temporary array into the cards array
@@ -152,6 +162,7 @@ public class Hand{
 	*@return String representation of the hand
 	*/
 	public String toString(){
+		System.out.println(this.cards.length);
 		String tmp = "";
 		for(int ii=0; ii<this.cards.length; ii++){
 			tmp += "Card";
