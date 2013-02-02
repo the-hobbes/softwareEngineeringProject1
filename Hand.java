@@ -111,7 +111,7 @@ public class Hand{
 		}
 		//copy the temporary array into the cards array
 		// this.cards = tempCards;
-		this.cards = tempCard.toArray(this.cards);
+		tempCard.toArray(this.cards);
 	}
 
 	public int calcTotal(){
