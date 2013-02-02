@@ -50,8 +50,8 @@ public class Game{
 
 
 		//display credits and help
-		UserInterface.displayCredits();
-		UserInterface.displayHelp();
+		// UserInterface.displayCredits();
+		// UserInterface.displayHelp();
 
 
 		//generate random boolean to see who goes first

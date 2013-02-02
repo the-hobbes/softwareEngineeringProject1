@@ -88,7 +88,6 @@ public class AI implements Player{
 			Hand newplayerhand = new Hand(tempCard);
 			this.playerHand = newplayerhand;
 
-
 			//check for a full set of cards in your hand
 			boolean isFullSet = playerHand.containsFourOfAKind(desiredCard);
 			//play the full set down, if there are any
@@ -97,7 +96,6 @@ public class AI implements Player{
 			}
 			
 			//call doTurn() again
-			
 			if (playerHand.isEmpty() || gameDeck.isEmpty())
 				this.gameDeck = doTurn(this.gameDeck, opponent, turnHistory);
 			
@@ -144,7 +142,6 @@ public class AI implements Player{
 		Card[] cards = playerHand.getCards();
 		int output = cards[0].getRank();
 		
-
 		// if we have a set, and that set is 3 cards
 		if(setRank!=-1 && countSetQTY(setRank)==3){
 			// if we asked for the same card 3 times in a row ask for a different card
