@@ -274,7 +274,6 @@ public class HumanPlayer implements Player{
 			if(currentCard.getRank() != desiredCard){
 				//add that card to the new hand. it will not be given to the requesting player
 				newHand.push(currentCard);
-				System.out.println(currentCard.toString());
 			}
 			else{
 				//otherwise, the card matches. add it to the arraylist keeping track of found cards
