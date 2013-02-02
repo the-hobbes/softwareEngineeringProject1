@@ -34,6 +34,9 @@ public class Hand{
 	*@return Card[] of cards from the players hand
 	*/
 	public Card[] getCards(){
+		if(this.cards==null){
+			System.out.println("HORRIBLY WRONG");
+		}
 		return this.cards;
 	}
 
@@ -98,20 +101,18 @@ public class Hand{
 		//set up temporary holder for smaller array
 		// Card[] tempCards = new Card[(cards.length-4)];
 		// int nextIndex = 0;
-		ArrayList<Card> tempCard = new ArrayList<Card>();
+		Stack<Card> tempCards = new Stack<Card>();
 
 		//loop through current array, adding all elements not at the index to the temporary array
 		for(int i = 0; i<cards.length; i++){
 			// System.out.println(cards[i]);
 			if(cards[i].getRank() != cardRank){
-				// tempCards[nextIndex] = cards[i];
-				// nextIndex++;
-				tempCard.add(cards[i]);
+				tempCards.push(cards[i]);
 			}
 		}
 		//copy the temporary array into the cards array
 		// this.cards = tempCards;
-		tempCard.toArray(this.cards);
+		this.cards = tempCards.toArray(this.cards);
 	}
 
 	public int calcTotal(){
