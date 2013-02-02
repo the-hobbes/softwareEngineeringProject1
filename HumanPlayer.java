@@ -266,31 +266,6 @@ public class HumanPlayer implements Player{
 		}
 		Hand freshHand = new Hand(cardHolder);
 		this.playerHand = freshHand;
-
-		/* Iterator Method */
-		//copy the player's hand to an array list so it can be iterated
-		// ArrayList<Card> handCopy = new ArrayList<Card>(Arrays.asList(playerHand.getCards()));
-		// Iterator<Card> it = handCopy.iterator();
-
-		// while(it.hasNext()){
-		// 	Card currentCard = it.next();
-		// 	// System.out.println(currentCard);
-		// 	if(currentCard.getRank() == desiredCard){
-		// 		// System.out.println("same");
-		// 		// add the card to our temporary arraylist
-		// 		foundCards.add(currentCard);
-		// 		//remove the card from our hand
-		// 		it.remove();
-
-		// //add the remaining cards to a hand
-		// Card[] cards = new Card[handCopy.size()];
-		// for(int i=0; i<handCopy.size(); i++){
-		// 	cards[i] = handCopy.get(i); 
-		// }
-		// //set the hand field to the contents of the new hand
-		// Hand hand = new Hand(cards, 1);
-		// this.playerHand = hand;
-		/* END Iterator Method */
 		
 		//return the arraylist
 		return foundCards;
