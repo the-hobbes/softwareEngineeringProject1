@@ -21,28 +21,28 @@ public class AI implements Player{
 
 	// a main() function has been included to
 	// allow for testing
-	public static void main(String[] args) {
-		// Deck deck = new Deck();
-		// deck.shuffle();
-		// Card[] cards = new Card[5];
+	// public static void main(String[] args) {
+	// 	// Deck deck = new Deck();
+	// 	// deck.shuffle();
+	// 	// Card[] cards = new Card[5];
 
-		// for(int ii=0; ii<2; ii++){
-		// 	cards[ii] = deck.getTopCard(); 
-		// }
+	// 	// for(int ii=0; ii<2; ii++){
+	// 	// 	cards[ii] = deck.getTopCard(); 
+	// 	// }
 
-		// cards[2] = new Card("clubs", 3);
-		// cards[3] = new Card("spades", 3);
-		// cards[4] = new Card("diamond", 3);
+	// 	// cards[2] = new Card("clubs", 3);
+	// 	// cards[3] = new Card("spades", 3);
+	// 	// cards[4] = new Card("diamond", 3);
 
-		// Hand playerHand = new Hand(cards);
-		// System.out.println(playerHand);
-		// // System.out.println("_____");
+	// 	// Hand playerHand = new Hand(cards);
+	// 	// System.out.println(playerHand);
+	// 	// // System.out.println("_____");
 
-		// AI comp = new AI(playerHand);
-		// System.out.println(comp.analyzeHand());
-		System.out.println((int)(Math.random()*10));
+	// 	// AI comp = new AI(playerHand);
+	// 	// System.out.println(comp.analyzeHand());
+	// 	System.out.println((int)(Math.random()*10));
 
-	} // end main()
+	// } // end main()
 
 	public AI(Hand hand){
 		this.playerHand = hand;
@@ -62,6 +62,8 @@ public class AI implements Player{
 		// analyze hand inspects the state of the hand, and previous turns, and returns an
 		// int indicating the rank of the desired card 
 		int desiredCard = this.analyzeHand();
+
+		System.out.println("Computer requests a "+desiredCard);
 		
 		//if the opponent has no cards in their hand, the game is over
 		if(desiredCard == -1){
