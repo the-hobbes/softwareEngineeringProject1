@@ -35,15 +35,15 @@ public class ReworkedGame{
 		ReworkedPlayer activePlayer = this.getActivePlayer();
 		ReworkedPlayer inactivePlayer = this.getInactivePlayer();
 		// display the hand
-		activePlayer.displayHand(this.getActiveHand(activePlayer));
+		activePlayer.displayHand(this.getActiveHand());
 		// if human: get card request
 		if(activePlayer.isHuman()){
 			// have the player make the request
-			int rankRequested = ui.getMenuOption(this.getActiveHand(activePlayer));
+			int rankRequested = ui.getMenuOption(this.getActiveHand());
 		}else{
 			// we want to send in an int representation of the ranks in the 
 			// AIs hand so that it can make intelligent decisions
-			Hand tmpHand = this.getActiveHand(activePlayer);
+			Hand tmpHand = this.getActiveHand();
 			Card[] tmpCards = tmpHand.getCards();
 			int[] rankArray = new int[tmpCards.length];
 			for(int ii=0; ii<tmpCards.length; ii++){
@@ -53,27 +53,28 @@ public class ReworkedGame{
 		}
 
 		// use rankRequested to either select the card from the opposing players hand
-		if(handContainsRequestedCard(this.getInactiveHand(activePlayer))){
+		if(handContainsRequestedCard(this.getInactiveHand(), rankRequested)){
 			// the opponents hand has the card
 			// are there more than one to get?
-			int setQTY = countSetQTY(this.getInactiveHand(activePlayer), rankRequested);
+			int setQTY = countSetQTY(this.getInactiveHand(), rankRequested);
 			if(setQTY > 1){
 				// if more than one card, get them all
 				for(int ii=0; ii<setQTY; ii++){
 					// add them to my hand
-					Card tmpCard = this.getCardFromHand(this.getInactiveHand(activePlayer), rankRequested);
-					this.addCardToHand(this.getActiveHand(activePlayer), tmpCard);
+					Card tmpCard = this.getCardFromHand(this.getInactiveHand(), rankRequested);
+					this.addCardToHand(this.getActiveHand(), tmpCard);
 				}
 			}else{
 				// opponent only had one card, add it to our hand
-				Card gotCard = getSingleCardFromHand(this.getInactiveHand(activePlayer), rankRequested);
+				Card gotCard = this.getCardFromHand(this.getInactiveHand(), rankRequested);
+				this.addCardToHand(this.getActiveHand(), gotCard);
 			}
 		}else{
 			// the card we requested was not in the opponents hand, draw a card
-			this.addCardToHand(this.getActiveHand(activePlayer), this.deck.getTopCard());
+			this.addCardToHand(this.getActiveHand(), this.deck.getTopCard());
 		}
 
-		if(this.getActiveHand(activePlayer).isEmpty()){
+		if(this.getActiveHand().isEmpty()){
 			return false;
 		}else{
 			return true;
@@ -113,8 +114,8 @@ public class ReworkedGame{
 		}
 	}
 
-	public Hand getActiveHand(ReworkedPlayer player){
-		if (player.isHuman()){
+	public Hand getActiveHand(){
+		if(this.human.isActive()){
 			return this.HumanHand;
 		}else{
 			return this.AIHand;
@@ -129,8 +130,8 @@ public class ReworkedGame{
 		}
 	}
 
-	public Hand getInactiveHand(ReworkedPlayer player){
-		if (player.isHuman()){
+	public Hand getInactiveHand(){
+		if(this.human.isActive()){
 			return this.AIHand;
 		}else{
 			return this.HumanHand;
