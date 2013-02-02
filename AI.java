@@ -65,7 +65,11 @@ public class AI implements Player{
 		// analyze hand inspects the state of the hand, and previous turns, and returns an
 		// int indicating the rank of the desired card 
 		int desiredCard = this.analyzeHand();
-
+		try{
+			Thread.sleep(2000);
+		}catch(InterruptedException e){
+			System.out.println("Got interupted by another thread!?!?!?!");
+		}
 		System.out.println("\n Computer requests a "+desiredCard);
 		
 		//if the opponent has no cards in their hand, the game is over
@@ -102,7 +106,6 @@ public class AI implements Player{
 		}
 		//the opponent doesn't have the card, and the player must go fish
 		else if(! this.gameDeck.isEmpty()){
-			System.out.println("Nope, go fish");
 			//remove the top card from the deck
 			Card drawnCard = this.gameDeck.getTopCard();
 			//add that card to your hand
@@ -261,9 +264,24 @@ public class AI implements Player{
 			}
 		}
 		if(opponentHasCard){
-			System.out.println("You had the card! \n");
+			try{
+				Thread.sleep(1000);
+			}catch(InterruptedException e){
+				System.out.println("Got interupted by another thread!?!?!?!");
+			}
+			System.out.println("You had the card");
 		}else{
-			System.out.println("You did not have the card \n");
+			try{
+				Thread.sleep(1000);
+			}catch(InterruptedException e){
+				System.out.println("Got interupted by another thread!?!?!?!");
+			}
+			System.out.println("You did not have the card, Go Fish");
+			try{
+				Thread.sleep(1000);
+			}catch(InterruptedException e){
+				System.out.println("Got interupted by another thread!?!?!?!");
+			}
 		}
 		return opponentHasCard;
 	} // end makeCardRequest
