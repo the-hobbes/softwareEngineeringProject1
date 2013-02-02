@@ -97,7 +97,10 @@ public class AI implements Player{
 				playFullSet(desiredCard);
 			
 			//call doTurn() again
-			this.gameDeck = doTurn(this.gameDeck, opponent, turnHistory);
+			
+			if (playerHand.isEmpty() || gameDeck.isEmpty())
+				this.gameDeck = doTurn(this.gameDeck, opponent, turnHistory);
+			
 		}
 		//the opponent doesn't have the card, and the player must go fish
 		else{
@@ -114,7 +117,10 @@ public class AI implements Player{
 			
 			//if the card pulled from the deck is the one asked for, call doTurn()
 			if(drawnCard.getRank() == desiredCard)
-				this.gameDeck = doTurn(this.gameDeck, opponent, turnHistory);
+			{
+				if (playerHand.isEmpty() || gameDeck.isEmpty())
+					this.gameDeck = doTurn(this.gameDeck, opponent, turnHistory);
+			}
 		}
 		
 		return this.gameDeck;
