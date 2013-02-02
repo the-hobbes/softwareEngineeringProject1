@@ -150,7 +150,6 @@ public class HumanPlayer implements Player{
 			//add that card to your hand
 			
 			this.playerHand.addCard(drawnCard);
-			System.out.println(this.getHand().toString());
 			//check for the presence of a full set
 			boolean isFullSet = playerHand.containsFourOfAKind(drawnCard.getRank());
 			//play that full set if there is one
@@ -235,7 +234,6 @@ public class HumanPlayer implements Player{
 		}else{
 			System.out.println("Opponent did not have the card \n");
 		}
-		System.out.println("Make card request: " + opponentHasCard);
 		return opponentHasCard;
 	}
 	
