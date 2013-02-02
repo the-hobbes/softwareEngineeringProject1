@@ -68,7 +68,7 @@ public class Game{
 	*/
 	public boolean continueGame(){
 		boolean continueGame = true;
-		if(theDeck.isEmpty() || players[PLAYER].hasCards() || players[COMPUTER].hasCards()){
+		if(theDeck.isEmpty() || !players[PLAYER].hasCards() || !players[COMPUTER].hasCards()){
 			continueGame = false;
 		}
 		return continueGame;
