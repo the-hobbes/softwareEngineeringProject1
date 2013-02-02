@@ -142,6 +142,7 @@ public class AI implements Player{
 		int drewCounter = 0; // counts the numbner of cards drawn as we loop through our turns
 		int countRequested = 0; // the number of times we have requested this card
 		int output = -1;
+		Card[] cards = playerHand.getCards();
 		// if we have a set, and that set is 3 cards
 		if(setRank!=-1 && countSetQTY(setRank)==3){
 			// go through our turn history and see if the opponent has
@@ -192,31 +193,37 @@ public class AI implements Player{
 					}
 				}
 			} // end for Turn iterator
-		}else{
+		}else if (turnHistory[0] != null){
 			// we have no sets, iterate through the most recent turns 
 			for(int ii=0; ii<this.turnHistory.length; ii++){
+				int rankRequested = turnHistory[ii].getRequested();
 				// look back 3 turns, if the turn has been taken
 				if(turnHistory[ii] != null && ii<4){
 					// and the turn is AI 
 					if(!turnHistory[ii].isHuman()){
 						// request a card that wasn't requested recently
-						int rankRequested = turnHistory[ii].getRequested();
-						Card[] cards = playerHand.getCards();
 						for(int jj=0; jj<cards.length; jj++){
 							if(cards[jj].getRank()!=rankRequested){
 								output = cards[jj].getRank();
 								
 								break;
 							}else{
-								int num = cards.length-1;
-								int ran = (int)(Math.random()*num);
-								output = cards[ran].getRank();
+								output = cards[0].getRank();
 								// output = cards[0].getRank();
 							}
 						}
 					}
+				}else{
+					output = cards[0].getRank();
+				// output = cards[0].getRank();
 				}
 			}
+		}else{
+			output = cards[0].getRank();
+		}
+
+		if (output == -1){
+			output = cards[0].getRank();
 		}
 		return output;
 	} // end analyze hand
