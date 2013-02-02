@@ -134,16 +134,16 @@ public class UserInterface{
 				}
 			}catch(InputMismatchException ime){
 				//Catch the exception of using a J,A,K,Q or anyhting other than an integer
-				if(in.equals("J")){
+				if(in.toUpperCase().equals("J") || in.toUpperCase().equals("JACK")){
 					rank = 11;
 					valid = true;
-				}else if(in.toUpperCase().equals("A")){
+				}else if(in.toUpperCase().equals("A") || in.toUpperCase().equals("ACE")){
 					rank = 1;
 					valid = true;
-				}else if(in.toUpperCase().equals("K")){
+				}else if(in.toUpperCase().equals("K") || in.toUpperCase().equals("KING")){
 					rank = 13;
 					valid = true;
-				}else if(in.toUpperCase().equals("Q")){
+				}else if(in.toUpperCase().equals("Q") || in.toUpperCase().equals("QUEEN")){
 					rank = 12;
 					valid = true;
 				}else if(in.toUpperCase().equals("HELP") || in.toUpperCase().equals("H")){
