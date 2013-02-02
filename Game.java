@@ -77,6 +77,9 @@ public class Game{
 	*Displays Scores and relevant information to the end game
 	*/
 	public void endGame(){
+		System.out.println();
+		System.out.println("===========================RESULTS===============================");
+
 		if(players[PLAYER].getCurrentScore() > players[COMPUTER].getCurrentScore()){
 			System.out.println("YOU WIN!");
 			System.out.println("Your Score: " + players[PLAYER].getCurrentScore());
@@ -90,6 +93,8 @@ public class Game{
 			System.out.println("Your Score: " + players[PLAYER].getCurrentScore());
 			System.out.println("Computer's Score: " + players[COMPUTER].getCurrentScore());
 		}
+
+		System.out.println("=================================================================\n");
 	}
 
 	/**

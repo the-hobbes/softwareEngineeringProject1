@@ -11,7 +11,7 @@ public class GamePlay{
 		
 		//start game
 		Game goFish = new Game();
-		
+
 		//taken out of the setup game due to repetition when a new game is started after an old game finishes
 		UserInterface.displayCredits();
 		UserInterface.displayHelp();
