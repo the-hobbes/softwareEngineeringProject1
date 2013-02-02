@@ -121,8 +121,8 @@ public class UserInterface{
 			Scanner internalScanner = new Scanner(in);
 			try{
 				rank = internalScanner.nextInt();
-				if(rank < 11 && rank > 1){
-					if(h.hasCard(rank)){
+				if(h.hasCard(rank)){
+					if(rank < 14 && rank > 0){
 						valid = true;	
 					}else{
 						System.out.println("You must have the card in your hand to ask for it.");
@@ -136,26 +136,24 @@ public class UserInterface{
 				//Catch the exception of using a J,A,K,Q or anyhting other than an integer
 				if(in.toUpperCase().equals("J") || in.toUpperCase().equals("JACK")){
 					rank = 11;
-					valid = true;
 				}else if(in.toUpperCase().equals("A") || in.toUpperCase().equals("ACE")){
 					rank = 1;
-					valid = true;
 				}else if(in.toUpperCase().equals("K") || in.toUpperCase().equals("KING")){
 					rank = 13;
-					valid = true;
 				}else if(in.toUpperCase().equals("Q") || in.toUpperCase().equals("QUEEN")){
 					rank = 12;
-					valid = true;
 				}else if(in.toUpperCase().equals("HELP") || in.toUpperCase().equals("H")){
 					displayHelp();
 				}else if(in.toUpperCase().equals("CREDITS") || in.toUpperCase().equals("C")){
 					displayCredits();
 				}else{
 					//Nope illegal.
-					System.out.println("Error: Invalid command given, please specifiy the rank of the card you desire\n"
-									   +"(2,3,4,5,6,7,8,9,10,J,Q,K,A) or you may see the rules by typing 'help' or see\n"
-									   +"the credits by typing 'credits.'\n"
-									   );
+					rank = -1;
+				}
+				if(h.hasCard(rank)){
+					valid = true;
+				}else{
+					System.out.println("You must have the card in your hand to ask for it.");
 				}
 			}catch(NoSuchElementException nsee){
 				System.out.println("Error: Invalid command given, please specifiy the rank of the card you desire\n"
