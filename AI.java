@@ -57,14 +57,15 @@ public class AI implements Player{
 		this.gameDeck = gameDeck;
 		this.opponent = opponent;
 		this.turnHistory = turnHistory;
+
+		System.out.println("-------  Computer's Turn -------");
 		
 		ArrayList<Card> foundCards = new ArrayList<Card>();
 
 		// analyze hand inspects the state of the hand, and previous turns, and returns an
 		// int indicating the rank of the desired card 
 		int desiredCard = this.analyzeHand();
-		System.out.println("Computer's hand: "+this.playerHand);
-		System.out.println("\n");
+		System.out.println("Computer's hand: \n"+this.playerHand);
 		System.out.println("Computer requests a "+this.getRankTrad(desiredCard));
 		System.out.println("\n");
 		
@@ -234,10 +235,13 @@ public class AI implements Player{
 		for(Card card : opponent.getHand().getCards()){
 			if(card.getRank() == desiredCard){
 				opponentHasCard = true;
-				return opponentHasCard;
 			}
 		}
-
+		if(opponentHasCard){
+			System.out.println("Opponent had the card! \n");
+		}else{
+			System.out.println("Opponent did not have the card \n");
+		}
 		return opponentHasCard;
 	} // end makeCardRequest
 

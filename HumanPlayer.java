@@ -92,7 +92,7 @@ public class HumanPlayer implements Player{
 		this.opponent = opponent;
 		this.turnHistory = turnHistory;
 		this.continueGame = true;
-		
+		System.out.println("-------  Your Turn -------");
 		ArrayList<Card> foundCards = new ArrayList<Card>();
 
 		//Display the user's hand to them
@@ -221,8 +221,13 @@ public class HumanPlayer implements Player{
 		for(Card card : opponent.getHand().getCards()){
 			if(card.getRank() == desiredCard){
 				opponentHasCard = true;
-				return opponentHasCard;
 			}
+		}
+
+		if(opponentHasCard){
+			System.out.println("Opponent had the card! \n");
+		}else{
+			System.out.println("Opponent did not have the card \n");
 		}
 
 		return opponentHasCard;
