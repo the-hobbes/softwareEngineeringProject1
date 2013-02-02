@@ -63,8 +63,10 @@ public class AI implements Player{
 		// analyze hand inspects the state of the hand, and previous turns, and returns an
 		// int indicating the rank of the desired card 
 		int desiredCard = this.analyzeHand();
-
-		System.out.println("Computer requests a "+desiredCard);
+		System.out.println("Computer's hand: "+this.playerHand);
+		System.out.println("\n");
+		System.out.println("Computer requests a "+this.getRankTrad(desiredCard));
+		System.out.println("\n");
 		
 		//if the opponent has no cards in their hand, the game is over
 		if(desiredCard == -1){
@@ -121,19 +123,6 @@ public class AI implements Player{
 	*@return rank of desired card
 	*/
 	private int analyzeHand(){
-		// for testing create an artifical turnHistory *******
-		// this.turnHistory = new Turn[3];
-		// this.turnHistory[0] = new Turn("human", true, 3);
-		// this.turnHistory[1] = new Turn("ai", false, 7);
-		// this.turnHistory[2] = new Turn("human", false, 13);
-		// this.turnHistory[1] = new Turn("ai", true, 8);
-		// this.turnHistory[2] = new Turn("human", false, 11);
-		// this.turnHistory[1] = new Turn("ai", false, 7);
-		// this.turnHistory[2] = new Turn("human", false, 10);
-		// this.turnHistory[1] = new Turn("ai", true, 7);
-		// this.turnHistory[2] = new Turn("human", false, 3);
-		// end testing artifical turnHistory *******
-
 		// go through our hand
 		// priority1: we have 3 of a kind, and the opponent has drawn cards 
 		// since we last asked for that rank
@@ -141,8 +130,8 @@ public class AI implements Player{
 		int setRank = this.hasSet();
 		int drewCounter = 0; // counts the numbner of cards drawn as we loop through our turns
 		int countRequested = 0; // the number of times we have requested this card
-		int output = -1;
 		Card[] cards = playerHand.getCards();
+		int output = cards[0].getRank();
 		// if we have a set, and that set is 3 cards
 		if(setRank!=-1 && countSetQTY(setRank)==3){
 			// go through our turn history and see if the opponent has
@@ -222,9 +211,6 @@ public class AI implements Player{
 			output = cards[0].getRank();
 		}
 
-		if (output == -1){
-			output = cards[0].getRank();
-		}
 		return output;
 	} // end analyze hand
 	
@@ -284,10 +270,13 @@ public class AI implements Player{
 		}
 		// convert the new hand to a hand object, and make that the new player hand
 		Card[] cardHolder = new Card[newHand.size()];
+		System.out.println("The computer's hand: \n");
 		for(int j=0; j<newHand.size(); j++){
 			cardHolder[j] = newHand.get(j);
 			System.out.println(cardHolder[j]);
 		}
+
+		System.out.println("------------------- \n");
 		Hand freshHand = new Hand(cardHolder);
 		this.playerHand = freshHand;
 		//return the arraylist
@@ -370,5 +359,28 @@ public class AI implements Player{
 	public int getCurrentScore(){
 		return this.currentScore;
 	}
+
+	public String getRankTrad(int rank){
+		String rankTrad ="";
+		switch (rank) {
+			case 1:
+            	rankTrad="Ace";
+            break;
+            case 11:
+            	rankTrad="Jack";
+            break;
+            case 12:
+            	rankTrad="Queen";
+            break;
+            case 13:
+            	rankTrad="King";
+            break;
+            default:
+            	rankTrad=rank+"";
+            break; 
+		}
+
+		return rankTrad;
+	} // end getRankTrad()
 
 }
