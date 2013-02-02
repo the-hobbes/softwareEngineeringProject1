@@ -19,7 +19,7 @@ public class HumanPlayer implements Player{
 	private boolean opponentHasCard;
 	private Hand playerHand;
 	public int currentScore;
-	public Turn[] turnHistory;
+	public ArrayList<Turn> turnHistory;
 	private boolean continueGame;
 
 	/**
@@ -87,7 +87,7 @@ public class HumanPlayer implements Player{
 	 * @param opponent
 	 * @return deck
 	 */
-	public Deck doTurn(Deck gameDeck,Player opponent, Turn[] turnHistory){
+	public Deck doTurn(Deck gameDeck,Player opponent){
 		this.gameDeck = gameDeck;
 		this.opponent = opponent;
 		this.turnHistory = turnHistory;
@@ -138,7 +138,7 @@ public class HumanPlayer implements Player{
 				
 				//call doTurn() again
 				if(playerHand.isEmpty() || gameDeck.isEmpty())
-					this.gameDeck = doTurn(this.gameDeck, opponent, turnHistory);
+					this.gameDeck = doTurn(this.gameDeck, opponent);
 			}
 		}
 		//the opponent doesn't have the card, and the player must go fish
@@ -161,7 +161,7 @@ public class HumanPlayer implements Player{
 			if(drawnCard.getRank() == desiredCard)
 			{
 				if(playerHand.isEmpty() || gameDeck.isEmpty())
-					this.gameDeck = doTurn(this.gameDeck, opponent, turnHistory);
+					this.gameDeck = doTurn(this.gameDeck, opponent);
 			}
 		}
 		

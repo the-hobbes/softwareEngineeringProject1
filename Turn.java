@@ -30,4 +30,14 @@ public class Turn{
 	public boolean drewCard(){
 		return this.drewCard;
 	}
+
+	public String toString(){
+		String str;
+		if(this.drewCard){
+			str = "true";
+		}else{
+			 str = "false";
+		}
+		return "type: "+this.name+"\n drewCard: "+str+"\n Rank Requested: "+this.cardRequested;
+	}
 }
