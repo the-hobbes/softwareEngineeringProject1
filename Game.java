@@ -48,12 +48,6 @@ public class Game{
 		players[PLAYER] = player;
 		players[COMPUTER] = ai;
 
-
-		//display credits and help
-		UserInterface.displayCredits();
-		UserInterface.displayHelp();
-
-
 		//generate random boolean to see who goes first
 		Random rand = new Random();
 		boolean turn = rand.nextBoolean();
