@@ -45,6 +45,7 @@ public class Deck{
 				this.cardCollection.add(newCard);
 				this.cardArray[counter] = newCard;
 				counter++;
+				System.out.println(newCard);
 			}
 		}
 	}

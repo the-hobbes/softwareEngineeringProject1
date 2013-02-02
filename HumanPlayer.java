@@ -144,10 +144,13 @@ public class HumanPlayer implements Player{
 		else{
 			System.out.println("Nope, go fish");
 			//remove the top card from the deck
-			Card drawnCard = this.gameDeck.getTopCard();
+			Card drawnCard = this.gameDeck.getTopCard();		
+
 			System.out.println("You drew a " + drawnCard.getRank() + " of " + drawnCard.getSuit());
 			//add that card to your hand
+			
 			this.playerHand.addCard(drawnCard);
+			System.out.println(this.getHand().toString());
 			//check for the presence of a full set
 			boolean isFullSet = playerHand.containsFourOfAKind(drawnCard.getRank());
 			//play that full set if there is one

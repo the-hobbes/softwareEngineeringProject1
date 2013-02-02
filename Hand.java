@@ -115,7 +115,6 @@ public class Hand{
 		Stack<Card> tempCards = new Stack<Card>();
 		//loop through current array, adding all elements not at the index to the temporary array
 		for(int i = 0; i<cards.length; i++){
-			// System.out.println(cards[i]);
 			if(cards[i].getRank() != cardRank){
 				tempCards.push(cards[i]);
 			}
