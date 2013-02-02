@@ -16,7 +16,6 @@ public class GamePlay{
 		
 		while (UserInterface.getMenuOption())
 		{
-			UserInterface.getMenuOption();
 			while(goFish.continueGame())
 			{
 				goFish.getHumanPlayer().doTurn(goFish.getDeck(), goFish.getComputerPlayer(), goFish.turnHistory);
