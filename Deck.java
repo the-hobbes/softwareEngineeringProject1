@@ -94,6 +94,7 @@ public class Deck{
 	* @return a concatenated string of all the cards left in the deck
 	*/
 	public String toString(){
+		Stack<Card> tempCards = new Stack<Card>();
 		String tmp = "";
 		int counter = 1;
 		while(! cardCollection.empty()){
@@ -104,10 +105,11 @@ public class Deck{
 			tmp += tempCard.toString();
 			tmp += "\n";
 			counter++;
+			tempCards.push(tempCard);
 		}
 
-		this.cardCollection = this.usedCards;
-		this.usedCards = new Stack<Card>();
+		this.cardCollection = tempCards;
+		//this.usedCards = new Stack<Card>();
 
 
 		return tmp;

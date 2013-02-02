@@ -21,7 +21,8 @@ public class GamePlay{
 			System.out.println( "=================================================================");
 			while(goFish.continueGame())
 			{
-				Deck tempDeck = goFish.getDeck();
+				
+				Deck tempDeck = goFish.getDeck();				
 				tempDeck = goFish.getHumanPlayer().doTurn(tempDeck, goFish.getComputerPlayer(), goFish.turnHistory);
 				//goFish.processHand(goFish.getHumanPlayer().getHand());
 				tempDeck = goFish.getComputerPlayer().doTurn(tempDeck, goFish.getHumanPlayer(), goFish.turnHistory);

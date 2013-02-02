@@ -97,12 +97,12 @@ public class AI implements Player{
 				playFullSet(desiredCard);
 			
 			//call doTurn() again
-			gameDeck = doTurn(gameDeck, opponent, turnHistory);
+			this.gameDeck = doTurn(this.gameDeck, opponent, turnHistory);
 		}
 		//the opponent doesn't have the card, and the player must go fish
 		else{
 			//remove the top card from the deck
-			Card drawnCard = gameDeck.getTopCard();
+			Card drawnCard = this.gameDeck.getTopCard();
 			//add that card to your hand
 			this.playerHand.addCard(drawnCard);
 			//check for the presence of a full set
@@ -113,10 +113,10 @@ public class AI implements Player{
 			
 			//if the card pulled from the deck is the one asked for, call doTurn()
 			if(drawnCard.getRank() == desiredCard)
-				gameDeck = doTurn(gameDeck, opponent, turnHistory);
+				this.gameDeck = doTurn(this.gameDeck, opponent, turnHistory);
 		}
 		
-		return gameDeck;
+		return this.gameDeck;
 	} // end doTurn()
 
 	/**

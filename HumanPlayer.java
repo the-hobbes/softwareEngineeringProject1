@@ -136,13 +136,13 @@ public class HumanPlayer implements Player{
 				playFullSet(desiredCard);
 			
 			//call doTurn() again
-			gameDeck = doTurn(gameDeck, opponent, turnHistory);
+			this.gameDeck = doTurn(this.gameDeck, opponent, turnHistory);
 		}
 		//the opponent doesn't have the card, and the player must go fish
 		else{
 			System.out.println("Nope, go fish");
 			//remove the top card from the deck
-			Card drawnCard = gameDeck.getTopCard();
+			Card drawnCard = this.gameDeck.getTopCard();
 			System.out.println("You drew a " + drawnCard.getRank() + " of " + drawnCard.getSuit());
 			//add that card to your hand
 			this.playerHand.addCard(drawnCard);
@@ -154,10 +154,10 @@ public class HumanPlayer implements Player{
 			
 			//if the card pulled from the deck is the one asked for, call doTurn()
 			if(drawnCard.getRank() == desiredCard)
-				gameDeck = doTurn(gameDeck, opponent, turnHistory);
+				this.gameDeck = doTurn(this.gameDeck, opponent, turnHistory);
 		}
 		
-		return gameDeck;
+		return this.gameDeck;
 	}
 
 	/**
