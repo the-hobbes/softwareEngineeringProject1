@@ -33,12 +33,7 @@ public class Game{
 			playerHand.addCard(theDeck.getTopCard());
 			aiHand.addCard(theDeck.getTopCard());
 		}
-		/*
-		System.out.println("Player Hand:\n");
-		System.out.println(playerHand.toString());
-		System.out.println("AI Hand:\n");
-		System.out.println(aiHand.toString());
-		*/
+		
 		//create the two players with the created hands
 		AI ai = new AI(aiHand);
 		HumanPlayer player = new HumanPlayer(playerHand);
