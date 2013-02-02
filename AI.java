@@ -21,28 +21,28 @@ public class AI implements Player{
 
 	// a main() function has been included to
 	// allow for testing
-	public static void main(String[] args) {
-		// Deck deck = new Deck();
-		// deck.shuffle();
-		// Card[] cards = new Card[5];
+	// public static void main(String[] args) {
+	// 	// Deck deck = new Deck();
+	// 	// deck.shuffle();
+	// 	// Card[] cards = new Card[5];
 
-		// for(int ii=0; ii<2; ii++){
-		// 	cards[ii] = deck.getTopCard(); 
-		// }
+	// 	// for(int ii=0; ii<2; ii++){
+	// 	// 	cards[ii] = deck.getTopCard(); 
+	// 	// }
 
-		// cards[2] = new Card("clubs", 3);
-		// cards[3] = new Card("spades", 3);
-		// cards[4] = new Card("diamond", 3);
+	// 	// cards[2] = new Card("clubs", 3);
+	// 	// cards[3] = new Card("spades", 3);
+	// 	// cards[4] = new Card("diamond", 3);
 
-		// Hand playerHand = new Hand(cards);
-		// System.out.println(playerHand);
-		// // System.out.println("_____");
+	// 	// Hand playerHand = new Hand(cards);
+	// 	// System.out.println(playerHand);
+	// 	// // System.out.println("_____");
 
-		// AI comp = new AI(playerHand);
-		// System.out.println(comp.analyzeHand());
-		System.out.println((int)(Math.random()*10));
+	// 	// AI comp = new AI(playerHand);
+	// 	// System.out.println(comp.analyzeHand());
+	// 	System.out.println((int)(Math.random()*10));
 
-	} // end main()
+	// } // end main()
 
 	public AI(Hand hand){
 		this.playerHand = hand;
@@ -52,6 +52,7 @@ public class AI implements Player{
 		return this.playerHand;
 	} // end getHand()
 
+	@Override
 	public Deck doTurn(Deck gameDeck, Player opponent, Turn[] turnHistory){
 		this.gameDeck = gameDeck;
 		this.opponent = opponent;
@@ -62,6 +63,8 @@ public class AI implements Player{
 		// analyze hand inspects the state of the hand, and previous turns, and returns an
 		// int indicating the rank of the desired card 
 		int desiredCard = this.analyzeHand();
+
+		System.out.println("Computer requests a "+desiredCard);
 		
 		//if the opponent has no cards in their hand, the game is over
 		if(desiredCard == -1){
@@ -139,6 +142,7 @@ public class AI implements Player{
 		int drewCounter = 0; // counts the numbner of cards drawn as we loop through our turns
 		int countRequested = 0; // the number of times we have requested this card
 		int output = -1;
+		Card[] cards = playerHand.getCards();
 		// if we have a set, and that set is 3 cards
 		if(setRank!=-1 && countSetQTY(setRank)==3){
 			// go through our turn history and see if the opponent has
@@ -189,31 +193,37 @@ public class AI implements Player{
 					}
 				}
 			} // end for Turn iterator
-		}else{
+		}else if (turnHistory[0] != null){
 			// we have no sets, iterate through the most recent turns 
 			for(int ii=0; ii<this.turnHistory.length; ii++){
+				int rankRequested = turnHistory[ii].getRequested();
 				// look back 3 turns, if the turn has been taken
 				if(turnHistory[ii] != null && ii<4){
 					// and the turn is AI 
 					if(!turnHistory[ii].isHuman()){
 						// request a card that wasn't requested recently
-						int rankRequested = turnHistory[ii].getRequested();
-						Card[] cards = playerHand.getCards();
 						for(int jj=0; jj<cards.length; jj++){
 							if(cards[jj].getRank()!=rankRequested){
 								output = cards[jj].getRank();
 								
 								break;
 							}else{
-								int num = cards.length-1;
-								int ran = (int)(Math.random()*num);
-								output = cards[ran].getRank();
+								output = cards[0].getRank();
 								// output = cards[0].getRank();
 							}
 						}
 					}
+				}else{
+					output = cards[0].getRank();
+				// output = cards[0].getRank();
 				}
 			}
+		}else{
+			output = cards[0].getRank();
+		}
+
+		if (output == -1){
+			output = cards[0].getRank();
 		}
 		return output;
 	} // end analyze hand

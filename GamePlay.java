@@ -13,11 +13,15 @@ public class GamePlay{
 		Game goFish = new Game();
 		goFish.setUpGame();
 
-		
-		while (UserInterface.getMenuOption())
+		boolean continueGoFish = UserInterface.getMenuOption();
+
+		while (continueGoFish)
 		{
+
+			System.out.println( "=================================================================");
 			while(goFish.continueGame())
 			{
+<<<<<<< HEAD
 				Deck tempDeck = new Deck();
 				tempDeck = goFish.getHumanPlayer().doTurn(goFish.getDeck(), goFish.getComputerPlayer(), goFish.turnHistory);
 				//goFish.processHand(goFish.getHumanPlayer().getHand());
@@ -26,6 +30,16 @@ public class GamePlay{
 				goFish.setDeck(tempDeck);
 				
 			}			
+=======
+				goFish.getHumanPlayer().doTurn(goFish.getDeck(), goFish.getComputerPlayer(), goFish.turnHistory);
+				goFish.processHand(goFish.getHumanPlayer().getHand());
+				goFish.getComputerPlayer().doTurn(goFish.getDeck(), goFish.getHumanPlayer(), goFish.turnHistory);
+				goFish.processHand(goFish.getComputerPlayer().getHand());
+				
+			}	
+
+			continueGoFish = UserInterface.getMenuOption();		
+>>>>>>> 6c4280c0455469c196c1b20d27831786bc078fa6
 		}
 		
 		goFish.endGame();

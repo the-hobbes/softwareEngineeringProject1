@@ -123,10 +123,10 @@ public class HumanPlayer implements Player{
 			Hand newplayerhand = new Hand(tempCard);
 			this.playerHand = newplayerhand;
 
-			System.out.println("Your new hand");
-			System.out.println(playerHand);
-			System.out.println("Opponents new hand");
-			System.out.println(opponent.getHand());
+			// System.out.println("Your new hand");
+			// System.out.println(playerHand);
+			// System.out.println("Opponents new hand");
+			// System.out.println(opponent.getHand());
 
 			//check for a full set of cards in your hand
 			boolean isFullSet = playerHand.containsFourOfAKind(desiredCard);
@@ -184,13 +184,13 @@ public class HumanPlayer implements Player{
 	  */
 	private void playFullSet(int desiredCard){
 		//display message
-		System.out.println("You got a full set of " + Integer.toString(desiredCard) + "'s");
+		// System.out.println("You got a full set of " + Integer.toString(desiredCard) + "'s");
 		//increment score
 		this.currentScore++;
 		//remove those cards from the hand
 		playerHand.removeFullSet(desiredCard);
-		System.out.println("Here's the hand, minus the 4 cards");
-		System.out.println(playerHand);
+		// System.out.println("Here's the hand, minus the 4 cards");
+		// System.out.println(playerHand);
 	}	
 	/**
 	 * hasCards
@@ -262,35 +262,10 @@ public class HumanPlayer implements Player{
 		Card[] cardHolder = new Card[newHand.size()];
 		for(int j=0; j<newHand.size(); j++){
 			cardHolder[j] = newHand.get(j);
-			System.out.println(cardHolder[j]);
+			// System.out.println(cardHolder[j]);
 		}
 		Hand freshHand = new Hand(cardHolder);
 		this.playerHand = freshHand;
-
-		/* Iterator Method */
-		//copy the player's hand to an array list so it can be iterated
-		// ArrayList<Card> handCopy = new ArrayList<Card>(Arrays.asList(playerHand.getCards()));
-		// Iterator<Card> it = handCopy.iterator();
-
-		// while(it.hasNext()){
-		// 	Card currentCard = it.next();
-		// 	// System.out.println(currentCard);
-		// 	if(currentCard.getRank() == desiredCard){
-		// 		// System.out.println("same");
-		// 		// add the card to our temporary arraylist
-		// 		foundCards.add(currentCard);
-		// 		//remove the card from our hand
-		// 		it.remove();
-
-		// //add the remaining cards to a hand
-		// Card[] cards = new Card[handCopy.size()];
-		// for(int i=0; i<handCopy.size(); i++){
-		// 	cards[i] = handCopy.get(i); 
-		// }
-		// //set the hand field to the contents of the new hand
-		// Hand hand = new Hand(cards, 1);
-		// this.playerHand = hand;
-		/* END Iterator Method */
 		
 		//return the arraylist
 		return foundCards;

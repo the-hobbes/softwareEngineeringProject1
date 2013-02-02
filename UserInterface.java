@@ -13,7 +13,7 @@ public class UserInterface{
 	*Display the people who made this game
 	*/
 	public static void displayCredits(){
-		String out = "//=================================CREDITS====================================\\\\"
+		String out = "//=================================CREDITS====================================\\\\ \n\n"
 				   + "This fantastic Go Fish game was created by these wonderful people:\n\n"
                    + "*Phelan Vendeville <phelan.vendeville@gmail.com>\n"
                    + "*Joshua Dickerson <joshuajdickerson@gmail.com>\n"
@@ -88,7 +88,7 @@ public class UserInterface{
 	*Display the rules and helpful information to the user
 	*/
 	public static void displayHelp(){
-		String rules = "//=====================================HELP===================================\\\\"
+		String rules = "//=====================================HELP===================================\\\\ \n\n"
 					 + "The rules of Go Fish:\n"
 					 + "1) 5 Cards are delt to the players\n"
 					 + "2) Players take turns asking if their opponent has a card of the same rank as one of their own\n"
@@ -115,7 +115,7 @@ public class UserInterface{
 		boolean valid = false;
 		while(!valid && !h.isEmpty()){
 			//Assumption of displayed the person hand already
-			System.out.println("Which Card would you like to pick?");
+			System.out.println("What rank would you like to pick? (Type h or help for help)");
 			System.out.print(">");
 			String in = scan.nextLine();
 			Scanner internalScanner = new Scanner(in);
