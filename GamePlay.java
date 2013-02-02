@@ -21,25 +21,17 @@ public class GamePlay{
 			System.out.println( "=================================================================");
 			while(goFish.continueGame())
 			{
-<<<<<<< HEAD
-				Deck tempDeck = new Deck();
-				tempDeck = goFish.getHumanPlayer().doTurn(goFish.getDeck(), goFish.getComputerPlayer(), goFish.turnHistory);
+				Deck tempDeck = goFish.getDeck();
+				tempDeck = goFish.getHumanPlayer().doTurn(tempDeck, goFish.getComputerPlayer(), goFish.turnHistory);
 				//goFish.processHand(goFish.getHumanPlayer().getHand());
 				tempDeck = goFish.getComputerPlayer().doTurn(tempDeck, goFish.getHumanPlayer(), goFish.turnHistory);
 				//goFish.processHand(goFish.getComputerPlayer().getHand());
 				goFish.setDeck(tempDeck);
 				
-			}			
-=======
-				goFish.getHumanPlayer().doTurn(goFish.getDeck(), goFish.getComputerPlayer(), goFish.turnHistory);
-				goFish.processHand(goFish.getHumanPlayer().getHand());
-				goFish.getComputerPlayer().doTurn(goFish.getDeck(), goFish.getHumanPlayer(), goFish.turnHistory);
-				goFish.processHand(goFish.getComputerPlayer().getHand());
-				
 			}	
 
 			continueGoFish = UserInterface.getMenuOption();		
->>>>>>> 6c4280c0455469c196c1b20d27831786bc078fa6
+
 		}
 		
 		goFish.endGame();
