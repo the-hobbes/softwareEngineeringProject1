@@ -233,6 +233,9 @@ public class AI implements Player{
 
 		//if the card is in the opponent's hand, then return true. otherwise, false.
 		for(Card card : opponent.getHand().getCards()){
+			if(card == null){
+				System.out.println("MY GOD");
+			}
 			if(card.getRank() == desiredCard){
 				opponentHasCard = true;
 			}
