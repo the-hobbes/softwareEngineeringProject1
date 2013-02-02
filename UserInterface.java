@@ -146,9 +146,9 @@ public class UserInterface{
 				}else if(in.toUpperCase().equals("Q")){
 					rank = 12;
 					valid = true;
-				}else if(in.toUpperCase().equals("HELP")){
+				}else if(in.toUpperCase().equals("HELP") || in.toUpperCase().equals("H")){
 					displayHelp();
-				}else if(in.toUpperCase().equals("CREDITS")){
+				}else if(in.toUpperCase().equals("CREDITS") || in.toUpperCase().equals("C")){
 					displayCredits();
 				}else{
 					//Nope illegal.
