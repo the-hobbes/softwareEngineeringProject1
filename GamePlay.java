@@ -23,7 +23,8 @@ public class GamePlay{
 			{
 
 				Deck tempDeck = goFish.getDeck();
-				tempDeck = goFish.getHumanPlayer().doTurn(tempDeck, goFish.getComputerPlayer(), goFish.turnHistory);
+				if (continueGoFish)
+					tempDeck = goFish.getHumanPlayer().doTurn(tempDeck, goFish.getComputerPlayer(), goFish.turnHistory);
 				continueGoFish = goFish.continueGame();
 				if(continueGoFish){
 					tempDeck = goFish.getComputerPlayer().doTurn(tempDeck, goFish.getHumanPlayer(), goFish.turnHistory);
