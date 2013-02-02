@@ -96,7 +96,7 @@ public class AI implements Player{
 			}
 			
 			//call doTurn() again
-			if (playerHand.isEmpty() || gameDeck.isEmpty())
+			if (!playerHand.isEmpty() || !gameDeck.isEmpty())
 				this.gameDeck = doTurn(this.gameDeck, opponent, turnHistory);
 			
 		}
