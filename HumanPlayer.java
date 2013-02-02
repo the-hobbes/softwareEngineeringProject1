@@ -140,7 +140,7 @@ public class HumanPlayer implements Player{
 		}
 		//the opponent doesn't have the card, and the player must go fish
 		else{
-			// System.out.println("Nope, go fish");
+			System.out.println("Nope, go fish");
 			//remove the top card from the deck
 			Card drawnCard = gameDeck.getTopCard();
 			//add that card to your hand
@@ -262,7 +262,7 @@ public class HumanPlayer implements Player{
 		Card[] cardHolder = new Card[newHand.size()];
 		for(int j=0; j<newHand.size(); j++){
 			cardHolder[j] = newHand.get(j);
-			System.out.println(cardHolder[j]);
+			// System.out.println(cardHolder[j]);
 		}
 		Hand freshHand = new Hand(cardHolder);
 		this.playerHand = freshHand;
