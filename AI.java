@@ -105,7 +105,6 @@ public class AI implements Player{
 			Card drawnCard = this.gameDeck.getTopCard();
 			//add that card to your hand
 			this.playerHand.addCard(drawnCard);
-			System.out.println("DERRRRP" + this.playerHand);
 			//check for the presence of a full set
 			boolean isFullSet = playerHand.containsFourOfAKind(drawnCard.getRank());
 			//play that full set if there is one
