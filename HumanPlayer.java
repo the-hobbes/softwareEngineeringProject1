@@ -112,8 +112,10 @@ public class HumanPlayer implements Player{
 		if (makeCardRequest(opponent, desiredCard)){
 			//get all instances of that card from the opponent (removing them from the opponent's hand as well)
 			foundCards = opponent.respondCardRequest(desiredCard);
+
 			//add them to your hand
 			for(Card card : playerHand.getCards()){
+				// System.out.println(card);
 				foundCards.add(card);
 			}
 			Card[] tempCard = new Card[foundCards.size()];
@@ -220,6 +222,7 @@ public class HumanPlayer implements Player{
 
 		//if the card is in the opponent's hand, then return true. otherwise, false.
 		for(Card card : opponent.getHand().getCards()){
+			// System.out.println("HUMAN DesiredCard :" + desiredCard + "opponents card: " + card);
 			if(card.getRank() == desiredCard){
 				opponentHasCard = true;
 			}
@@ -245,8 +248,10 @@ public class HumanPlayer implements Player{
 		//create a holder arraylist for the found cards
 		ArrayList<Card> foundCards = new ArrayList<Card>();
 
+		System.out.println("Human respondCardRequest");
+
 		//oldhand is a container for the players current hand
-		Hand oldHand = playerHand;
+		Hand oldHand = playerHand; 
 		//newhand is a stack to place the cards not culled from the players hand into
 		Stack<Card> newHand = new Stack<Card>();
 
@@ -272,8 +277,7 @@ public class HumanPlayer implements Player{
 		}
 		Hand freshHand = new Hand(cardHolder);
 		this.playerHand = freshHand;
-		
-		//return the arraylist
+
 		return foundCards;
 	}
 
