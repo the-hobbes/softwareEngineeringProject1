@@ -104,6 +104,7 @@ public class AI implements Player{
 		}
 		//the opponent doesn't have the card, and the player must go fish
 		else{
+			System.out.println("Nope, go fish");
 			//remove the top card from the deck
 			Card drawnCard = this.gameDeck.getTopCard();
 			//add that card to your hand
@@ -288,7 +289,6 @@ public class AI implements Player{
 			if(currentCard.getRank() != desiredCard){
 				//add that card to the new hand. it will not be given to the requesting player
 				newHand.push(currentCard);
-				System.out.println(currentCard.toString());
 			}
 			else{
 				//otherwise, the card matches. add it to the arraylist keeping track of found cards
@@ -298,14 +298,9 @@ public class AI implements Player{
 
 		// convert the new hand to a hand object, and make that the new player hand
 		Card[] cardHolder = new Card[newHand.size()];
-		System.out.println("Card holder AI:");
-		System.out.println("newHand Size:" + Integer.toString(newHand.size()));
-		System.out.println("\n" + newHand.toString());
 		for(int j = 0; j < newHand.size(); j++){
 			cardHolder[j] = newHand.get(j);
 		}
-		System.out.println(cardHolder.length);
-		System.out.println(cardHolder.toString());
 		Hand freshHand = new Hand(cardHolder);
 		this.playerHand = freshHand;
 		
@@ -338,7 +333,6 @@ public class AI implements Player{
 		int numCards = cards.length;
 		int counter = 0;
 		for(int ii=0; ii<numCards; ii++){
-			System.out.println("Card: " + cards[ii]);
 			if (cards[ii].getRank() == rankOfSet){
 				counter++;
 			}
