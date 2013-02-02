@@ -208,6 +208,7 @@ public class AI implements Player{
 								int num = cards.length-1;
 								int ran = (int)(Math.random()*num);
 								output = cards[ran].getRank();
+								// output = cards[0].getRank();
 							}
 						}
 					}
