@@ -162,7 +162,7 @@ public class HumanPlayer implements Player{
 			//if the card pulled from the deck is the one asked for, call doTurn()
 			if(drawnCard.getRank() == desiredCard)
 			{
-				if(playerHand.isEmpty() || gameDeck.isEmpty())
+				if (!playerHand.isEmpty() || !gameDeck.isEmpty())
 					this.gameDeck = doTurn(this.gameDeck, opponent, turnHistory);
 			}
 		}
