@@ -93,8 +93,9 @@ public class AI implements Player{
 			//check for a full set of cards in your hand
 			boolean isFullSet = playerHand.containsFourOfAKind(desiredCard);
 			//play the full set down, if there are any
-			if(isFullSet)
+			if(isFullSet){
 				playFullSet(desiredCard);
+			}
 			
 			//call doTurn() again
 			gameDeck = doTurn(gameDeck, opponent, turnHistory);
@@ -230,7 +231,7 @@ public class AI implements Player{
 	public boolean makeCardRequest(Player opponent, int desiredCard){
 		this.opponent = opponent;
 		opponentHasCard = false;
-
+		Hand opHand = opponent.getHand();
 		//if the card is in the opponent's hand, then return true. otherwise, false.
 		for(Card card : opponent.getHand().getCards()){
 			if(card.getRank() == desiredCard){
