@@ -6,6 +6,7 @@
  * @param numCards is the number of cards in this hand. 
  */
 import java.util.*;
+
 public class Hand{
 
 	private Card[] cards; // our hand
@@ -95,19 +96,22 @@ public class Hand{
 	  */
 	public void removeFullSet(int cardRank){
 		//set up temporary holder for smaller array
-		Card[] tempCards = new Card[(cards.length-4)];
-		int nextIndex = 0;
+		// Card[] tempCards = new Card[(cards.length-4)];
+		// int nextIndex = 0;
+		ArrayList<Card> tempCard = new ArrayList<Card>();
 
 		//loop through current array, adding all elements not at the index to the temporary array
 		for(int i = 0; i<cards.length; i++){
 			// System.out.println(cards[i]);
 			if(cards[i].getRank() != cardRank){
-				tempCards[nextIndex] = cards[i];
-				nextIndex++;
+				// tempCards[nextIndex] = cards[i];
+				// nextIndex++;
+				tempCard.add(cards[i]);
 			}
 		}
 		//copy the temporary array into the cards array
-		this.cards = tempCards;
+		// this.cards = tempCards;
+		this.cards = tempCard.toArray(this.cards);
 	}
 
 	public int calcTotal(){

@@ -185,7 +185,7 @@ public class HumanPlayer implements Player{
 	  */
 	private void playFullSet(int desiredCard){
 		//display message
-		// System.out.println("You got a full set of " + Integer.toString(desiredCard) + "'s");
+		System.out.println("You got a full set of " + Integer.toString(desiredCard) + "'s");
 		//increment score
 		this.currentScore++;
 		//remove those cards from the hand
