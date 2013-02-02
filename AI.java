@@ -279,14 +279,9 @@ public class AI implements Player{
 
 		// convert the new hand to a hand object, and make that the new player hand
 		Card[] cardHolder = new Card[newHand.size()];
-		System.out.println("Card holder AI:");
-		System.out.println("newHand Size:" + Integer.toString(newHand.size()));
-		System.out.println("\n" + newHand.toString());
 		for(int j = 0; j < newHand.size(); j++){
 			cardHolder[j] = newHand.get(j);
 		}
-		System.out.println(cardHolder.length);
-		System.out.println(cardHolder.toString());
 		Hand freshHand = new Hand(cardHolder);
 		this.playerHand = freshHand;
 		
