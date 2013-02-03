@@ -67,7 +67,7 @@ public class AI implements Player{
 		// int indicating the rank of the desired card 
 		int desiredCard = this.analyzeHand();
 
-		System.out.println("\n Computer requests a "+desiredCard);
+		System.out.println("\n Computer requests a "+getRankTrad(desiredCard));
 		
 		//if the opponent has no cards in their hand, the game is over
 		if(desiredCard == -1){
@@ -198,52 +198,48 @@ public class AI implements Player{
 		// for our first strategy, we want to see if we have 3 of a kind
 		// but we want to make sure not to ask for the same card over and over
 		int setRank = this.hasSet();
-// <<<<<<< HEAD
 		int output = -1;
 		int drewCounter = 0;
 		int countRequested = 0;
-
-// =======
-// 		int drewCounter = 0; // counts the numbner of cards drawn as we loop through our turns
-// 		int countRequested = 0; // the number of times we have requested this card
-// 		Card[] cards = playerHand.getCards();
-// 		int output = cards[0].getRank();
-		
-// >>>>>>> 92f0f05642f8d899fe4bf21c3fe89d9abae4d50d
 		// if we have a set, and that set is 3 cards
 		if(setRank!=-1 && countSetQTY(setRank)==3){
-			// if we asked for the same card 3 times in a row ask for a different card
+			System.out.println("Computer has triple");
+			// if we asked for the same card 3 times in a row we want to ask for a different card
 			int histCounter = 0;
+			System.out.println(this.turnHistory);
 			// go through our turn history and see if the opponent has
-			// drawn a card since we last asked for that rank
+			// drawn a card since we last asked for a card 3 times in a row ask for a different card
 			for(Turn turn : this.turnHistory){
 				// if the turn has been taken
-				if(turn != null){
-					// if the human took a turn and drew a card
-					if(turn.drewCard() && turn.isHuman()){
-						drewCounter++;
+				// if(turn != null){ <-- we know they're not null cuz we moved to an ArrayList
+				// if the human took a turn and drew a card
+				if(turn.drewCard() && turn.isHuman()){
+					drewCounter++;
+					System.out.println("\n*******************\n");
+					System.out.println("*        "+drewCounter+"        *\n");
+					System.out.println("\n*******************\n");
+				}
+				// if the turn was taken by a computer
+				if(!turn.isHuman()){
+					int rankRequested = turn.getRequested();
+					// if we have requested this rank before
+					if(rankRequested == setRank){
+						countRequested++;
 					}
-					// if the turn was taken by a computer
-					if(!turn.isHuman()){
-						int rankRequested = turn.getRequested();
-						// if we have requested this rank before
-						if(rankRequested == setRank){
-							countRequested++;
-						}
-						// if we have requested this card before, but opponent has drawn since
-						// or if we haven't asked for that card before
-						if((drewCounter>0 && countRequested>0)||countRequested <1){
-							if(this.turnHistory.size() > 4){
-								for(int ii=3; ii > -1; ii--){
-									if(this.turnHistory.get(ii).getRequested() == setRank && this.turnHistory.get(ii).isHuman()){
-										histCounter++;
-									}
+					// if we have requested this card before, but opponent has drawn since
+					// or if we haven't asked for that card before
+					if((drewCounter>0 && countRequested>0)||countRequested <1){
+						if(this.turnHistory.size() > 4){
+							for(int ii=3; ii > -1; ii--){
+								if(this.turnHistory.get(ii).getRequested() == setRank && this.turnHistory.get(ii).isHuman()){
+									histCounter++;
 								}
 							}
-							output = setRank;
 						}
+						output = setRank;
 					}
 				}
+				// }
 			} // end for Turn iterator
 		}else{
 			output = -1;
@@ -308,7 +304,7 @@ public class AI implements Player{
 		int countRequested = 0;
 
 		if (!this.turnHistory.isEmpty()){
-			System.out.println("\n We have taken turns \n");
+			System.out.println("(inside strat3) We have taken turns \n");
 			// we have no sets, iterate through the most recent turns 
 			for(int ii=0; ii<this.turnHistory.size(); ii++){
 				int rankRequested = turnHistory.get(ii).getRequested();

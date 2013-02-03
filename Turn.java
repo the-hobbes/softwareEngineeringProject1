@@ -33,11 +33,17 @@ public class Turn{
 
 	public String toString(){
 		String str;
-		if(this.drewCard){
-			str = "true";
+		String opponent;
+		if(this.name.equals("ai")){
+			opponent = "human";
 		}else{
-			 str = "false";
+			opponent = "ai";
 		}
-		return "type: "+this.name+"\n drewCard: "+str+"\n Rank Requested: "+this.cardRequested;
+		if(this.drewCard){
+			str = " did NOT have the card. ";
+		}else{
+			 str = " DID have the card";
+		}
+		return this.name+" requested a "+this.cardRequested+". "+opponent+" "+str;
 	}
 }
