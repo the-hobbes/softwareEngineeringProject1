@@ -30,4 +30,20 @@ public class Turn{
 	public boolean drewCard(){
 		return this.drewCard;
 	}
+
+	public String toString(){
+		String str;
+		String opponent;
+		if(this.name.equals("ai")){
+			opponent = "human";
+		}else{
+			opponent = "ai";
+		}
+		if(this.drewCard){
+			str = " did NOT have the card. ";
+		}else{
+			 str = " DID have the card";
+		}
+		return this.name+" requested a "+this.cardRequested+". "+opponent+" "+str;
+	}
 }

@@ -27,20 +27,19 @@ public class GamePlay{
 			{
 
 				Deck tempDeck = goFish.getDeck();
-				if (continueGoFish)
-					tempDeck = goFish.getHumanPlayer().doTurn(tempDeck, goFish.getComputerPlayer(), goFish.turnHistory);
+				tempDeck = goFish.getHumanPlayer().doTurn(tempDeck, goFish.getComputerPlayer());
 				continueGoFish = goFish.continueGame();
 				if(continueGoFish){
-					tempDeck = goFish.getComputerPlayer().doTurn(tempDeck, goFish.getHumanPlayer(), goFish.turnHistory);
+					tempDeck = goFish.getComputerPlayer().doTurn(tempDeck, goFish.getHumanPlayer());
 				}
 				goFish.setDeck(tempDeck);				
 			}	
-			goFish.endGame();
+
 			continueGoFish = UserInterface.getMenuOption();		
 
 		}
 		
-		
+		goFish.endGame();
 
 
 	}//main function

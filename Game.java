@@ -5,7 +5,6 @@
 import java.util.Random;
 
 public class Game{
-	public Turn[] turnHistory = new Turn[30]; // history of each turn
 	Deck theDeck;
 
 	Player[] players = new Player[2];
