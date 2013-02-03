@@ -127,21 +127,17 @@ public class HumanPlayer implements Player{
 				//check for a full set of cards in your hand
 				boolean isFullSet = playerHand.containsFourOfAKind(desiredCard);
 				// System.out.println(isFullSet);
+
 				//play the full set down, if there are any
 				if(isFullSet)
 					playFullSet(desiredCard);
 				
 				//call doTurn() again
-// <<<<<<< HEAD
-				if(playerHand.isEmpty() || gameDeck.isEmpty())
-					this.gameDeck = doTurn(this.gameDeck, opponent);
-// =======
-// 				if(!playerHand.isEmpty())
-// 				{
-// 					if(!gameDeck.isEmpty())
-// 						this.gameDeck = doTurn(this.gameDeck, opponent, turnHistory);
-// 				}
-// >>>>>>> 92f0f05642f8d899fe4bf21c3fe89d9abae4d50d
+				if(!playerHand.isEmpty())
+				{
+					if(!gameDeck.isEmpty())
+						this.gameDeck = doTurn(this.gameDeck, opponent);
+				}
 			}
 		}
 		//the opponent doesn't have the card, and the player must go fish
