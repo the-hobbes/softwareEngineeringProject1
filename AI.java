@@ -24,7 +24,8 @@ public class AI implements Player{
 	private boolean opponentHasCard;
 
 	/** 
-	* 
+	* Constructor
+	* @param hand - initial hand dealt from dec
 	*/
 	public AI(Hand hand){
 		this.playerHand = hand;
@@ -42,7 +43,7 @@ public class AI implements Player{
 	* Constitutes a single turn for one player
 	* @param Deck - the only deck in play
 	* @param Player - the opponent whose hand we will request cards of
-	* @return boolean
+	* @return Deck - Game deck
 	*/
 	public Deck doTurn(Deck gameDeck, Player opponent){
 		this.gameDeck = gameDeck;
@@ -155,6 +156,8 @@ public class AI implements Player{
 	} // end analyze hand
 	
 	/**
+	* If AI has a set of 3, has our opponent drawn from the deck since we last asked 
+	* for the rank of the set, if so request the set rank
 	* @param Card[] - array of card objects
 	* @return int - reccomended rank of request to be made
 	*/
@@ -208,7 +211,12 @@ public class AI implements Player{
 		return output;
 	} // end strat1()
 
-	// the computer has a pair
+	/**
+	* If AI has a set of 2, has our opponent drawn from the deck since we last asked 
+	* for the rank of the set, if so request the set rank
+	* @param Card[] - array of card objects
+	* @return int - reccomended rank of request to be made
+	*/
 	public int strat2(Card[] cards){
 		int setRank = this.hasSet();
 		int output = -1;
@@ -256,7 +264,11 @@ public class AI implements Player{
 		return output;
 	} // end strat2
 
-	// no sets, look for cards in computer hand that player has asked for
+	/**
+	* If AI has no sets, if opponent has requested a card that we now have, request that card of them
+	* @param Card[] - array of card objects
+	* @return int - reccomended rank of request to be made
+	*/
 	public int strat3(Card[] cards){
 		int setRank = this.hasSet();
 		int output = -1;
@@ -292,6 +304,10 @@ public class AI implements Player{
 		return output;
 	}
 
+	/**
+	* Does our hand contain cards?
+	* @return boolean
+	*/
 	public boolean hasCards(){
 		if(playerHand.calcTotal() > 0){
 			hasCards = true;
@@ -302,7 +318,10 @@ public class AI implements Player{
 	} // end hasCards()
 
 	/**
-	*Asks the other player for a card
+	* Mechanisim for requesting card of opponent's hand.
+	* @param Player - opponent player object
+	* @param int - rank of the card desired of opponent
+	* @return boolean - player had card requested?
 	*/
 	public boolean makeCardRequest(Player opponent, int desiredCard){
 		Turn singleTurn;
@@ -377,10 +396,10 @@ public class AI implements Player{
 	} // end respondCardRequest()
 
 	/**
-	  * playFullSet
-	  * @param the card which has just been added to the hand
-	  * Used to remove a full set from the hand and increment the score
-	  */
+	* playFullSet
+	* @param the card which has just been added to the hand
+	* Used to remove a full set from the hand and increment the score
+	*/
 	private void playFullSet(int desiredCard){
 		//display message
 		// System.out.println("The computer has a full set of " + Integer.toString(desiredCard) + "'s");
@@ -437,42 +456,54 @@ public class AI implements Player{
 				}
 			}
 		}
-		return -1; 
+		return -1;
 	} // end hasSet()
-
+	/**
+	* Get AI complete sets of cards
+	* @return Card[] - array of card objects (one complete set of a given rank)
+	*/
 	public Card[] getMyCompleteSets(){
 		Card[] cards = new Card[1];
 		return cards;
 	} // end getMyCompleteSets()
 
-
+	/**
+	* Called at the end of a player's turn 
+	*/
 	public void endTurn(){
 	} // end endTurn()
 
+	/**
+	* Get AI current score 
+	* @return int - score of player, 1 point for each full set
+	*/
 	public int getCurrentScore(){
 		return this.currentScore;
 	}
 
+	/**
+	* @param int - rank of the card to convert to 'traditional' ranks (jack vs 11)
+	* @return string - string representation of traditional rank
+	*/
 	public String getRankTrad(int rank){
 		String rankTrad ="";
 		switch (rank) {
 			case 1:
-            	rankTrad="Ace";
-            break;
-            case 11:
-            	rankTrad="Jack";
-            break;
-            case 12:
-            	rankTrad="Queen";
-            break;
-            case 13:
-            	rankTrad="King";
-            break;
-            default:
-            	rankTrad=rank+"";
-            break; 
+				rankTrad="Ace";
+			break;
+			case 11:
+				rankTrad="Jack";
+			break;
+			case 12:
+				rankTrad="Queen";
+			break;
+			case 13:
+				rankTrad="King";
+			break;
+			default:
+				rankTrad=rank+"";
+			break; 
 		}
-
 		return rankTrad;
 	} // end getRankTrad()
 
