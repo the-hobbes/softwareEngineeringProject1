@@ -1,7 +1,11 @@
-/***
+/**
 * @author Danielle Steimke
-* Main function for gameplay
-*
+* Main function for gameplay. Creates instances of the game and calls the appropriate functions to play. 
+* Also call the statistics class to display statistical information.
+* 
+* @param historicalScores, an arraylist to store the arrays of integers containing the final scores for each game
+* @param goFish, an instance of the game class
+* @param continueGoFish, a boolean used to break out of the game loop
 */
 
 import java.util.ArrayList;
@@ -24,7 +28,7 @@ public class GamePlay{
 			System.out.println( "=================================================================");
 			while(goFish.continueGame())
 			{
-
+				//game loop
 				Deck tempDeck = goFish.getDeck();
 				tempDeck.shuffle();
 				tempDeck = goFish.getHumanPlayer().doTurn(tempDeck, goFish.getComputerPlayer());
@@ -45,9 +49,6 @@ public class GamePlay{
 		Statistics statGraph = new Statistics("GoFish Stats!", "Summary of Play Scores", historicalScores);
 		statGraph.pack();
 		statGraph.setVisible(true);
-
-		// goFish.endGame();
-
 
 	}//main function
 

@@ -1,7 +1,13 @@
 /**
-*@author Scott MacEwan
-*
-*/
+  * Game
+  * @author Scott MacEwan
+  * Class used to create indiviudal games and maintain them. 
+  * 
+  * @param players, an array of the players playing the game
+  * @param final int player, 0 indicates a player
+  * @param final int computer, 1 indicates a computer
+  * @param current player, the player who is taking their turn now
+  */
 import java.util.Random;
 import java.util.Arrays;  
 
