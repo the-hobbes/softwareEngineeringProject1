@@ -167,6 +167,10 @@ public class UserInterface{
 		return rank;
 	}
 
+	public static void contentFrame(String content){
+		System.out.format("%-5s:%10s\n", content, "Nemo");
+	}
+
 	public static void main(String[] args) {
 		//Unit Tests for each function
 		UserInterface.displayCredits();
