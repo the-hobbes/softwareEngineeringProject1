@@ -3,6 +3,16 @@
  * @author phelanvendeville
  * Class to handle all of the functionality for the human player in the gofish game. Implements the 
  * Player interface.
+ *
+ * @param name, the type of player
+ * @param gamedeck, the deck passed in by the game
+ * @param opponent, the computer opponent
+ * @param hasCards, boolean indicating a card of a certain rank is in hand
+ * @param opponentHasCard, does the opponent have a card
+ * @param playerHand, the hand of the player
+ * @param currentScore, the score for the player this turn
+ * @param turnHistory, the history of the game (used by ai for strategies)
+ * @param contniueGame, a boolean indicating whether or not an endgame condition has been met
  */
 
 import java.util.ArrayList;

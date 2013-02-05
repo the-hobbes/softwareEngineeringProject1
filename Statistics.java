@@ -5,6 +5,10 @@
  *
  * Note on classpath: javac -classpath charts4j-1.3.jar:junit-4.4.jar *.java
  * OR, you can put the .JAR:s in "/System/Library/Java/Extensions".
+ * OR OR, you can just extract the damn jar into your working directory by running the following:
+ * 		jar -xvf *.jar
+ *
+ * @param dataset, a set of game scores passed in by the main gofish game loop
  */
 
 import javax.swing.JFrame;
@@ -29,30 +33,10 @@ public class Statistics extends JFrame {
 	ArrayList<int[]> dataSet;
 
 	/**
-	  * unit test with sample data
-	  */
-	// public static void main(String[] args) {
-	// 	ArrayList<int[]> historicalScores = new ArrayList<int[]>();
-	// 	int[] testScores1 = new int[2];
-	// 	int[] testScores2 = new int[2];
-	// 	int[] testScores3 = new int[2];
-	// 	testScores1[0] = 4;
-	// 	testScores1[1] = 0;
-	// 	testScores2[0] = 1;
-	// 	testScores2[1] = 9;
-	// 	testScores3[0] = 7;
-	// 	testScores3[1] = 3;
-	// 	historicalScores.add(testScores1);
-	// 	historicalScores.add(testScores2);
-	// 	historicalScores.add(testScores3);
-
-	// 	Statistics statGraph = new Statistics("GoFish Stats!", "Summary of Play Scores", historicalScores);
-	// 	statGraph.pack();
-	// 	statGraph.setVisible(true);
- //      }
-
-	/**
-	  * Constructor
+	  * Default Constructor
+	  * @param applicationTitle, the name of the window to be displayed
+	  * @param chartTitle, the title to be displayed in the chart
+	  * @param dataSet, the arraylist of integer arrays containing the scores of the game
 	  */
 	public Statistics(String applicationTitle, String chartTitle, ArrayList<int[]> dataSet) {
         super(applicationTitle); //call JFrame constructor (superclass)
