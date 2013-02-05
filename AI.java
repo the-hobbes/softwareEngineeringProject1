@@ -6,56 +6,45 @@ import java.math.*;
 
 
 public class AI implements Player{
+	/** does the deck have cards left? */
 	private boolean deckHasCards = true;
+	/** this player's hand of cards */
 	private Hand playerHand;
-	private Card[] completedSets = new Card[13];
-	public ArrayList<Turn> turnHistory = new ArrayList<Turn>(); // history of each turn
-	// holds all of the opponent's previous requests so we know what they might have in their hand
-	// private int[] cardsRequestedByOpponent = new int[52];
-	// private int requestCounter = 0;
+	/** collection of turns, represents the turn history */
+	public ArrayList<Turn> turnHistory = new ArrayList<Turn>();
+	/** the opponent player object */
 	private Player opponent;
+	/** the game deck */
 	private Deck gameDeck;
+	/** this players current score */
 	public int currentScore;
+	/** does my hand contain cards? */
 	private boolean hasCards;
+	/** does our opponent have the card we're looking for? */
 	private boolean opponentHasCard;
-	int turnsTaken = 0;
 
-	// a main() function has been included to
-	// allow for testing
-	// public static void main(String[] args) {
-	// 	// Deck deck = new Deck();
-	// 	// deck.shuffle();
-	// 	// Card[] cards = new Card[5];
-
-	// 	// for(int ii=0; ii<2; ii++){
-	// 	// 	cards[ii] = deck.getTopCard(); 
-	// 	// }
-
-	// 	// cards[2] = new Card("clubs", 3);
-	// 	// cards[3] = new Card("spades", 3);
-	// 	// cards[4] = new Card("diamond", 3);
-
-	// 	// Hand playerHand = new Hand(cards);
-	// 	// System.out.println(playerHand);
-	// 	// // System.out.println("_____");
-
-	// 	// AI comp = new AI(playerHand);
-	// 	// System.out.println(comp.analyzeHand());
-	// 	System.out.println((int)(Math.random()*10));
-
-	// } // end main()
-
+	/** 
+	* 
+	*/
 	public AI(Hand hand){
 		this.playerHand = hand;
 	} // end AI
 
+	/**
+	* returns this player's hand
+	* @return Hand
+	*/
 	public Hand getHand(){
 		return this.playerHand;
 	} // end getHand()
 
-	@Override
+	/**
+	* Constitutes a single turn for one player
+	* @param Deck - the only deck in play
+	* @param Player - the opponent whose hand we will request cards of
+	* @return boolean
+	*/
 	public Deck doTurn(Deck gameDeck, Player opponent){
-		this.turnsTaken++;
 		this.gameDeck = gameDeck;
 		this.opponent = opponent;
 
@@ -90,22 +79,18 @@ public class AI implements Player{
 			}
 			Hand newplayerhand = new Hand(tempCard);
 			this.playerHand = newplayerhand;
-
 			//check for a full set of cards in your hand
 			boolean isFullSet = playerHand.containsFourOfAKind(desiredCard);
 			//play the full set down, if there are any
 			if(isFullSet){
 				playFullSet(desiredCard);
 			}
-			
 			//call doTurn() again
 			if (!playerHand.isEmpty())
 			{
 				if(!gameDeck.isEmpty())
 					this.gameDeck = doTurn(this.gameDeck, opponent);
-			} 
-				
-			
+			}
 		}
 		//the opponent doesn't have the card, and the player must go fish
 		else if(! this.gameDeck.isEmpty()){
@@ -117,9 +102,9 @@ public class AI implements Player{
 			//check for the presence of a full set
 			boolean isFullSet = playerHand.containsFourOfAKind(drawnCard.getRank());
 			//play that full set if there is one
-			if(isFullSet)
+			if(isFullSet){
 				playFullSet(drawnCard.getRank());
-			
+			}
 			//if the card pulled from the deck is the one asked for, call doTurn()
 			if(drawnCard.getRank() == desiredCard){
 				if (!playerHand.isEmpty()){
@@ -142,11 +127,9 @@ public class AI implements Player{
 	private int analyzeHand(){
 		int output = -1;
 		Card[] cards = this.playerHand.getCards();
-
 		int strat3Result = strat3(cards);
 		int strat2Result = strat2(cards);
 		int strat1Result = strat1(cards);
-
 		// each strategy consists of more and more restrictive conditions
 		// if both strat3 and strat1 result in a true, strat1 overrides strat3
 		if(strat3Result != -1){
@@ -171,7 +154,10 @@ public class AI implements Player{
 		return output;
 	} // end analyze hand
 	
-	// the computer has 3-of-a-kind
+	/**
+	* @param Card[] - array of card objects
+	* @return int - reccomended rank of request to be made
+	*/
 	public int strat1(Card[] cards){
 		// for our first strategy, we want to see if we have 3 of a kind
 		// but we want to make sure not to ask for the same card over and over
