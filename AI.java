@@ -59,8 +59,10 @@ public class AI implements Player{
 		this.gameDeck = gameDeck;
 		this.opponent = opponent;
 
-		System.out.println("-------  Computer's Turn -------");
-		System.out.println(this.playerHand);
+		// System.out.println("-------  Computer's Turn -------");
+		UserInterface ui = new UserInterface();
+		ui.contentFrame("this is content");
+		// System.out.println(this.playerHand);
 		ArrayList<Card> foundCards = new ArrayList<Card>();
 
 		// analyze hand inspects the state of the hand, and previous turns, and returns an
@@ -97,18 +99,6 @@ public class AI implements Player{
 			}
 			
 			//call doTurn() again
-// // <<<<<<< HEAD
-			
-// 			if (playerHand.isEmpty() || gameDeck.isEmpty())
-// 				this.gameDeck = doTurn(this.gameDeck, opponent);
-			
-// 		}
-// 		//the opponent doesn't have the card, and the player must go fish
-// 		else{
-// 			Turn singleTurn = new Turn("ai", false, desiredCard);
-// 			turnHistory.add(singleTurn);
-// 			System.out.println("Nope, go fish");
-// =======
 			if (!playerHand.isEmpty())
 			{
 				if(!gameDeck.isEmpty())
@@ -120,7 +110,6 @@ public class AI implements Player{
 		//the opponent doesn't have the card, and the player must go fish
 		else if(! this.gameDeck.isEmpty()){
 			System.out.println("Go fish!");
-// >>>>>>> 92f0f05642f8d899fe4bf21c3fe89d9abae4d50d
 			//remove the top card from the deck
 			Card drawnCard = this.gameDeck.getTopCard();
 			//add that card to your hand
@@ -132,28 +121,17 @@ public class AI implements Player{
 				playFullSet(drawnCard.getRank());
 			
 			//if the card pulled from the deck is the one asked for, call doTurn()
-			if(drawnCard.getRank() == desiredCard)
-			{
-// // <<<<<<< HEAD
-// 				if (playerHand.isEmpty() || gameDeck.isEmpty())
-// 					this.gameDeck = doTurn(this.gameDeck, opponent);
-// 			}
-// 		}
-
-
-// // =======
-				if (!playerHand.isEmpty())
-				{
-					if(!gameDeck.isEmpty())
+			if(drawnCard.getRank() == desiredCard){
+				if (!playerHand.isEmpty()){
+					if(!gameDeck.isEmpty()){
 						this.gameDeck = doTurn(this.gameDeck, opponent);
+					}
 				}
 			}
 		}
 		else{
 			System.out.println("no cards left in the deck!");
 		}
-// >>>>>>> 92f0f05642f8d899fe4bf21c3fe89d9abae4d50d
-		
 		return this.gameDeck;
 	} // end doTurn()
 
@@ -184,7 +162,7 @@ public class AI implements Player{
 		}
 
 		if(output == -1){
-			System.out.println("\n all else has failed ---> go random \n");
+			// System.out.println("\n all else has failed ---> go random \n");
 			int ranIndex = (int)(Math.random()*cards.length);
 			output = cards[ranIndex].getRank();
 		}
@@ -200,13 +178,13 @@ public class AI implements Player{
 		int setRank = this.hasSet();
 		int output = -1;
 		int drewCounter = 0;
+		int humanCounter = 0;
 		int countRequested = 0;
 		// if we have a set, and that set is 3 cards
 		if(setRank!=-1 && countSetQTY(setRank)==3){
 			System.out.println("Computer has triple");
 			// if we asked for the same card 3 times in a row we want to ask for a different card
 			int histCounter = 0;
-			System.out.println(this.turnHistory);
 			// go through our turn history and see if the opponent has
 			// drawn a card since we last asked for a card 3 times in a row ask for a different card
 			for(Turn turn : this.turnHistory){
@@ -215,9 +193,6 @@ public class AI implements Player{
 				// if the human took a turn and drew a card
 				if(turn.drewCard() && turn.isHuman()){
 					drewCounter++;
-					System.out.println("\n*******************\n");
-					System.out.println("*        "+drewCounter+"        *\n");
-					System.out.println("\n*******************\n");
 				}
 				// if the turn was taken by a computer
 				if(!turn.isHuman()){
@@ -255,32 +230,31 @@ public class AI implements Player{
 		int countRequested = 0;
 
 		if(setRank!=-1){
-			System.out.println("\n Computer has a pair \n");
+			// System.out.println("\n Computer has a pair \n");
 			int histCounter = 0;
 			// for each turn
 			if (!turnHistory.isEmpty()){
 				for(Turn turn : this.turnHistory){
+					// System.out.println(turn);
 					// if the turn has been taken
-					if(turn != null){
 						// if the human took a turn and drew a card
-						if(turn.drewCard() && turn.isHuman()){
-							drewCounter++;
+					if(turn.drewCard() && turn.isHuman()){
+						drewCounter++;
+					}
+					// if the turn was taken by a computer
+					if(!turn.isHuman()){
+						int rankRequested = turn.getRequested();
+						// if we have requested this rank before
+						if(rankRequested == setRank){
+							countRequested++;
 						}
-						// if the turn was taken by a computer
-						if(!turn.isHuman()){
-							int rankRequested = turn.getRequested();
-							// if we have requested this rank before
-							if(rankRequested == setRank){
-								countRequested++;
-							}
-							// if we have requested this card before, but opponent has drawn since
-							// or if we haven't asked for that card before
-							if((drewCounter>0 && countRequested>0)||countRequested <1){
-								if(this.turnHistory.size() > 3){
-									for(int ii=2; ii > -1; ii--){
-										if(this.turnHistory.get(ii).getRequested() == setRank && this.turnHistory.get(ii).isHuman()){
-											histCounter++;
-										}
+						// if we have requested this card before, but opponent has drawn since
+						// or if we haven't asked for that card before
+						if((drewCounter>0 && countRequested>0)||countRequested <1){
+							if(this.turnHistory.size() > 3){
+								for(int ii=2; ii > -1; ii--){
+									if(this.turnHistory.get(ii).getRequested() == setRank && this.turnHistory.get(ii).isHuman()){
+										histCounter++;
 									}
 								}
 							}
@@ -304,7 +278,7 @@ public class AI implements Player{
 		int countRequested = 0;
 
 		if (!this.turnHistory.isEmpty()){
-			System.out.println("(inside strat3) We have taken turns \n");
+			// System.out.println("(inside strat3) We have taken turns \n");
 			// we have no sets, iterate through the most recent turns 
 			for(int ii=0; ii<this.turnHistory.size(); ii++){
 				int rankRequested = turnHistory.get(ii).getRequested();
@@ -352,17 +326,17 @@ public class AI implements Player{
 		//if the card is in the opponent's hand, then return true. otherwise, false.
 		for(Card card : opponent.getHand().getCards()){
 			if(card == null){
-				System.out.println("MY GOD");
+				// System.out.println("MY GOD");
 			}
 			if(card.getRank() == desiredCard){
 				opponentHasCard = true;
 			}
 		}
 		if(opponentHasCard){
-			System.out.println("You had the card! \n");
+			// System.out.println("You had the card! \n");
 			singleTurn = new Turn("ai", false, desiredCard);
 		}else{
-			System.out.println("You did not have the card \n");
+			// System.out.println("You did not have the card \n");
 			singleTurn = new Turn("ai", true, desiredCard);
 		}
 		this.turnHistory.add(singleTurn);
@@ -423,7 +397,7 @@ public class AI implements Player{
 	  */
 	private void playFullSet(int desiredCard){
 		//display message
-		System.out.println("The computer has a full set of " + Integer.toString(desiredCard) + "'s");
+		// System.out.println("The computer has a full set of " + Integer.toString(desiredCard) + "'s");
 		//increment score
 		this.currentScore++;
 		//remove those cards from the hand

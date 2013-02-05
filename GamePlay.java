@@ -27,6 +27,7 @@ public class GamePlay{
 			{
 
 				Deck tempDeck = goFish.getDeck();
+				tempDeck.shuffle();
 				tempDeck = goFish.getHumanPlayer().doTurn(tempDeck, goFish.getComputerPlayer());
 				continueGoFish = goFish.continueGame();
 				if(continueGoFish){
