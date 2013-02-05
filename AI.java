@@ -51,7 +51,7 @@ public class AI implements Player{
 
 		// System.out.println("-------  Computer's Turn -------");
 		UserInterface ui = new UserInterface();
-		ui.contentFrame("this is content");
+		// ui.contentFrame("this is content");
 		// System.out.println(this.playerHand);
 		ArrayList<Card> foundCards = new ArrayList<Card>();
 
@@ -131,6 +131,8 @@ public class AI implements Player{
 		int strat3Result = strat3(cards);
 		int strat2Result = strat2(cards);
 		int strat1Result = strat1(cards);
+		int strat4Result = strat4(cards);
+		int strat5Result = strat5(cards);
 		// each strategy consists of more and more restrictive conditions
 		// if both strat3 and strat1 result in a true, strat1 overrides strat3
 		if(strat3Result != -1){
@@ -143,6 +145,14 @@ public class AI implements Player{
 
 		if(strat1Result != -1){
 			output = strat1Result;
+		}
+
+		if(strat4Result != -1){
+			output = strat4Result;
+		}
+
+		if(strat5Result != -1){
+			output = strat4Result;
 		}
 
 		if(output == -1){
@@ -171,7 +181,7 @@ public class AI implements Player{
 		int countRequested = 0;
 		// if we have a set, and that set is 3 cards
 		if(setRank!=-1 && countSetQTY(setRank)==3){
-			System.out.println("Computer has triple");
+			// System.out.println("Computer has triple");
 			// if we asked for the same card 3 times in a row we want to ask for a different card
 			int histCounter = 0;
 			// go through our turn history and see if the opponent has
@@ -305,6 +315,65 @@ public class AI implements Player{
 	}
 
 	/**
+	* Look back 4 turns and don't make the same request twice
+	* @param Card[] - array of card objects
+	* @return int - reccomended rank of request to be made
+	*/
+	public int strat4(Card[] cards){
+		int output = -1;
+		if(this.turnHistory.size() > 5){
+			Turn turn1 = this.turnHistory.get(this.turnHistory.size()-1); // human
+			Turn turn2 = this.turnHistory.get(this.turnHistory.size()-2); // ai
+			Turn turn3 = this.turnHistory.get(this.turnHistory.size()-3); // humna
+			Turn turn4 = this.turnHistory.get(this.turnHistory.size()-4); // ai
+			Turn turn5 = this.turnHistory.get(this.turnHistory.size()-5); // human
+			Turn turn6 = this.turnHistory.get(this.turnHistory.size()-6); // ai
+
+			if(turn2.getRequested() == turn4.getRequested()){
+				int ranIndex = (int)(Math.random()*cards.length);
+				output = cards[ranIndex].getRank();
+			}else{
+				output = -1;
+			}
+		}else{
+			output = -1;
+		}
+		return output;
+	}
+
+	/**
+	* If during the last turn, we requested a card and that player had it, 
+	* don't ask for it again
+	* @param Card[] - array of card objects
+	* @return int - reccomended rank of request to be made
+	*/
+	public int strat5(Card[] cards){
+		int output = -1;
+		if(this.turnHistory.size() > 3){
+			// Turn turn1 = this.turnHistory.get(this.turnHistory.size()-1); // human
+			Turn turn2 = this.turnHistory.get(this.turnHistory.size()-2); // ai
+			// Turn turn3 = this.turnHistory.get(this.turnHistory.size()-3); // humna
+			// Turn turn4 = this.turnHistory.get(this.turnHistory.size()-4); // ai
+			// Turn turn5 = this.turnHistory.get(this.turnHistory.size()-5); // human
+			// Turn turn6 = this.turnHistory.get(this.turnHistory.size()-6); // ai
+			
+			if(!turn2.drewCard()){
+				int lastRequest = turn2.getRequested();
+				int ranIndex = (int)(Math.random()*cards.length);
+				while(ranIndex == lastRequest){
+					ranIndex = (int)(Math.random()*cards.length);
+				}
+				output = cards[ranIndex].getRank();
+			}else{
+				output = -1;
+			}
+		}else{
+			output = -1;
+		}
+		return output;
+	}
+
+	/**
 	* Does our hand contain cards?
 	* @return boolean
 	*/
@@ -338,10 +407,10 @@ public class AI implements Player{
 			}
 		}
 		if(opponentHasCard){
-			// System.out.println("You had the card! \n");
+			System.out.println("You had the card! \n");
 			singleTurn = new Turn("ai", false, desiredCard);
 		}else{
-			// System.out.println("You did not have the card \n");
+			System.out.println("You did not have the card \n");
 			singleTurn = new Turn("ai", true, desiredCard);
 		}
 		this.turnHistory.add(singleTurn);
