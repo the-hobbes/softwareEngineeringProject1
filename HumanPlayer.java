@@ -315,4 +315,5 @@ public class HumanPlayer implements Player{
 		Card[] cards = new Card[1];
 		return cards;
 	}
+
 }

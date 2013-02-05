@@ -3,6 +3,7 @@
 *
 */
 import java.util.Random;
+import java.util.Arrays;  
 
 public class Game{
 	Deck theDeck;
@@ -14,7 +15,6 @@ public class Game{
 	static final int COMPUTER = 1;
 
 	int currentPlayer = 0;
-
 
 	/**
 	*Deals out 5 cards to each player, decides whose turn it is first, displays rules and credits
@@ -129,5 +129,15 @@ public class Game{
 		game.endGame();
 	}
 
+	/**
+	  * getGameScore
+	  * @return an array containing the score for each player in the game (index 0 = human, 1 = player)
+	  */
+	public int[] getGameScore(){
+		int[] scores = new int[2];
+		scores[0] = players[PLAYER].getCurrentScore();
+		scores[1] = players[COMPUTER].getCurrentScore();
 
+		return scores;
+	}
 }

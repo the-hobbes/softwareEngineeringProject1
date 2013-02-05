@@ -516,4 +516,6 @@ public class AI implements Player{
 		return rankTrad;
 	} // end getRankTrad()
 
+
+
 }
