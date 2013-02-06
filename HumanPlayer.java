@@ -118,8 +118,12 @@ public class HumanPlayer implements Player{
 				System.out.println("Got interupted by another thread!?!?!?!");
 			}
 			System.out.println("\nYou drew a " + drawnCard.getRankTrad() + " of " + drawnCard.getSuit());
-			//add that card to your hand
-			
+			try{
+				Thread.sleep(1000);
+			}catch(InterruptedException e){
+				System.out.println("Got interupted by another thread!?!?!?!");
+			}
+			//add that card to your hand			
 			this.playerHand.addCard(drawnCard);
 			//check for the presence of a full set
 			boolean isFullSet = playerHand.containsFourOfAKind(drawnCard.getRank());
@@ -167,6 +171,11 @@ public class HumanPlayer implements Player{
 	private void playFullSet(int desiredCard){
 		//display message
 		System.out.println("\nYou got a full set of " + Integer.toString(desiredCard) + "'s");
+		try{
+			Thread.sleep(1000);
+		}catch(InterruptedException e){
+			System.out.println("Got interupted by another thread!?!?!?!");
+		}
 		//increment score
 		this.currentScore++;
 		//remove those cards from the hand
