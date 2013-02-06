@@ -104,10 +104,7 @@ public class AI implements Player{
 		}
 		//the opponent doesn't have the card, and the player must go fish
 		else if(! this.gameDeck.isEmpty()){
-<<<<<<< HEAD
-=======
 			System.out.println("Go fish!");
->>>>>>> 2829e3485a3cf07eeb14fe096b3a466754cfb0d0
 			//remove the top card from the deck
 			Card drawnCard = this.gameDeck.getTopCard();
 			//add that card to your hand
