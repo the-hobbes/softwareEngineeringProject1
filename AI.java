@@ -58,6 +58,11 @@ public class AI implements Player{
 		// analyze hand inspects the state of the hand, and previous turns, and returns an
 		// int indicating the rank of the desired card 
 		int desiredCard = this.analyzeHand();
+		try{
+			Thread.sleep(2000);
+		}catch(InterruptedException e){
+			System.out.println("Got interupted by another thread!?!?!?!");
+		}
 
 		System.out.println("\n Computer requests a "+getRankTrad(desiredCard));
 		
@@ -408,10 +413,25 @@ public class AI implements Player{
 			}
 		}
 		if(opponentHasCard){
-			System.out.println("You had the card! \n");
+			try{
+				Thread.sleep(1000);
+			}catch(InterruptedException e){
+				System.out.println("Got interupted by another thread!?!?!?!");
+			}
+			System.out.println("You had the card");
 			singleTurn = new Turn("ai", false, desiredCard);
 		}else{
+			try{
+				Thread.sleep(1000);
+			}catch(InterruptedException e){
+				System.out.println("Got interupted by another thread!?!?!?!");
+			}
 			System.out.println("You did not have the card \n");
+			try{
+				Thread.sleep(1000);
+			}catch(InterruptedException e){
+				System.out.println("Got interupted by another thread!?!?!?!");
+			}
 			singleTurn = new Turn("ai", true, desiredCard);
 		}
 		this.turnHistory.add(singleTurn);

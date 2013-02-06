@@ -104,8 +104,8 @@ public class HumanPlayer implements Player{
 		//the opponent doesn't have the card, and the player must go fish
 		else if(! this.gameDeck.isEmpty()){
 			System.out.println("Go fish!");
+			
 			//remove the top card from the deck
-
 			Card drawnCard = this.gameDeck.getTopCard();					
 
 			System.out.println("You drew a " + drawnCard.getRank() + " of " + drawnCard.getSuit());
@@ -121,7 +121,7 @@ public class HumanPlayer implements Player{
 			//if the card pulled from the deck is the one asked for, call doTurn()
 			if(drawnCard.getRank() == desiredCard)
 			{
-				if(playerHand.isEmpty() || gameDeck.isEmpty())
+				if(!playerHand.isEmpty() || !gameDeck.isEmpty())
 					this.gameDeck = doTurn(this.gameDeck, opponent);
 			}
 		}
@@ -198,9 +198,19 @@ public class HumanPlayer implements Player{
 		}
 
 		if(opponentHasCard){
+			try{
+				Thread.sleep(1000);
+			}catch(InterruptedException e){
+				System.out.println("Got interupted by another thread!?!?!?!");
+			}
 			System.out.println("Opponent had the card! \n");
 		}else{
-			System.out.println("Opponent did not have the card \n");
+			try{
+				Thread.sleep(1000);
+			}catch(InterruptedException e){
+				System.out.println("Got interupted by another thread!?!?!?!");
+			}
+			System.out.println("Opponent did not have the card, Go Fish");
 		}
 		return opponentHasCard;
 	}
