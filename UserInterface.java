@@ -61,7 +61,8 @@ public class UserInterface{
 		Scanner scan = new Scanner(System.in);
 		boolean valid = false;
 		while(!valid){
-			displayMainMenu();
+			// displayMainMenu();
+			displayWelcome();
 			String in = scan.nextLine();
 			if(in.toUpperCase().equals("P") || in.toUpperCase().equals("PLAY")){
 				return true;
@@ -89,16 +90,55 @@ public class UserInterface{
 	*/
 	public static void displayHelp(){
 		String rules = "//=====================================HELP===================================\\\\ \n\n"
-					 + "The rules of Go Fish:\n"
-					 + "1) 5 Cards are delt to the players\n"
+					 + "Rules of the Game:\n"
+					 + "1) 7 Cards are delt to you, and the computer\n"
 					 + "2) Players take turns asking if their opponent has a card of the same rank as one of their own\n"
 					 + "3) The opponent must hand over all cards of the requested rank, if the opponent has no cards of "
 					 + "that rank, they instruct the player to \"Go Fish\"\n"
 					 + "4) If the player has been told to \"Go Fish\" then they draw a card from the deck and their turn is over. "
 					 + "If the player recieved a card from their opponent, then it is still their turn and they ask again until they"
-					 + " are told to \"Go Fish\"."
+					 + " are told to \"Go Fish\"\n"
 					 + "5) When any player has 4 cards of the same rank, they reveal these cards, remove them from their hand, and recieve a point.\n"
 					 + "6) The game ends when all cards are discarded or a player runs out of cards. The player with the highest score wins!\n";
+		System.out.println(rules);
+	}
+
+	/**
+	* Display the rules and helpful information to the user
+	* last minute addition, didnt want to mess with the clearly overlapping message right b4 presenting
+	* directly above -JD
+	*/
+	public static void displayWelcome(){
+		String rules = "\n"
+					 + "=================================================================\n"
+					 + "= OOOOOOOO OOOOOOOO         OOOOOOOO OOOOOOOO OOOOOOOO OO    OO =\n"
+					 + "= OO    OO OO    OO         OO          OO    OO       OO    OO =\n"
+					 + "= OO   ___ OO    OO         OOOOO       OO    OOOOOOOO OOOOOOOO =\n"
+					 + "= OO    OO OO    OO         OO          OO          OO OO    OO =\n"
+					 + "= OOOOOOOO OOOOOOOO         OO       OOOOOOOO OOOOOOOO OO    OO =\n"
+					 + "=================================================================\n"
+					 + "============================ RULES ==============================\n"
+					 + "=================================================================\n"
+					 + "=   1) 7 Cards are delt to you and a computer player            =\n"
+					 + "=   2) Players take turns asking if their opponent              =\n"
+					 + "=      has a card of the same rank as one of their own          =\n"
+					 + "=   3) The opponent must hand over all cards of the             =\n"
+					 + "=      requested rank, if the opponent has no cards of          =\n"
+					 + "=      that rank, they instruct the player to \"Go Fish\"         =\n"
+					 + "=   4) If the player has been told to \"Go Fish\" then            =\n"
+					 + "=      they draw a card from the deck and their turn is over.   =\n"
+					 + "=      If the player recieved a card from their opponent,       =\n"
+					 + "=      then it is still their turn and they ask again           =\n"
+					 + "=      until they are told to \"Go Fish\".                        =\n"
+					 + "=   5) When any player has 4 cards of the same rank, they       =\n"
+					 + "=      reveal these cards, remove them from their hand,         =\n"
+					 + "=      and recieve a point.                                     =\n"
+					 + "=   6) The game ends when all cards are discarded or a          =\n"
+					 + "=      player runs out of cards. The player with the            =\n"
+					 + "=      highest score wins!                                      =\n"
+					 + "=================================================================\n"
+					 + "=     [P]lay        [C]redits        [H]elp          [Q]uit     =\n"
+					 + "=================================================================\n";
 		System.out.println(rules);
 	}
 
@@ -115,7 +155,7 @@ public class UserInterface{
 		boolean valid = false;
 		while(!valid && !h.isEmpty()){
 			//Assumption of displayed the person hand already
-			System.out.println("What rank would you like to pick? (Type h or help for help)");
+			System.out.println("Select a rank to request? (Type h or help for help)");
 			System.out.print(">");
 			String in = scan.nextLine();
 			Scanner internalScanner = new Scanner(in);
