@@ -170,7 +170,7 @@ public class HumanPlayer implements Player{
 	  */
 	private void playFullSet(int desiredCard){
 		//display message
-		System.out.println("\nYou got a full set of " + Integer.toString(desiredCard) + "'s");
+		System.out.println("\nYou got a full set of " + this.getRankTrad(desiredCard) + "'s");
 		try{
 			Thread.sleep(1000);
 		}catch(InterruptedException e){
@@ -302,5 +302,31 @@ public class HumanPlayer implements Player{
 		Card[] cards = new Card[1];
 		return cards;
 	}
+
+	/**
+	* @param int - rank of the card to convert to 'traditional' ranks (jack vs 11)
+	* @return string - string representation of traditional rank
+	*/
+	public String getRankTrad(int rank){
+		String rankTrad ="";
+		switch (rank) {
+			case 1:
+				rankTrad="Ace";
+			break;
+			case 11:
+				rankTrad="Jack";
+			break;
+			case 12:
+				rankTrad="Queen";
+			break;
+			case 13:
+				rankTrad="King";
+			break;
+			default:
+				rankTrad=rank+"";
+			break; 
+		}
+		return rankTrad;
+	} // end getRankTrad()
 
 }
