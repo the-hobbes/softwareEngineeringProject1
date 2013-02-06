@@ -1,11 +1,17 @@
 /**
-*@author Scott MacEwan
-*
-*/
+  * Game
+  * @author Scott MacEwan
+  * Class used to create indiviudal games and maintain them. 
+  * 
+  * @param players, an array of the players playing the game
+  * @param final int player, 0 indicates a player
+  * @param final int computer, 1 indicates a computer
+  * @param current player, the player who is taking their turn now
+  */
 import java.util.Random;
+import java.util.Arrays;  
 
 public class Game{
-	public Turn[] turnHistory = new Turn[30]; // history of each turn
 	Deck theDeck;
 
 	Player[] players = new Player[2];
@@ -15,7 +21,6 @@ public class Game{
 	static final int COMPUTER = 1;
 
 	int currentPlayer = 0;
-
 
 	/**
 	*Deals out 5 cards to each player, decides whose turn it is first, displays rules and credits
@@ -77,6 +82,9 @@ public class Game{
 	*Displays Scores and relevant information to the end game
 	*/
 	public void endGame(){
+		System.out.println();
+		System.out.println("===========================RESULTS===============================");
+
 		if(players[PLAYER].getCurrentScore() > players[COMPUTER].getCurrentScore()){
 			System.out.println("YOU WIN!");
 			System.out.println("Your Score: " + players[PLAYER].getCurrentScore());
@@ -90,6 +98,8 @@ public class Game{
 			System.out.println("Your Score: " + players[PLAYER].getCurrentScore());
 			System.out.println("Computer's Score: " + players[COMPUTER].getCurrentScore());
 		}
+
+		System.out.println("=================================================================\n");
 	}
 
 	/**
@@ -125,5 +135,15 @@ public class Game{
 		game.endGame();
 	}
 
+	/**
+	  * getGameScore
+	  * @return an array containing the score for each player in the game (index 0 = human, 1 = player)
+	  */
+	public int[] getGameScore(){
+		int[] scores = new int[2];
+		scores[0] = players[PLAYER].getCurrentScore();
+		scores[1] = players[COMPUTER].getCurrentScore();
 
+		return scores;
+	}
 }

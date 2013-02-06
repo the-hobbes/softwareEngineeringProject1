@@ -3,6 +3,16 @@
  * @author phelanvendeville
  * Class to handle all of the functionality for the human player in the gofish game. Implements the 
  * Player interface.
+ *
+ * @param name, the type of player
+ * @param gamedeck, the deck passed in by the game
+ * @param opponent, the computer opponent
+ * @param hasCards, boolean indicating a card of a certain rank is in hand
+ * @param opponentHasCard, does the opponent have a card
+ * @param playerHand, the hand of the player
+ * @param currentScore, the score for the player this turn
+ * @param turnHistory, the history of the game (used by ai for strategies)
+ * @param contniueGame, a boolean indicating whether or not an endgame condition has been met
  */
 
 import java.util.ArrayList;
@@ -19,57 +29,8 @@ public class HumanPlayer implements Player{
 	private boolean opponentHasCard;
 	private Hand playerHand;
 	public int currentScore;
-	public Turn[] turnHistory;
+	public ArrayList<Turn> turnHistory;
 	private boolean continueGame;
-
-	/**
-	 * main method for testing purposes
-	 */
-	public static void main(String[] args) {
-		// Deck deck = new Deck();
-		// deck.shuffle();
-
-		/* Test the respondCardRequest function */
-		// Card[] cards = new Card[5];
-		//add a specific card to the hand so we know what we are looking for
-		// Card newCard = new Card("spades", 1);
-
-		//add cards from the deck to the cards array
-		// for(int ii=0; ii<4; ii++){
-		// 	cards[ii] = deck.getTopCard(); 
-		// }
-		//add our specific card
-		// cards[4] = newCard;
-
-		// Hand hand = new Hand(cards);
-		// HumanPlayer human = new HumanPlayer(hand);
-		
-		/*Test the respondCardRequest function
-		System.out.println("Before Hand");
-		System.out.println(hand);
-		ArrayList<Card> returnedRequest = human.respondCardRequest(1);
-		System.out.println("");
-		System.out.println("The matched cards");
-		System.out.println(returnedRequest);
-		System.out.println("");
-		System.out.println("the new hand, minus those cards");
-		System.out.println(human.getHand());*/
-
-		/* test the doTurn function, creating a new player as an opponent*/ 
-		// Card[] cards2 = new Card[5];
-		// deck.shuffle();
-		// for(int ii=0; ii<5; ii++){
-		// 	cards2[ii] = deck.getTopCard(); 
-		// }
-		// Hand hand2 = new Hand(cards2);
-		// HumanPlayer computer = new HumanPlayer(hand2);
-
-		// System.out.println("Opponents Hand");
-		// System.out.println(computer.getHand());
-		// System.out.println("");
-
-		// human.doTurn(deck, computer);
-	}
 	
 	/**
 	 * default constructor for human player
@@ -87,7 +48,7 @@ public class HumanPlayer implements Player{
 	 * @param opponent
 	 * @return deck
 	 */
-	public Deck doTurn(Deck gameDeck,Player opponent, Turn[] turnHistory){
+	public Deck doTurn(Deck gameDeck,Player opponent){
 		this.gameDeck = gameDeck;
 		this.opponent = opponent;
 		this.turnHistory = turnHistory;
@@ -124,27 +85,27 @@ public class HumanPlayer implements Player{
 				Hand newplayerhand = new Hand(tempCard);
 				this.playerHand = newplayerhand;
 
-				// System.out.println("Your new hand");
-				// System.out.println(playerHand);
-				// System.out.println("Opponents new hand");
-				// System.out.println(opponent.getHand());
-
 				//check for a full set of cards in your hand
 				boolean isFullSet = playerHand.containsFourOfAKind(desiredCard);
 				// System.out.println(isFullSet);
+
 				//play the full set down, if there are any
 				if(isFullSet)
 					playFullSet(desiredCard);
 				
 				//call doTurn() again
-				if(!playerHand.isEmpty() || !gameDeck.isEmpty())
-					this.gameDeck = doTurn(this.gameDeck, opponent, turnHistory);
+				if(!playerHand.isEmpty())
+				{
+					if(!gameDeck.isEmpty())
+						this.gameDeck = doTurn(this.gameDeck, opponent);
+				}
 			}
 		}
 		//the opponent doesn't have the card, and the player must go fish
 		else if(! this.gameDeck.isEmpty()){
+			System.out.println("Go fish!");
+			
 			//remove the top card from the deck
-
 			Card drawnCard = this.gameDeck.getTopCard();					
 
 			System.out.println("You drew a " + drawnCard.getRank() + " of " + drawnCard.getSuit());
@@ -160,8 +121,8 @@ public class HumanPlayer implements Player{
 			//if the card pulled from the deck is the one asked for, call doTurn()
 			if(drawnCard.getRank() == desiredCard)
 			{
-				if (!playerHand.isEmpty() || !gameDeck.isEmpty())
-					this.gameDeck = doTurn(this.gameDeck, opponent, turnHistory);
+				if(playerHand.isEmpty() || gameDeck.isEmpty())
+					this.gameDeck = doTurn(this.gameDeck, opponent);
 			}
 		}
 		else{
@@ -308,13 +269,20 @@ public class HumanPlayer implements Player{
 	/**
 	 * endTurn
 	 * Function to set the final values for the end of the turn
+	 * NOTE: not used, depricated
 	 */
 	public void endTurn(){
 		
 	}
 
+	/**
+	* Get AI complete sets of cards
+	* @return Card[] - array of card objects (one complete set of a given rank)
+	* NOTE: used by AI class, not used by humanplayer but implemented in player interface
+	*/
 	public Card[] getMyCompleteSets(){
 		Card[] cards = new Card[1];
 		return cards;
 	}
+
 }

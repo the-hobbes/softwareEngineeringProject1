@@ -20,7 +20,7 @@ public class UserInterface{
                    + "*Danielle Steimke <dsteimke325@gmail.com>\n"
                    + "*Ethan Eldridge <ejayeldridge@gmail.com>\n"
                    + "*Scott MacEwan <wsmacewan101@gmail.com>\n\n"
-                   +"Team Lead:\n Phelan Venderville\n";
+                   +"Team Lead:\n Phelan Vendeville\n";
 
         System.out.println(out);
 	}
@@ -56,7 +56,7 @@ public class UserInterface{
 		//full names like play,help,credits,quit will all work as well.
 
 		//Get user input
-		for (int i = 0; i < 50; ++i) System.out.println();
+		for (int i = 0; i < 2; ++i) System.out.println();
 		
 		Scanner scan = new Scanner(System.in);
 		boolean valid = false;
@@ -165,6 +165,10 @@ public class UserInterface{
 
 		//ask for the command (either a card number or a help)
 		return rank;
+	}
+
+	public static void contentFrame(String content){
+		System.out.format("%-5s:%10s\n", content, "Nemo");
 	}
 
 	public static void main(String[] args) {
