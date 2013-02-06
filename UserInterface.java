@@ -96,7 +96,7 @@ public class UserInterface{
 					 + "that rank, they instruct the player to \"Go Fish\"\n"
 					 + "4) If the player has been told to \"Go Fish\" then they draw a card from the deck and their turn is over. "
 					 + "If the player recieved a card from their opponent, then it is still their turn and they ask again until they"
-					 + " are told to \"Go Fish\"."
+					 + " are told to \"Go Fish\"\n"
 					 + "5) When any player has 4 cards of the same rank, they reveal these cards, remove them from their hand, and recieve a point.\n"
 					 + "6) The game ends when all cards are discarded or a player runs out of cards. The player with the highest score wins!\n";
 		System.out.println(rules);
