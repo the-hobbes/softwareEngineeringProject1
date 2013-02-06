@@ -155,7 +155,7 @@ public class UserInterface{
 		boolean valid = false;
 		while(!valid && !h.isEmpty()){
 			//Assumption of displayed the person hand already
-			System.out.println(" would you like to pick? (Type h or help for help)");
+			System.out.println("Select a rank to request? (Type h or help for help)");
 			System.out.print(">");
 			String in = scan.nextLine();
 			Scanner internalScanner = new Scanner(in);
