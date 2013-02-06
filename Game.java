@@ -47,6 +47,7 @@ public class Game{
 		*/
 		//create the two players with the created hands
 		AI ai = new AI(aiHand);
+		// AI player = new AI(playerHand);
 		HumanPlayer player = new HumanPlayer(playerHand);
 
 		//add them to the player array
