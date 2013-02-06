@@ -97,18 +97,27 @@ public class HumanPlayer implements Player{
 				if(!playerHand.isEmpty())
 				{
 					if(!gameDeck.isEmpty())
+						try{
+							Thread.sleep(1000);
+						}catch(InterruptedException e){
+							System.out.println("Got interupted by another thread!?!?!?!");
+						}
 						this.gameDeck = doTurn(this.gameDeck, opponent);
 				}
 			}
 		}
 		//the opponent doesn't have the card, and the player must go fish
 		else if(! this.gameDeck.isEmpty()){
-			System.out.println("Go fish!");
+			System.out.println("\nGo fish!");
+			
 			//remove the top card from the deck
-
 			Card drawnCard = this.gameDeck.getTopCard();					
-
-			System.out.println("You drew a " + drawnCard.getRank() + " of " + drawnCard.getSuit());
+			try{
+				Thread.sleep(1000);
+			}catch(InterruptedException e){
+				System.out.println("Got interupted by another thread!?!?!?!");
+			}
+			System.out.println("\nYou drew a " + drawnCard.getRankTrad() + " of " + drawnCard.getSuit());
 			//add that card to your hand
 			
 			this.playerHand.addCard(drawnCard);
@@ -121,12 +130,12 @@ public class HumanPlayer implements Player{
 			//if the card pulled from the deck is the one asked for, call doTurn()
 			if(drawnCard.getRank() == desiredCard)
 			{
-				if(playerHand.isEmpty() || gameDeck.isEmpty())
+				if(!playerHand.isEmpty() || !gameDeck.isEmpty())
 					this.gameDeck = doTurn(this.gameDeck, opponent);
 			}
 		}
 		else{
-			System.out.println("no cards left in the deck!");
+			System.out.println("No cards left in the deck!");
 		}
 		
 		return this.gameDeck;
@@ -157,7 +166,7 @@ public class HumanPlayer implements Player{
 	  */
 	private void playFullSet(int desiredCard){
 		//display message
-		System.out.println("You got a full set of " + Integer.toString(desiredCard) + "'s");
+		System.out.println("\nYou got a full set of " + Integer.toString(desiredCard) + "'s");
 		//increment score
 		this.currentScore++;
 		//remove those cards from the hand
@@ -198,9 +207,19 @@ public class HumanPlayer implements Player{
 		}
 
 		if(opponentHasCard){
-			System.out.println("Opponent had the card! \n");
+			try{
+				Thread.sleep(1000);
+			}catch(InterruptedException e){
+				System.out.println("Got interupted by another thread!?!?!?!");
+			}
+			System.out.println("\nOpponent had the card! Go again!");
 		}else{
-			System.out.println("Opponent did not have the card \n");
+			try{
+				Thread.sleep(1000);
+			}catch(InterruptedException e){
+				System.out.println("Got interupted by another thread!?!?!?!");
+			}
+			System.out.println("\nOpponent did not have the card");
 		}
 		return opponentHasCard;
 	}
