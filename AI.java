@@ -58,17 +58,13 @@ public class AI implements Player{
 		// analyze hand inspects the state of the hand, and previous turns, and returns an
 		// int indicating the rank of the desired card 
 		int desiredCard = this.analyzeHand();
-<<<<<<< HEAD
 		try{
 			Thread.sleep(2000);
 		}catch(InterruptedException e){
 			System.out.println("Got interupted by another thread!?!?!?!");
 		}
-		System.out.println("\n Computer requests a "+desiredCard);
-=======
 
 		System.out.println("\n Computer requests a "+getRankTrad(desiredCard));
->>>>>>> 2829e3485a3cf07eeb14fe096b3a466754cfb0d0
 		
 		//if the opponent has no cards in their hand, the game is over
 		if(desiredCard == -1){
