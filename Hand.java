@@ -6,12 +6,17 @@
  * @param numCards is the number of cards in this hand. 
  */
 import java.util.*;
+
 public class Hand{
 
 	private Card[] cards; // our hand
 	private int numCards;
 	private int totalHand;
 
+	public Hand(){
+		this.numCards = 0;
+		this.cards = new Card[0];
+	}
 	public Hand(Card[] cards){
 		setCards(cards);
 		this.numCards = cards.length;
@@ -20,6 +25,8 @@ public class Hand{
 
 	public void setCards(Card[] cards){
 		this.cards = cards;
+		for(int i = 0; i < cards.length; i++){
+		}
 		CustomComparator customComparator= new CustomComparator();
 		Arrays.sort(this.cards, customComparator);
 	}
@@ -29,6 +36,9 @@ public class Hand{
 	*@return Card[] of cards from the players hand
 	*/
 	public Card[] getCards(){
+		if(this.cards==null){
+			System.out.println("HORRIBLY WRONG");
+		}
 		return this.cards;
 	}
 
@@ -50,6 +60,15 @@ public class Hand{
 		Card[] tempHand = this.cards;
 		Card[] newHand = new Card[sizeOldArray+1];
 		for(int jj=0; jj<sizeOldArray; jj++){
+			if(tempHand[jj]==null){
+				StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
+				for(int ii = 0; ii < stackTraceElements.length; ii ++){
+					System.out.println(stackTraceElements[ii].getFileName() + " ");
+					System.out.println(stackTraceElements[ii].getClassName()+ " ");
+					System.out.println(stackTraceElements[ii].getLineNumber()+ " ");
+					System.out.println(stackTraceElements[ii].getMethodName()+ " \n");
+				}
+			}
 			newHand[jj] = tempHand[jj];
 		}
 		newHand[sizeOldArray] = addedCard;
@@ -63,28 +82,48 @@ public class Hand{
 		this.numCards--;
 	}
 
-	// /**
-	//   * removeSpecificCard
-	//   * @author Phelan
-	//   * @param elementIndex, the index of the element you wish to delete
-	//   * Used to remove a specific card from the cards array
-	//   */
-	// public void removeSpecificCard(int elementIndex){
-	// 	//set up temporary holder for smaller array
-	// 	Card[] tempCards = new Card[(cards.length-1)];
-	// 	int nextIndex = 0;
-
-	// 	//loop through current array, adding all elements not at the index to the temporary array
-	// 	for(int i = 0; i<cards.length; i++){
-	// 		// System.out.println(cards[i]);
-	// 		if(i != elementIndex){
-	// 			tempCards[nextIndex] = cards[i];
-	// 			nextIndex++;
-	// 		}
-	// 	}
-	// 	//copy the temporary array into the cards array
-	// 	this.cards = tempCards;
-	// }
+	/**
+	  * containsFourOfAKind
+	  * @author Phelan
+	  * @param desiredCardRank
+	  * @return a boolean indicating the presence of a full set
+	  */
+	public boolean containsFourOfAKind(int desiredCardRank){
+		boolean contains = false;
+		int numCardInstances = 0;
+		for (Card card : this.cards) {
+		    if (card.getRank() == desiredCardRank) { 
+		        // found it
+		        numCardInstances++;
+		    }
+		}
+		if(numCardInstances == 4){
+			contains = true;
+		}
+		return contains;
+	}
+	/**
+	  * removeFullSet
+	  * @author Phelan
+	  * @param cardRank, the rank of the cards you wish to delete
+	  * Used to remove a full set of specific cards from the cards array
+	  */
+	public void removeFullSet(int cardRank){
+		//set up temporary holder for smaller array
+		// Card[] tempCards = new Card[(cards.length-4)];
+		// int nextIndex = 0;
+		Stack<Card> tempCards = new Stack<Card>();
+		//loop through current array, adding all elements not at the index to the temporary array
+		for(int i = 0; i<cards.length; i++){
+			if(cards[i].getRank() != cardRank){
+				tempCards.push(cards[i]);
+			}
+		}
+		//copy the temporary array into the cards array
+		// this.cards = tempCards;
+		this.cards = new Card[tempCards.size()];
+		this.cards = tempCards.toArray(this.cards);
+	}
 
 	public int calcTotal(){
 		int total = 0;
@@ -125,16 +164,22 @@ public class Hand{
 	public String toString(){
 		String tmp = "";
 		for(int ii=0; ii<this.cards.length; ii++){
-			tmp += "Card";
-			tmp += ii+1;
-			tmp += ": ";
-			tmp += this.cards[ii].toString();
-			tmp += "\n";
-			// System.out.println(tmp);
+			if(this.cards[ii] != null){
+				tmp += "Card";
+				tmp += ii+1;
+				tmp += ": ";
+				tmp += this.cards[ii].toString();
+				tmp += "\n";
+				// System.out.println(tmp);
+			}
 		}
 
 		return tmp;
 	} // end toString()
+
+	// public Card[] getCardsByRank(int rank){
+		
+	// } // end getCardsByRank()
 	
 	public static void main(String[] args){
 		Deck deck = new Deck();

@@ -3,6 +3,16 @@
  * @author phelanvendeville
  * Class to handle all of the functionality for the human player in the gofish game. Implements the 
  * Player interface.
+ *
+ * @param name, the type of player
+ * @param gamedeck, the deck passed in by the game
+ * @param opponent, the computer opponent
+ * @param hasCards, boolean indicating a card of a certain rank is in hand
+ * @param opponentHasCard, does the opponent have a card
+ * @param playerHand, the hand of the player
+ * @param currentScore, the score for the player this turn
+ * @param turnHistory, the history of the game (used by ai for strategies)
+ * @param contniueGame, a boolean indicating whether or not an endgame condition has been met
  */
 
 import java.util.ArrayList;
@@ -12,60 +22,15 @@ import java.util.Stack;
 
 
 public class HumanPlayer implements Player{
+	private String name = "human"; 
 	private Deck gameDeck;
 	private Player opponent;
 	private boolean hasCards;
 	private boolean opponentHasCard;
 	private Hand playerHand;
-
-	/**
-	 * main method for testing purposes
-	 */
-	public static void main(String[] args) {
-		Deck deck = new Deck();
-		deck.shuffle();
-
-		/* Test the respondCardRequest function */
-		Card[] cards = new Card[5];
-		//add a specific card to the hand so we know what we are looking for
-		Card newCard = new Card("spades", 1);
-
-		//add cards from the deck to the cards array
-		for(int ii=0; ii<4; ii++){
-			cards[ii] = deck.getTopCard(); 
-		}
-		//add our specific card
-		cards[4] = newCard;
-
-		Hand hand = new Hand(cards);
-		HumanPlayer human = new HumanPlayer(hand);
-		
-		/*Test the respondCardRequest function
-		System.out.println("Before Hand");
-		System.out.println(hand);
-		ArrayList<Card> returnedRequest = human.respondCardRequest(1);
-		System.out.println("");
-		System.out.println("The matched cards");
-		System.out.println(returnedRequest);
-		System.out.println("");
-		System.out.println("the new hand, minus those cards");
-		System.out.println(human.getHand());*/
-
-		/* test the doTurn function, creating a new player as an opponent*/ 
-		Card[] cards2 = new Card[5];
-		deck.shuffle();
-		for(int ii=0; ii<5; ii++){
-			cards2[ii] = deck.getTopCard(); 
-		}
-		Hand hand2 = new Hand(cards2);
-		HumanPlayer computer = new HumanPlayer(hand2);
-
-		System.out.println("Opponents Hand");
-		System.out.println(computer.getHand());
-		System.out.println("");
-
-		human.doTurn(deck, computer);
-	}
+	public int currentScore;
+	public ArrayList<Turn> turnHistory;
+	private boolean continueGame;
 	
 	/**
 	 * default constructor for human player
@@ -73,6 +38,7 @@ public class HumanPlayer implements Player{
 	 */
 	public HumanPlayer(Hand playerHand){
 		this.playerHand = playerHand;
+		this.currentScore = 0;
 	}
 	
 	/**
@@ -85,6 +51,9 @@ public class HumanPlayer implements Player{
 	public Deck doTurn(Deck gameDeck,Player opponent){
 		this.gameDeck = gameDeck;
 		this.opponent = opponent;
+		this.turnHistory = turnHistory;
+		this.continueGame = true;
+		System.out.println("-------  Your Turn -------");
 		ArrayList<Card> foundCards = new ArrayList<Card>();
 
 		//Display the user's hand to them
@@ -97,38 +66,123 @@ public class HumanPlayer implements Player{
 		//if the opponent has no cards in their hand, the game is over
 		if(desiredCard == -1){
 			//call the endgame functions
+			this.continueGame = false;
 		}
 		
 		//request all the cards of desired type from the opponent
 		if (makeCardRequest(opponent, desiredCard)){
-			//get all instances of that card from the opponent
+			//get all instances of that card from the opponent (removing them from the opponent's hand as well)
 			foundCards = opponent.respondCardRequest(desiredCard);
-			//add them to your hand
-			for(Card card : playerHand.getCards()){
-				foundCards.add(card);
-			}
-			System.out.println("Your new hand");
-			System.out.println(foundCards);
-			System.out.println("Opponents new hand");
-			System.out.println(opponent.getHand());
+			if(foundCards != null){
+				//add them to your hand
+				for(Card card : playerHand.getCards()){
+					foundCards.add(card);
+				}
+				Card[] tempCard = new Card[foundCards.size()];
+				for(int i=0; i<tempCard.length; i++){
+					tempCard[i] = foundCards.get(i);
+				}
+				Hand newplayerhand = new Hand(tempCard);
+				this.playerHand = newplayerhand;
 
-			//remove them from the opponent's hand
-			//check for a full set of cards in your hand
-			//play the full set down, if there are any
-			//call doTurn() again
+				//check for a full set of cards in your hand
+				boolean isFullSet = playerHand.containsFourOfAKind(desiredCard);
+				// System.out.println(isFullSet);
+
+				//play the full set down, if there are any
+				if(isFullSet)
+					playFullSet(desiredCard);
+				
+				//call doTurn() again
+				if(!playerHand.isEmpty())
+				{
+					if(!gameDeck.isEmpty())
+						try{
+							Thread.sleep(1000);
+						}catch(InterruptedException e){
+							System.out.println("Got interupted by another thread!?!?!?!");
+						}
+						this.gameDeck = doTurn(this.gameDeck, opponent);
+				}
+			}
 		}
 		//the opponent doesn't have the card, and the player must go fish
-		else{
+		else if(! this.gameDeck.isEmpty()){
+			System.out.println("\nGo fish!");
+			
 			//remove the top card from the deck
-			//add that card to your hand
+			Card drawnCard = this.gameDeck.getTopCard();					
+			try{
+				Thread.sleep(1000);
+			}catch(InterruptedException e){
+				System.out.println("Got interupted by another thread!?!?!?!");
+			}
+			System.out.println("\nYou drew a " + drawnCard.getRankTrad() + " of " + drawnCard.getSuit());
+			try{
+				Thread.sleep(1000);
+			}catch(InterruptedException e){
+				System.out.println("Got interupted by another thread!?!?!?!");
+			}
+			//add that card to your hand			
+			this.playerHand.addCard(drawnCard);
 			//check for the presence of a full set
+			boolean isFullSet = playerHand.containsFourOfAKind(drawnCard.getRank());
 			//play that full set if there is one
+			if(isFullSet)
+				playFullSet(drawnCard.getRank());
+			
 			//if the card pulled from the deck is the one asked for, call doTurn()
+			if(drawnCard.getRank() == desiredCard)
+			{
+				if(!playerHand.isEmpty() || !gameDeck.isEmpty())
+					this.gameDeck = doTurn(this.gameDeck, opponent);
+			}
+		}
+		else{
+			System.out.println("No cards left in the deck!");
 		}
 		
-		return gameDeck;
+		return this.gameDeck;
 	}
-	
+
+	/**
+	  * getContinueGame
+	  * @return continueGame, a boolean value
+	  * used to determine if the game should continue, due to the opponent having no cards in their hand
+	  */
+	public boolean getContinueGame(){
+		return this.continueGame;
+	}
+
+
+	/**
+	  * getCurrentScore
+	  * @return currentScore, the score for the turn
+	  */
+	public int getCurrentScore(){
+		return this.currentScore;
+	}
+
+	/**
+	  * playFullSet
+	  * @param the card which has just been added to the hand
+	  * Used to remove a full set from the hand and increment the score
+	  */
+	private void playFullSet(int desiredCard){
+		//display message
+		System.out.println("\nYou got a full set of " + this.getRankTrad(desiredCard) + "'s");
+		try{
+			Thread.sleep(1000);
+		}catch(InterruptedException e){
+			System.out.println("Got interupted by another thread!?!?!?!");
+		}
+		//increment score
+		this.currentScore++;
+		//remove those cards from the hand
+		playerHand.removeFullSet(desiredCard);
+		// System.out.println("Here's the hand, minus the 4 cards");
+		// System.out.println(playerHand);
+	}	
 	/**
 	 * hasCards
 	 * Function to determine if the player has any cards in their hand
@@ -158,10 +212,24 @@ public class HumanPlayer implements Player{
 		for(Card card : opponent.getHand().getCards()){
 			if(card.getRank() == desiredCard){
 				opponentHasCard = true;
-				return opponentHasCard;
 			}
 		}
 
+		if(opponentHasCard){
+			try{
+				Thread.sleep(1000);
+			}catch(InterruptedException e){
+				System.out.println("Got interupted by another thread!?!?!?!");
+			}
+			System.out.println("\nOpponent had the card! Go again!");
+		}else{
+			try{
+				Thread.sleep(1000);
+			}catch(InterruptedException e){
+				System.out.println("Got interupted by another thread!?!?!?!");
+			}
+			System.out.println("\nOpponent did not have the card");
+		}
 		return opponentHasCard;
 	}
 	
@@ -177,7 +245,7 @@ public class HumanPlayer implements Player{
 		ArrayList<Card> foundCards = new ArrayList<Card>();
 
 		//oldhand is a container for the players current hand
-		Hand oldHand = playerHand;
+		Hand oldHand = this.playerHand;
 		//newhand is a stack to place the cards not culled from the players hand into
 		Stack<Card> newHand = new Stack<Card>();
 
@@ -197,38 +265,12 @@ public class HumanPlayer implements Player{
 
 		// convert the new hand to a hand object, and make that the new player hand
 		Card[] cardHolder = new Card[newHand.size()];
-		for(int j=0; j<newHand.size(); j++){
+		for(int j = 0; j < newHand.size(); j++){
 			cardHolder[j] = newHand.get(j);
-			System.out.println(cardHolder[j]);
+			
 		}
 		Hand freshHand = new Hand(cardHolder);
-		this.playerHand = freshHand;
-
-		/* Iterator Method */
-		//copy the player's hand to an array list so it can be iterated
-		// ArrayList<Card> handCopy = new ArrayList<Card>(Arrays.asList(playerHand.getCards()));
-		// Iterator<Card> it = handCopy.iterator();
-
-		// while(it.hasNext()){
-		// 	Card currentCard = it.next();
-		// 	// System.out.println(currentCard);
-		// 	if(currentCard.getRank() == desiredCard){
-		// 		// System.out.println("same");
-		// 		// add the card to our temporary arraylist
-		// 		foundCards.add(currentCard);
-		// 		//remove the card from our hand
-		// 		it.remove();
-
-		// //add the remaining cards to a hand
-		// Card[] cards = new Card[handCopy.size()];
-		// for(int i=0; i<handCopy.size(); i++){
-		// 	cards[i] = handCopy.get(i); 
-		// }
-		// //set the hand field to the contents of the new hand
-		// Hand hand = new Hand(cards, 1);
-		// this.playerHand = hand;
-		/* END Iterator Method */
-		
+		this.playerHand = freshHand;		
 		//return the arraylist
 		return foundCards;
 	}
@@ -245,13 +287,46 @@ public class HumanPlayer implements Player{
 	/**
 	 * endTurn
 	 * Function to set the final values for the end of the turn
+	 * NOTE: not used, depricated
 	 */
 	public void endTurn(){
 		
 	}
 
+	/**
+	* Get AI complete sets of cards
+	* @return Card[] - array of card objects (one complete set of a given rank)
+	* NOTE: used by AI class, not used by humanplayer but implemented in player interface
+	*/
 	public Card[] getMyCompleteSets(){
 		Card[] cards = new Card[1];
 		return cards;
 	}
+
+	/**
+	* @param int - rank of the card to convert to 'traditional' ranks (jack vs 11)
+	* @return string - string representation of traditional rank
+	*/
+	public String getRankTrad(int rank){
+		String rankTrad ="";
+		switch (rank) {
+			case 1:
+				rankTrad="Ace";
+			break;
+			case 11:
+				rankTrad="Jack";
+			break;
+			case 12:
+				rankTrad="Queen";
+			break;
+			case 13:
+				rankTrad="King";
+			break;
+			default:
+				rankTrad=rank+"";
+			break; 
+		}
+		return rankTrad;
+	} // end getRankTrad()
+
 }
