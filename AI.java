@@ -118,7 +118,7 @@ public class AI implements Player{
 			}
 			//if the card pulled from the deck is the one asked for, call doTurn()
 			if(drawnCard.getRank() == desiredCard){
-				System.out.println("Computer drew the requested card, and goes again.");
+				System.out.println("\nComputer drew the requested card, and goes again.");
 				try{
 					Thread.sleep(1000);
 				}catch(InterruptedException e){
@@ -132,7 +132,7 @@ public class AI implements Player{
 			}
 		}
 		else{
-			System.out.println("no cards left in the deck!");
+			System.out.println("No cards left in the deck!");
 		}
 		return this.gameDeck;
 	} // end doTurn()
@@ -507,6 +507,12 @@ public class AI implements Player{
 		this.currentScore++;
 		//remove those cards from the hand
 		playerHand.removeFullSet(desiredCard);
+		System.out.println("\nComputer has a full set of " + getRankTrad(desiredCard) + "'s");
+		try{
+			Thread.sleep(1000);
+		}catch(InterruptedException e){
+			System.out.println("Got interupted by another thread!?!?!?!");
+		}
 	} // end playFullSet()
 
 	/**
