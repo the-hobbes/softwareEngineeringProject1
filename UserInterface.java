@@ -39,7 +39,7 @@ public class UserInterface{
 		          + "= OO    OO OO    OO         OO          OO    OO       OO    OO =\n"
 		          + "= OO   ___ OO    OO         OOOOO       OO    OOOOOOOO OOOOOOOO =\n"
 		          + "= OO    OO OO    OO         OO          OO          OO OO    OO =\n"
-		          + "= OOOOOOOO OOOOOOOO         OO        OOOOOOO OOOOOOOO OO    OO =\n"
+		          + "= OOOOOOOO OOOOOOOO         OO       OOOOOOOO OOOOOOOO OO    OO =\n"
 		          + "=================================================================\n"
 		          + "=     [P]lay        [C]redits        [H]elp          [Q]uit     =\n"
 		          + "=================================================================\n";
