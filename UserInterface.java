@@ -189,11 +189,16 @@ public class UserInterface{
 				}else{
 					//Nope illegal.
 					rank = -1;
+					System.out.println("Error: Invalid command given, please specifiy the rank of the card you desire\n"
+									   +"(2,3,4,5,6,7,8,9,10,J,Q,K,A) or you may see the rules by typing 'help' or see\n"
+									   +"the credits by typing 'credits.'\n"
+									   );
 				}
 				if(h.hasCard(rank)){
 					valid = true;
 				}else{
-					System.out.println("You must have the card in your hand to ask for it.");
+					if(rank > 1)
+						System.out.println("You must have the card in your hand to ask for it.");
 				}
 			}catch(NoSuchElementException nsee){
 				System.out.println("Error: Invalid command given, please specifiy the rank of the card you desire\n"
