@@ -87,14 +87,14 @@ public class AI implements Player{
 				playFullSet(desiredCard);
 			}
 			//call doTurn() again
-			if (!playerHand.isEmpty())
-			{
-				if(!gameDeck.isEmpty())
+			if(!playerHand.isEmpty()){
+				if(!gameDeck.isEmpty()){
 					this.gameDeck = doTurn(this.gameDeck, opponent);
+				}
 			}
 		}
 		//the opponent doesn't have the card, and the player must go fish
-		else if(! this.gameDeck.isEmpty()){
+		else if(!this.gameDeck.isEmpty()){
 			System.out.println("Go fish!");
 			//remove the top card from the deck
 			Card drawnCard = this.gameDeck.getTopCard();
@@ -108,6 +108,7 @@ public class AI implements Player{
 			}
 			//if the card pulled from the deck is the one asked for, call doTurn()
 			if(drawnCard.getRank() == desiredCard){
+				System.out.println("Computer drew the requested card, and goes again.");
 				if (!playerHand.isEmpty()){
 					if(!gameDeck.isEmpty()){
 						this.gameDeck = doTurn(this.gameDeck, opponent);
