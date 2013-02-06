@@ -34,6 +34,7 @@
 \item<1>High Level Game Design
 \item<1>Development Process
 \item<1>Game Demonstration
+\item<1>Problems
 \item<1>Statistics
 \item<1>Conclusions and the Future
 \end{itemize}
@@ -121,20 +122,43 @@
 	\includegraphics[width=5cm]{coding.jpg}
 \end{frame}
 
-\section{Statisics}
-
-\begin{frame}{Statistics}
-	\begin{center}
-		\includegraphics[width=5cm]{humanStats.png}\\
-		\includegraphics[width=10cm]{canvas.png}
-	\end{center}
-\end{frame}
 
 \section{Demonstration}
 
 \begin{frame}{Demonstration}
 Look at our sweet game of go fish!
 \end{frame}
+
+\section{Problems}
+
+\begin{frame}{Null Card Error}
+
+	\begin{itemize}
+		\item Null "cards" were randomly being introduced into the player's hands
+		\item Caused errors in many different calls across many classes
+		\item Was able to track it down to a restructuring of the hand after a full set was taken out
+	\end{itemize}
+
+\end{frame}
+
+\section{Statisics}
+
+\begin{frame}{Statistics}
+	\only<1>{
+		\begin{center}
+			\includegraphics[width=5cm]{humanStats.png}\\
+			\includegraphics[width=10cm]{canvas.png}
+		\end{center}
+	}
+
+	\only<2>{
+ 		\begin{center}
+			\includegraphics[width=5cm]{AIvsAI-1.png}
+			\includegraphics[width=5cm]{AIvsAI-2.png}
+		\end{center}
+	}
+\end{frame}
+
 
 \section{Conclusions and the Future}
 
