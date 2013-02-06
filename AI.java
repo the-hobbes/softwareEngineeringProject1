@@ -49,7 +49,7 @@ public class AI implements Player{
 		this.gameDeck = gameDeck;
 		this.opponent = opponent;
 
-		// System.out.println("-------  Computer's Turn -------");
+		System.out.println("\n-------  Computer's Turn -------");
 		UserInterface ui = new UserInterface();
 		// ui.contentFrame("this is content");
 		// System.out.println(this.playerHand);
@@ -64,7 +64,7 @@ public class AI implements Player{
 			System.out.println("Got interupted by another thread!?!?!?!");
 		}
 
-		System.out.println("\n Computer requests a "+getRankTrad(desiredCard));
+		System.out.println("Computer requests a "+getRankTrad(desiredCard));
 		
 		//if the opponent has no cards in their hand, the game is over
 		if(desiredCard == -1){
@@ -100,7 +100,12 @@ public class AI implements Player{
 		}
 		//the opponent doesn't have the card, and the player must go fish
 		else if(!this.gameDeck.isEmpty()){
-			System.out.println("Go fish!");
+			System.out.println("Go fish!");	
+			try{
+				Thread.sleep(1000);
+			}catch(InterruptedException e){
+				System.out.println("Got interupted by another thread!?!?!?!");
+			}		
 			//remove the top card from the deck
 			Card drawnCard = this.gameDeck.getTopCard();
 			//add that card to your hand
@@ -114,6 +119,11 @@ public class AI implements Player{
 			//if the card pulled from the deck is the one asked for, call doTurn()
 			if(drawnCard.getRank() == desiredCard){
 				System.out.println("Computer drew the requested card, and goes again.");
+				try{
+					Thread.sleep(1000);
+				}catch(InterruptedException e){
+					System.out.println("Got interupted by another thread!?!?!?!");
+				}
 				if (!playerHand.isEmpty()){
 					if(!gameDeck.isEmpty()){
 						this.gameDeck = doTurn(this.gameDeck, opponent);
@@ -418,7 +428,7 @@ public class AI implements Player{
 			}catch(InterruptedException e){
 				System.out.println("Got interupted by another thread!?!?!?!");
 			}
-			System.out.println("You had the card");
+			System.out.println("\nYou had the card");
 			singleTurn = new Turn("ai", false, desiredCard);
 		}else{
 			try{
@@ -426,7 +436,7 @@ public class AI implements Player{
 			}catch(InterruptedException e){
 				System.out.println("Got interupted by another thread!?!?!?!");
 			}
-			System.out.println("You did not have the card \n");
+			System.out.println("\nYou did not have the card \n");
 			try{
 				Thread.sleep(1000);
 			}catch(InterruptedException e){
